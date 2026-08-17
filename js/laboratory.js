@@ -298,15 +298,17 @@ export function createLaboratoryEnvironment(scene) {
     backgroundGroup.position.y = mouseY * 0.02;
 
     // --- CHAPTER 04+ OBSTRUCTION CLEARANCE ---
-    // When entering Chapter 04, 05, 06 (scrollProgress >= 0.48), smoothly push midground pillars
-    // outward so the central chamber is completely open and free of visual obstructions.
-    if (scrollProgress >= 0.45) {
-      const clearProgress = Math.min((scrollProgress - 0.45) / 0.08, 1.0);
-      midgroundGroup.position.y = THREE.MathUtils.lerp(0, -12.0, clearProgress);
-      midgroundGroup.scale.x = THREE.MathUtils.lerp(1.0, 1.6, clearProgress);
+    // When entering Chapter 04, 05, 06 (scrollProgress >= 0.44), smoothly push midground pillars
+    // and foreground elements completely away so the central corridor is 100% open and unobstructed.
+    if (scrollProgress >= 0.44) {
+      const clearProgress = Math.min((scrollProgress - 0.44) / 0.06, 1.0);
+      midgroundGroup.position.y = THREE.MathUtils.lerp(0, -28.0, clearProgress);
+      midgroundGroup.scale.x = THREE.MathUtils.lerp(1.0, 2.5, clearProgress);
+      backgroundGroup.position.y = THREE.MathUtils.lerp(0, -22.0, clearProgress);
     } else {
       midgroundGroup.position.y = 0;
       midgroundGroup.scale.x = 1.0;
+      backgroundGroup.position.y = 0;
     }
   }
 

@@ -87,6 +87,7 @@ export class ChapterManager {
       this.coreIdentityReveal.classList.toggle('active', isCh03);
       this.coreIdentityReveal.style.visibility = isCh03 ? 'visible' : 'hidden';
       this.coreIdentityReveal.style.opacity = isCh03 ? '1' : '0';
+      this.coreIdentityReveal.style.pointerEvents = isCh03 ? 'auto' : 'none';
     }
 
     // Chapter 04 Architecture

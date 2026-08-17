@@ -240,33 +240,6 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   opacity: 0.4;
 }
 
-/* Chapter 03 Holographic Identity Reveal */
-.core-identity-reveal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.core-identity-reveal.active {
-  opacity: 1;
-}
-
-/* Holographic Portrait Container */
-.holographic-portrait-container {
-  position: relative;
-  width: 175px;
-  height: 175px;
-  margin-bottom: 1rem;
-  border-radius: 50%;
-  display: flex;
 /* ===== Chapter 03 — Holographic Identity Reconstructed & Educational Timeline ===== */
 .core-identity-reveal {
   position: fixed;
@@ -2430,6 +2403,37 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 
 /* Responsive adjustments */
+@media (max-height: 820px) {
+  .ch03-content-grid {
+    margin-top: 3.5vh;
+    gap: 1.5rem;
+  }
+  .ch03-id-card {
+    padding: 0.85rem 1.05rem;
+  }
+  .id-photo-frame {
+    width: 90px;
+    height: 115px;
+  }
+  .ch03-timeline-card {
+    padding: 0.95rem 1.15rem;
+    gap: 0.55rem;
+  }
+  .timeline-steps {
+    gap: 0.45rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ch03-content-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    gap: 1.2rem;
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .ui-overlay {
     padding: 1.5rem 1.5rem;
@@ -2449,27 +2453,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
     bottom: 4.8rem;
     font-size: 0.62rem;
   }
-  .holographic-portrait-container {
-    width: 130px;
-    height: 130px;
-    margin-bottom: 0.8rem;
-  }
-  .core-identity-name {
-    font-size: 1.7rem;
-  }
-  .core-identity-subtitle {
-    font-size: 0.82rem;
-    margin-bottom: 0.7rem;
-  }
-  .core-identity-statement {
-    font-size: 0.76rem;
-    max-width: 300px;
-  }
-  .ch04-title, .ch05-title, .ch06-title {
+  .ch03-title, .ch04-title, .ch05-title, .ch06-title {
     font-size: 1.35rem;
     letter-spacing: 0.1em;
   }
-  .ch04-subtitle, .ch05-subtitle, .ch06-subtitle {
+  .ch03-subtitle, .ch04-subtitle, .ch05-subtitle, .ch06-subtitle {
     font-size: 0.65rem;
     letter-spacing: 0.12em;
   }
@@ -2496,5 +2484,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   }
   .ch05-pipeline-arrow, .ch06-pipeline-arrow {
     transform: rotate(90deg);
+  }
+  .ch05-grid-items {
+    grid-template-columns: 1fr;
   }
 }

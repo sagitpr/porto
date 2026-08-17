@@ -20,8 +20,8 @@ export function createAICore(scene) {
   const coreGroup = new THREE.Group();
   coreGroup.name = 'AICore';
 
-  // Core Center Position (Floating at Z = -5, Y = 1.2)
-  const CORE_CENTER = new THREE.Vector3(0, 1.2, -5);
+  // Core Center Position (Floating behind content at Z = -5.5, Y = 1.2)
+  const CORE_CENTER = new THREE.Vector3(0, 1.2, -5.5);
   coreGroup.position.copy(CORE_CENTER);
 
   // DOM Elements Hooks
@@ -63,9 +63,9 @@ export function createAICore(scene) {
       const deltaX = clientX - startPointerX;
       const deltaY = clientY - startPointerY;
 
-      // Clamp drag within safe bounds (X: ±120px, Y: ±70px)
-      targetDragX = Math.max(Math.min(deltaX, 120), -120);
-      targetDragY = Math.max(Math.min(deltaY, 70), -70);
+      // Subtle, controlled tilt offset (X: ±80px, Y: ±50px)
+      targetDragX = Math.max(Math.min(deltaX, 80), -80);
+      targetDragY = Math.max(Math.min(deltaY, 50), -50);
     };
 
     const onPointerUp = () => {
@@ -89,9 +89,9 @@ export function createAICore(scene) {
   const shellMat = new THREE.MeshPhysicalMaterial({
     color: 0x38bdf8,
     transparent: true,
-    opacity: 0.28,
-    transmission: 0.92,
-    roughness: 0.04,
+    opacity: 0.14,
+    transmission: 0.95,
+    roughness: 0.06,
     metalness: 0.08,
     ior: 1.35,
     reflectivity: 0.95,
@@ -104,11 +104,11 @@ export function createAICore(scene) {
   coreGroup.add(outerShell);
 
   // Inner Energy Field Glow Sphere
-  const innerGlowGeo = new THREE.SphereGeometry(shellRadius * 0.90, 32, 32);
+  const innerGlowGeo = new THREE.SphereGeometry(shellRadius * 0.9, 32, 32);
   const innerGlowMat = new THREE.MeshBasicMaterial({
     color: 0x38bdf8,
     transparent: true,
-    opacity: 0.15,
+    opacity: 0.07,
     blending: THREE.AdditiveBlending,
     side: THREE.BackSide
   });
@@ -116,16 +116,16 @@ export function createAICore(scene) {
   coreGroup.add(innerGlow);
 
   // --- 2. SPATIAL 3D NEURAL NETWORK ---
-  const nodeCount = 56;
+  const nodeCount = 48;
   const nodePositions = [];
   const nodesGroup = new THREE.Group();
 
-  const nodeGeo = new THREE.SphereGeometry(0.06, 16, 16);
+  const nodeGeo = new THREE.SphereGeometry(0.045, 16, 16);
   const nodeMat = new THREE.MeshStandardMaterial({
     color: 0x38bdf8,
     emissive: 0x38bdf8,
-    emissiveIntensity: 2.2,
-    roughness: 0.15
+    emissiveIntensity: 0.9,
+    roughness: 0.2
   });
 
   const nodeInstanced = new THREE.InstancedMesh(nodeGeo, nodeMat, nodeCount);
@@ -145,7 +145,7 @@ export function createAICore(scene) {
     const pos = new THREE.Vector3(x, y, z);
     nodePositions.push(pos);
 
-    const scale = 0.6 + Math.random() * 0.9;
+    const scale = 0.5 + Math.random() * 0.7;
     dummy.position.copy(pos);
     dummy.scale.set(scale, scale, scale);
     dummy.updateMatrix();
@@ -162,7 +162,7 @@ export function createAICore(scene) {
   for (let i = 0; i < nodeCount; i++) {
     for (let j = i + 1; j < nodeCount; j++) {
       const dist = nodePositions[i].distanceTo(nodePositions[j]);
-      if (dist < 1.2) {
+      if (dist < 1.15) {
         linePositions.push(nodePositions[i].x, nodePositions[i].y, nodePositions[i].z);
         linePositions.push(nodePositions[j].x, nodePositions[j].y, nodePositions[j].z);
         connections.push({
@@ -179,14 +179,14 @@ export function createAICore(scene) {
   const lineMat = new THREE.LineBasicMaterial({
     color: 0x38bdf8,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0.16,
     blending: THREE.AdditiveBlending
   });
   const networkLines = new THREE.LineSegments(lineGeo, lineMat);
   coreGroup.add(networkLines);
 
   // Animated Data Light Pulses
-  const pulseCount = 40;
+  const pulseCount = 25;
   const pulseGeo = new THREE.BufferGeometry();
   const pulsePositions = new Float32Array(pulseCount * 3);
   const pulseData = [];
@@ -196,32 +196,32 @@ export function createAICore(scene) {
     pulseData.push({
       conn: conn,
       progress: Math.random(),
-      speed: 0.35 + Math.random() * 0.65
+      speed: 0.25 + Math.random() * 0.45
     });
   }
 
   pulseGeo.setAttribute('position', new THREE.BufferAttribute(pulsePositions, 3));
   const pulseMat = new THREE.PointsMaterial({
     color: 0xffffff,
-    size: 0.14,
+    size: 0.08,
     transparent: true,
-    opacity: 0.95,
+    opacity: 0.55,
     blending: THREE.AdditiveBlending
   });
   const pulseParticles = new THREE.Points(pulseGeo, pulseMat);
   coreGroup.add(pulseParticles);
 
   // --- 3. ASYNCHRONOUS ORBITAL RINGS ---
-  const ring1Geo = new THREE.TorusGeometry(shellRadius * 1.25, 0.02, 16, 120);
-  const ring2Geo = new THREE.TorusGeometry(shellRadius * 1.45, 0.015, 16, 120);
-  const ring3Geo = new THREE.TorusGeometry(shellRadius * 1.7, 0.012, 16, 120);
+  const ring1Geo = new THREE.TorusGeometry(shellRadius * 1.25, 0.015, 16, 120);
+  const ring2Geo = new THREE.TorusGeometry(shellRadius * 1.45, 0.012, 16, 120);
+  const ring3Geo = new THREE.TorusGeometry(shellRadius * 1.7, 0.01, 16, 120);
 
   const ringMat = new THREE.MeshStandardMaterial({
     color: 0x38bdf8,
     emissive: 0x0284c7,
-    emissiveIntensity: 1.5,
-    roughness: 0.2,
-    metalness: 0.8
+    emissiveIntensity: 0.8,
+    roughness: 0.3,
+    metalness: 0.7
   });
 
   const ring1 = new THREE.Mesh(ring1Geo, ringMat);
@@ -232,8 +232,8 @@ export function createAICore(scene) {
   coreGroup.add(ring2);
   coreGroup.add(ring3);
 
-  // --- 4. FLOATING QUANTUM AMBIENT PARTICLES ---
-  const partCount = 180;
+  // --- 4. FLOATING QUANTUM AMBIENT PARTICLES (SUBTLE & NON-INTRUSIVE) ---
+  const partCount = 80;
   const partGeo = new THREE.BufferGeometry();
   const partPositions = new Float32Array(partCount * 3);
   const partVelocities = [];
@@ -248,8 +248,8 @@ export function createAICore(scene) {
     partPositions[i * 3 + 2] = r * Math.cos(phi);
 
     partVelocities.push({
-      thetaSpeed: (Math.random() - 0.5) * 0.4,
-      phiSpeed: (Math.random() - 0.5) * 0.3,
+      thetaSpeed: (Math.random() - 0.5) * 0.25,
+      phiSpeed: (Math.random() - 0.5) * 0.2,
       r: r,
       theta: theta,
       phi: phi
@@ -259,16 +259,16 @@ export function createAICore(scene) {
   partGeo.setAttribute('position', new THREE.BufferAttribute(partPositions, 3));
   const partMat = new THREE.PointsMaterial({
     color: 0x38bdf8,
-    size: 0.07,
+    size: 0.045,
     transparent: true,
-    opacity: 0.65,
+    opacity: 0.28,
     blending: THREE.AdditiveBlending
   });
   const floatingParticles = new THREE.Points(partGeo, partMat);
   coreGroup.add(floatingParticles);
 
   // --- 5. POINT LIGHT CORE EMITTER ---
-  const coreLight = new THREE.PointLight(0x38bdf8, 8.5, 25);
+  const coreLight = new THREE.PointLight(0x38bdf8, 4.0, 20);
   coreLight.position.set(0, 0, 0);
   coreGroup.add(coreLight);
 
