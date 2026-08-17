@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sagit Faturrakhman — Software Engineer · AI Engineer</title>
+  <meta name="description" content="Personal System Portfolio 2026. Sagit Faturrakhman — Software Engineer & AI Engineer. Interactive 3D cinematic journey through an AI research laboratory.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- 3D Canvas Background -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- 1200vh Scroll Container driving normalized progress 0 -> 1 across Ch 01 - Ch 04 -->
+  <div class="scroll-container" id="scroll-timeline"></div>
+
+  <!-- Minimal UI Overlay (<10% Visual Attention) -->
+  <div class="ui-overlay" id="ui-overlay">
+    <!-- Top Left Personal Identity -->
+    <div class="identity-block" id="top-identity-block">
+      <div class="identity-name">Sagit Faturrakhman</div>
+      <div class="identity-title">
+        <span class="status-dot"></span>
+        Software Engineer · AI Engineer
+      </div>
+    </div>
+
+    <!-- Top Right System Identification Label -->
+    <div class="system-id-block">
+      <div class="system-id-label">Personal System</div>
+      <div class="system-id-year">Portfolio / 2026</div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Opening Narrative Microcopy -->
+    <div class="opening-microcopy" id="opening-microcopy">
+      An engineer building intelligent digital systems
+    </div>
+
+    <!-- Chapter 03 — Holographic Identity Reconstructed -->
+    <div class="core-identity-reveal" id="core-identity-reveal">
+
+      <!-- Header: Title Block -->
+      <div class="ch03-title-block" id="ch03-title-block">
+        <div class="ch03-chapter-badge">03 <span class="ch03-badge-slash">/</span> 14</div>
+        <h1 class="ch03-title">IDENTITY RECONSTRUCTED</h1>
+        <div class="ch03-subtitle">FROM BUILDING DESIGN TO SOFTWARE AND INTELLIGENT SYSTEMS</div>
+      </div>
+
+      <!-- Main Layout: 2 Columns on Desktop (Interactive Draggable ID Card Left, Educational Timeline Right) -->
+      <div class="ch03-content-grid" id="ch03-content-grid">
+
+        <!-- Left: Interactive Draggable Holographic Nametag / Engineering ID Card -->
+        <div class="ch03-id-card-wrapper" id="ch03-id-card-wrapper">
+          <div class="ch03-id-card" id="ch03-id-card">
+            <div class="id-card-corner tl"></div>
+            <div class="id-card-corner tr"></div>
+            <div class="id-card-corner bl"></div>
+            <div class="id-card-corner br"></div>
+
+            <div class="id-card-header">
+              <span class="id-card-dot"></span>
+              <span class="id-card-syslabel">SYSTEM PERSONNEL RECORD</span>
+              <span class="id-card-sysid">SGT-2026</span>
+            </div>
+
+            <div class="id-card-body">
+              <div class="id-photo-frame" id="id-photo-frame">
+                <div class="id-photo-scanline" id="id-photo-scanline"></div>
+                <img src="./asset/image/1777520674166.jfif" alt="Sagit Faturrakhman" class="id-photo-img" id="id-photo-img">
+              </div>
+
+              <div class="id-details">
+                <div class="id-name" id="recon-name">SAGIT FATURRAKHMAN</div>
+                <div class="id-role" id="recon-subtitle">SOFTWARE ENGINEER · AI ENGINEER</div>
+                <div class="id-status-badge">
+                  <span class="status-indicator"></span>
+                  IDENTITY VERIFIED
+                </div>
+                <div class="id-statement" id="recon-statement">
+                  "Building intelligent digital systems through software engineering, data architecture, and artificial intelligence."
+                </div>
+              </div>
+            </div>
+
+            <div class="id-card-footer">
+              <span class="id-drag-hint">✥ CLICK & DRAG TO INSPECT</span>
+              <span class="id-chip-icon">🖹 BIOMETRIC AUTH</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Background & Educational Journey Timeline Card -->
+        <div class="ch03-timeline-card" id="ch03-timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-dot"></span>
+            <span class="timeline-title">BACKGROUND & EDUCATIONAL JOURNEY</span>
+          </div>
+
+          <div class="timeline-steps">
+            <!-- Step 1: SMK DPIB -->
+            <div class="timeline-step" id="ch03-step-1">
+              <div class="step-badge">01</div>
+              <div class="step-content">
+                <div class="step-institution">SMK NEGERI RAJAPOLAH</div>
+                <div class="step-major">D.P.I.B — Desain Pemodelan dan Informasi Bangunan</div>
+                <div class="step-focus">ARCHITECTURAL PLANNING · CIVIL BUILDING DESIGN</div>
+                <div class="step-desc">"Started from the world of building design, architectural drafting, and civil construction."</div>
+              </div>
+            </div>
+
+            <!-- Transition Arrow -->
+            <div class="timeline-transition">
+              <span class="transition-arrow">↓</span>
+              <span class="transition-text">PHYSICAL SPACE → DIGITAL SPACE</span>
+              <span class="transition-arrow">↓</span>
+            </div>
+
+            <!-- Step 2: Universitas BTH -->
+            <div class="timeline-step" id="ch03-step-2">
+              <div class="step-badge">02</div>
+              <div class="step-content">
+                <div class="step-institution">UNIVERSITAS BAKTI TUNAS HUSADA</div>
+                <div class="step-major">SISTEM INFORMASI (S1)</div>
+                <div class="step-focus">SOFTWARE · DATA · INFORMATION SYSTEMS</div>
+                <div class="step-desc">"Continuing into Information Systems, combining technology, software engineering, data, and intelligent systems."</div>
+              </div>
+            </div>
+
+            <!-- Step 3: Target Graduation -->
+            <div class="timeline-step step-highlight" id="ch03-step-3">
+              <div class="step-badge">03</div>
+              <div class="step-content">
+                <div class="step-institution">TARGET GRADUATION — 2027</div>
+                <div class="step-major">S1 SISTEM INFORMASI</div>
+                <div class="step-focus">SOFTWARE & AI ENGINEERING FOCUS</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Story Statement Banner -->
+          <div class="ch03-story-banner" id="ch03-story-banner">
+            <span class="story-quote">"FROM DESIGNING STRUCTURES TO DESIGNING INTELLIGENT SYSTEMS."</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Center: Scroll Prompt -->
+      <div class="ch03-scroll-prompt" id="ch03-scroll-prompt">
+        <span class="ch03-prompt-text">SCROLL TO ENTER SYSTEM ARCHITECTURE</span>
+        <div class="ch03-mouse-icon">
+          <div class="ch03-mouse-wheel"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Chapter 04 — System Architecture Chamber -->
+    <div class="ch04-container" id="ch04-container">
+
+      <!-- Header: Architecture Title & Metadata -->
+      <div class="ch04-title-block" id="ch04-title-block">
+        <div class="ch04-chapter-badge">04 <span class="ch04-badge-slash">/</span> 14</div>
+        <h1 class="ch04-title">SYSTEM ARCHITECTURE</h1>
+        <div class="ch04-subtitle">HOW INTELLIGENT DIGITAL SYSTEMS CONNECT</div>
+        <div class="ch04-metadata">SOFTWARE · DATA · AI · INFRASTRUCTURE</div>
+      </div>
+
+      <!-- Left Side: Documentation Panel -->
+      <div class="ch04-doc-panel" id="ch04-doc-panel">
+        <div class="ch04-doc-header">
+          <span class="ch04-doc-dot"></span>
+          <div class="ch04-doc-title-group">
+            <span class="ch04-doc-label" id="ch04-doc-label">AI ENGINE</span>
+            <span class="ch04-doc-sublayer" id="ch04-doc-sublayer">INTELLIGENCE LAYER</span>
+          </div>
+        </div>
+        <div class="ch04-doc-divider"></div>
+        <div class="ch04-doc-body" id="ch04-doc-body">
+          <div class="ch04-doc-section">
+            <div class="ch04-doc-key">DOMAIN</div>
+            <div class="ch04-doc-value" id="ch04-doc-domain">Intelligence & Reasoning</div>
+          </div>
+          <div class="ch04-doc-section">
+            <div class="ch04-doc-key">TECHNOLOGY</div>
+            <div class="ch04-doc-value" id="ch04-doc-stack">Python · PyTorch · TensorFlow · Hugging Face · LangChain</div>
+          </div>
+          <div class="ch04-doc-section">
+            <div class="ch04-doc-key">CAPABILITY</div>
+            <div class="ch04-doc-value" id="ch04-doc-capability">Building intelligent systems that can reason over data, generate insights, and automate decisions.</div>
+          </div>
+        </div>
+        <div class="ch04-doc-footer" id="ch04-doc-footer">
+          <div class="ch04-doc-progress-dots">
+            <span class="ch04-pdot active" data-idx="0"></span>
+            <span class="ch04-pdot" data-idx="1"></span>
+            <span class="ch04-pdot" data-idx="2"></span>
+            <span class="ch04-pdot" data-idx="3"></span>
+            <span class="ch04-pdot" data-idx="4"></span>
+            <span class="ch04-pdot" data-idx="5"></span>
+            <span class="ch04-pdot" data-idx="6"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: System Domains Navigation Rail -->
+      <div class="ch04-nav-rail" id="ch04-nav-rail">
+        <div class="ch04-nav-header">SYSTEM DOMAINS</div>
+        <div class="ch04-nav-divider"></div>
+        <div class="ch04-nav-list" id="ch04-nav-list">
+          <div class="ch04-nav-item active" data-idx="0">
+            <span class="ch04-nav-dot"></span>
+            <span class="ch04-nav-num">01</span>
+            <span class="ch04-nav-name">AI ENGINE</span>
+          </div>
+          <div class="ch04-nav-item" data-idx="1">
+            <span class="ch04-nav-dot"></span>
+            <span class="ch04-nav-num">02</span>
+            <span class="ch04-nav-name">SOFTWARE SYSTEMS</span>
+          </div>
+          <div class="ch04-nav-item" data-idx="2">
+            <span class="ch04-nav-dot"></span>
+            <span class="ch04-nav-num">03</span>
+            <span class="ch04-nav-name">DATA ARCHITECTURE</span>
+          </div>
+          <div class="ch04-nav-item" data-idx="3">
+            <span class="ch04-nav-dot"></span>
+            <span class="ch04-nav-num">04</span>
+            <span class="ch04-nav-name">CLOUD INFRASTRUCTURE</span>
+          </div>
+          <div class="ch04-nav-item" data-idx="4">
+            <span class="ch04-nav-dot"></span>
+            <span class="ch04-nav-num">05</span>
+            <span class="ch04-nav-name">API SERVICES</span>
+          </div>
+          <div class="ch04-nav-item" data-idx="5">
+            <span class="ch04-nav-dot"></span>
+            <span class="ch04-nav-num">06</span>
+            <span class="ch04-nav-name">DATABASE</span>
+          </div>
+          <div class="ch04-nav-item" data-idx="6">
+            <span class="ch04-nav-dot"></span>
+            <span class="ch04-nav-num">07</span>
+            <span class="ch04-nav-name">USER INTERFACE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Node Labels Projected Overlay -->
+      <div class="ch04-nodes-labels-layer" id="ch04-nodes-labels-layer">
+        <div class="ch04-node-label" id="label-3d-ai">AI ENGINE</div>
+        <div class="ch04-node-label" id="label-3d-ui">USER INTERFACE</div>
+        <div class="ch04-node-label" id="label-3d-software">SOFTWARE SYSTEMS</div>
+        <div class="ch04-node-label" id="label-3d-data">DATA ARCHITECTURE</div>
+        <div class="ch04-node-label" id="label-3d-api">API SERVICES</div>
+        <div class="ch04-node-label" id="label-3d-db">DATABASE</div>
+        <div class="ch04-node-label" id="label-3d-cloud">CLOUD INFRASTRUCTURE</div>
+      </div>
+
+      <!-- Phase 4: Engineering Insight Overlay -->
+      <div class="ch04-insight" id="ch04-insight">
+        <div class="ch04-insight-tag">ENGINEERING PHILOSOPHY</div>
+        <div class="ch04-insight-statement">
+          GOOD SYSTEMS ARE NOT BUILT AS ISOLATED COMPONENTS.<br>
+          THEY ARE DESIGNED AS CONNECTED SYSTEMS.
+        </div>
+        <div class="ch04-insight-subline">SOFTWARE · DATA · AI · INFRASTRUCTURE</div>
+      </div>
+
+      <!-- Bottom Center: Scroll Prompt -->
+      <div class="ch04-scroll-prompt" id="ch04-scroll-prompt">
+        <span class="ch04-prompt-text">SCROLL TO EXPLORE ARCHITECTURE</span>
+        <div class="ch04-mouse-icon">
+          <div class="ch04-mouse-wheel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 05 — AI Engineering / Intelligence Lab -->
+    <div class="ch05-container" id="ch05-container">
+
+      <!-- Header: AI Engineering Hero State -->
+      <div class="ch05-title-block" id="ch05-title-block">
+        <div class="ch05-chapter-badge">05 <span class="ch05-badge-slash">/</span> 14</div>
+        <h1 class="ch05-title">AI ENGINEERING</h1>
+        <div class="ch05-subtitle">THE INTELLIGENCE LAYER</div>
+        <div class="ch05-microcopy">TURNING DATA INTO CONTEXT, CONTEXT INTO REASONING, AND REASONING INTO ACTION.</div>
+        <div class="ch05-metadata">AI • DATA • MODELS • REASONING • AUTOMATION</div>
+      </div>
+
+      <!-- Phase 1: Horizontal Intelligence Pipeline (5 Stages) -->
+      <div class="ch05-pipeline-container" id="ch05-pipeline-container">
+        <div class="ch05-pipeline-header">INTELLIGENCE PIPELINE</div>
+        <div class="ch05-pipeline-stages">
+          <div class="ch05-pipeline-stage active" id="pipe-stage-0">
+            <div class="ch05-pipe-num">01</div>
+            <div class="ch05-pipe-name">DATA</div>
+            <div class="ch05-pipe-desc">Raw information</div>
+          </div>
+          <div class="ch05-pipeline-arrow">→</div>
+          <div class="ch05-pipeline-stage" id="pipe-stage-1">
+            <div class="ch05-pipe-num">02</div>
+            <div class="ch05-pipe-name">RETRIEVAL</div>
+            <div class="ch05-pipe-desc">Relevant context</div>
+          </div>
+          <div class="ch05-pipeline-arrow">→</div>
+          <div class="ch05-pipeline-stage" id="pipe-stage-2">
+            <div class="ch05-pipe-num">03</div>
+            <div class="ch05-pipe-name">MODEL</div>
+            <div class="ch05-pipe-desc">Inference & generation</div>
+          </div>
+          <div class="ch05-pipeline-arrow">→</div>
+          <div class="ch05-pipeline-stage" id="pipe-stage-3">
+            <div class="ch05-pipe-num">04</div>
+            <div class="ch05-pipe-name">REASONING</div>
+            <div class="ch05-pipe-desc">Decision & orchestration</div>
+          </div>
+          <div class="ch05-pipeline-arrow">→</div>
+          <div class="ch05-pipeline-stage" id="pipe-stage-4">
+            <div class="ch05-pipe-num">05</div>
+            <div class="ch05-pipe-name">ACTION</div>
+            <div class="ch05-pipe-desc">System execution</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2: 2x2 AI Engineering Domains Grid -->
+      <div class="ch05-domains-grid-card" id="ch05-domains-grid-card">
+        <div class="ch05-grid-header">AI ENGINEERING DOMAINS</div>
+        <div class="ch05-grid-items">
+          <!-- Domain 1: RAG -->
+          <div class="ch05-domain-box active" id="ch05-domain-0">
+            <div class="domain-box-header">
+              <span class="domain-box-num">01</span>
+              <span class="domain-box-title">RAG SYSTEMS</span>
+            </div>
+            <div class="domain-box-sub">Retrieval-Augmented Generation</div>
+            <div class="domain-box-tags">
+              <span>Embeddings</span>
+              <span>Vector Search</span>
+              <span>Chunking</span>
+              <span>Semantic Retrieval</span>
+              <span>Context Injection</span>
+            </div>
+          </div>
+
+          <!-- Domain 2: AI Agents -->
+          <div class="ch05-domain-box" id="ch05-domain-1">
+            <div class="domain-box-header">
+              <span class="domain-box-num">02</span>
+              <span class="domain-box-title">AI AGENTS</span>
+            </div>
+            <div class="domain-box-sub">Autonomous Task Execution</div>
+            <div class="domain-box-tags">
+              <span>Tool Calling</span>
+              <span>Planning</span>
+              <span>Memory</span>
+              <span>Orchestration</span>
+              <span>Multi-Agent</span>
+            </div>
+          </div>
+
+          <!-- Domain 3: Computer Vision -->
+          <div class="ch05-domain-box" id="ch05-domain-2">
+            <div class="domain-box-header">
+              <span class="domain-box-num">03</span>
+              <span class="domain-box-title">COMPUTER VISION</span>
+            </div>
+            <div class="domain-box-sub">Visual Intelligence & Processing</div>
+            <div class="domain-box-tags">
+              <span>OCR</span>
+              <span>Image Classification</span>
+              <span>Object Detection</span>
+              <span>Visual Analysis</span>
+            </div>
+          </div>
+
+          <!-- Domain 4: NLP / LLM -->
+          <div class="ch05-domain-box" id="ch05-domain-3">
+            <div class="domain-box-header">
+              <span class="domain-box-num">04</span>
+              <span class="domain-box-title">NLP / LLM</span>
+            </div>
+            <div class="domain-box-sub">Language & Semantic Systems</div>
+            <div class="domain-box-tags">
+              <span>LLM</span>
+              <span>NLP</span>
+              <span>Prompt Engineering</span>
+              <span>Text Classification</span>
+              <span>Generation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Node Projected Labels Layer -->
+      <div class="ch05-nodes-labels-layer" id="ch05-nodes-labels-layer">
+        <div class="ch05-node-label" id="label-5d-core">AI INTELLIGENCE</div>
+        <div class="ch05-node-label" id="label-5d-rag">RAG SYSTEMS</div>
+        <div class="ch05-node-label" id="label-5d-agents">AI AGENTS</div>
+        <div class="ch05-node-label" id="label-5d-vision">COMPUTER VISION</div>
+        <div class="ch05-node-label" id="label-5d-nlp">NLP / LLM</div>
+      </div>
+
+      <!-- Phase 3: Engineering Philosophy Overlay -->
+      <div class="ch05-philosophy" id="ch05-philosophy">
+        <div class="ch05-philo-tag">AI PHILOSOPHY</div>
+        <div class="ch05-philo-statement">
+          AI IS NOT THE PRODUCT.<br>
+          INTELLIGENCE IS A LAYER INSIDE A WELL-DESIGNED SYSTEM.
+        </div>
+        <div class="ch05-philo-subtext">
+          "I focus on building AI systems that are useful, contextual, reliable, and connected to real software infrastructure."
+        </div>
+        <div class="ch05-philo-tags">
+          <span>RAG</span>
+          <span>AGENTS</span>
+          <span>COMPUTER VISION</span>
+          <span>NLP</span>
+          <span>DATA</span>
+          <span>AUTOMATION</span>
+        </div>
+      </div>
+
+      <!-- Bottom Center: Scroll Prompt -->
+      <div class="ch05-scroll-prompt" id="ch05-scroll-prompt">
+        <span class="ch05-prompt-text">SCROLL TO EXPLORE INTELLIGENCE</span>
+        <div class="ch05-mouse-icon">
+          <div class="ch05-mouse-wheel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 06 — Data & Knowledge Infrastructure -->
+    <div class="ch06-container" id="ch06-container">
+
+      <!-- Header: Title Block -->
+      <div class="ch06-title-block" id="ch06-title-block">
+        <div class="ch06-chapter-badge">06 <span class="ch06-badge-slash">/</span> 14</div>
+        <h1 class="ch06-title">DATA & KNOWLEDGE INFRASTRUCTURE</h1>
+        <div class="ch06-subtitle">BUILDING THE INFORMATION LAYER THAT MAKES INTELLIGENCE CONTEXTUAL.</div>
+        <div class="ch06-microcopy">COLLECT • PROCESS • STORE • RETRIEVE • EMPOWER AI</div>
+      </div>
+
+      <!-- Left Side Documentation Panel -->
+      <div class="ch06-doc-panel" id="ch06-doc-panel">
+        <div class="ch06-doc-header">
+          <span class="ch06-doc-dot"></span>
+          <div class="ch06-doc-title-group">
+            <span class="ch06-doc-label" id="ch06-doc-label">DATA INGESTION</span>
+            <span class="ch06-doc-sublayer" id="ch06-doc-sublayer">PIPELINE STAGE 01</span>
+          </div>
+        </div>
+        <div class="ch06-doc-divider"></div>
+        <div class="ch06-doc-body" id="ch06-doc-body">
+          <div class="ch06-doc-section">
+            <div class="ch06-doc-key">DOMAIN</div>
+            <div class="ch06-doc-value" id="ch06-doc-domain">Data Engineering</div>
+          </div>
+          <div class="ch06-doc-section">
+            <div class="ch06-doc-key">TECHNOLOGY</div>
+            <div class="ch06-doc-value tech-stack" id="ch06-doc-stack">APIs · ETL · Event Streams · Batch & Real-time Ingestion</div>
+          </div>
+          <div class="ch06-doc-section">
+            <div class="ch06-doc-key">CAPABILITY</div>
+            <div class="ch06-doc-value" id="ch06-doc-capability">Collecting information from multiple sources reliably and preparing it for downstream processing.</div>
+          </div>
+        </div>
+        <div class="ch06-doc-footer" id="ch06-doc-footer">
+          <div class="ch06-doc-progress-dots">
+            <span class="ch06-pdot active" data-idx="0"></span>
+            <span class="ch06-pdot" data-idx="1"></span>
+            <span class="ch06-pdot" data-idx="2"></span>
+            <span class="ch06-pdot" data-idx="3"></span>
+            <span class="ch06-pdot" data-idx="4"></span>
+            <span class="ch06-pdot" data-idx="5"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side Navigation Rail -->
+      <div class="ch06-nav-rail" id="ch06-nav-rail">
+        <div class="ch06-nav-header">DATA JOURNEY</div>
+        <div class="ch06-nav-divider"></div>
+        <div class="ch06-nav-list" id="ch06-nav-list">
+          <div class="ch06-nav-item active" data-idx="0">
+            <span class="ch06-nav-dot"></span>
+            <span class="ch06-nav-num">01</span>
+            <span class="ch06-nav-name">DATA SOURCES</span>
+          </div>
+          <div class="ch06-nav-item" data-idx="1">
+            <span class="ch06-nav-dot"></span>
+            <span class="ch06-nav-num">02</span>
+            <span class="ch06-nav-name">INGESTION</span>
+          </div>
+          <div class="ch06-nav-item" data-idx="2">
+            <span class="ch06-nav-dot"></span>
+            <span class="ch06-nav-num">03</span>
+            <span class="ch06-nav-name">TRANSFORMATION</span>
+          </div>
+          <div class="ch06-nav-item" data-idx="3">
+            <span class="ch06-nav-dot"></span>
+            <span class="ch06-nav-num">04</span>
+            <span class="ch06-nav-name">STORAGE</span>
+          </div>
+          <div class="ch06-nav-item" data-idx="4">
+            <span class="ch06-nav-dot"></span>
+            <span class="ch06-nav-num">05</span>
+            <span class="ch06-nav-name">KNOWLEDGE LAYER</span>
+          </div>
+          <div class="ch06-nav-item" data-idx="5">
+            <span class="ch06-nav-dot"></span>
+            <span class="ch06-nav-num">06</span>
+            <span class="ch06-nav-name">AI CONTEXT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Node Projected Labels Layer -->
+      <div class="ch06-nodes-labels-layer" id="ch06-nodes-labels-layer">
+        <div class="ch06-node-label" id="label-6d-sources">DATA SOURCES</div>
+        <div class="ch06-node-label" id="label-6d-ingest">01 INGESTION</div>
+        <div class="ch06-node-label" id="label-6d-transform">02 TRANSFORMATION</div>
+        <div class="ch06-node-label" id="label-6d-store">03 STORAGE</div>
+        <div class="ch06-node-label" id="label-6d-knowledge">04 KNOWLEDGE LAYER</div>
+        <div class="ch06-node-label" id="label-6d-retrieve">05 RETRIEVAL</div>
+        <div class="ch06-node-label" id="label-6d-context">06 AI CONTEXT</div>
+      </div>
+
+      <!-- Phase 4: Foundation For Intelligence Card -->
+      <div class="ch06-foundation-card" id="ch06-foundation-card">
+        <div class="ch06-foundation-header">FOUNDATION FOR INTELLIGENCE</div>
+        <div class="ch06-foundation-desc">
+          Good AI is not only about powerful models. It is built on clean data, smart processing, reliable storage, and effective retrieval.
+        </div>
+        <div class="ch06-foundation-pillars">
+          <div class="ch06-pillar-item">
+            <div class="ch06-pillar-icon">🗄️</div>
+            <div class="ch06-pillar-title">QUALITY DATA</div>
+            <div class="ch06-pillar-text">Accurate, reliable and consistent information</div>
+          </div>
+          <div class="ch06-pillar-item">
+            <div class="ch06-pillar-icon">⚙️</div>
+            <div class="ch06-pillar-title">SMART PIPELINES</div>
+            <div class="ch06-pillar-text">Transform raw data into meaningful structures</div>
+          </div>
+          <div class="ch06-pillar-item">
+            <div class="ch06-pillar-icon">🔍</div>
+            <div class="ch06-pillar-title">FAST RETRIEVAL</div>
+            <div class="ch06-pillar-text">Find the right context at the right time for better reasoning</div>
+          </div>
+          <div class="ch06-pillar-item">
+            <div class="ch06-pillar-icon">🛡️</div>
+            <div class="ch06-pillar-title">SECURE & SCALABLE</div>
+            <div class="ch06-pillar-text">Built to scale with performance and data governance</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Center: Scroll Prompt -->
+      <div class="ch06-scroll-prompt" id="ch06-scroll-prompt">
+        <span class="ch06-prompt-text">SCROLL TO EXPLORE DATA JOURNEY</span>
+        <div class="ch06-mouse-icon">
+          <div class="ch06-mouse-wheel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Left Chapter Indicator -->
+    <div class="chapter-indicator">
+      <span class="chapter-current" id="chapter-num">01</span>
+      <span class="chapter-divider">/</span>
+      <span>14</span>
+    </div>
+
+    <!-- Bottom Center Scroll Instruction -->
+    <div class="scroll-hint" id="scroll-hint">
+      <div class="mouse-icon">
+        <div class="mouse-wheel"></div>
+      </div>
+      <span>Scroll to enter</span>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
