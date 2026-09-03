@@ -154,7 +154,34 @@
         }
       }
     } catch (e) {
-      console.warn("[Supabase] Projects fetch error:", e);
+      console.warn("[Supabase] Projects fetch note:", e);
+    }
+
+    // 3. Fetch directly from Supabase SQL table 'activities' if table exists
+    try {
+      if (client) {
+        const { data: dbActivities, error } = await client
+          .from("activities")
+          .select("*")
+          .order("id", { ascending: false });
+
+        if (!error && Array.isArray(dbActivities) && dbActivities.length > 0) {
+          const formattedActs = dbActivities
+            .filter(a => !deletedIds.includes(String(a.id)))
+            .map((a) => ({
+              id: a.id,
+              title: a.title || "ACTIVITY",
+              organization: a.organization || a.host || "",
+              category: a.category || "WORKSHOP",
+              date: a.date || "",
+              description: a.description || "",
+              image_url: a.image_url || a.photo_url || ""
+            }));
+          cloudData.activities = formattedActs;
+        }
+      }
+    } catch (e) {
+      console.warn("[Supabase] Activities fetch note:", e);
     }
 
     // Ensure array structure and filter any deleted items
@@ -240,15 +267,23 @@
     if (client) {
       try {
         if (typeof project.id === "number") {
-          await client.from("projects").update(payload).eq("id", project.id);
+          const { error } = await client.from("projects").update(payload).eq("id", project.id);
+          if (error) {
+            console.error("[Supabase RLS Error] Projects update rejected:", error.message, error);
+          } else {
+            console.log("[Supabase] Project updated successfully in remote table:", project.id);
+          }
         } else {
-          const { data: inserted } = await client.from("projects").insert([payload]).select();
-          if (inserted && inserted[0]) {
+          const { data: inserted, error } = await client.from("projects").insert([payload]).select();
+          if (error) {
+            console.error("[Supabase RLS Error] Projects insert rejected:", error.message, error);
+          } else if (inserted && inserted[0]) {
             project.id = inserted[0].id;
+            console.log("[Supabase] Project inserted successfully with ID:", project.id);
           }
         }
       } catch (err) {
-        console.warn("[Supabase] Project remote table notice:", err);
+        console.error("[Supabase Error] Project remote save exception:", err);
       }
     }
 
@@ -273,12 +308,15 @@
     if (client) {
       try {
         const numId = Number(id);
-        if (!isNaN(numId)) {
-          await client.from("projects").delete().eq("id", numId);
+        const queryId = !isNaN(numId) ? numId : id;
+        const { error } = await client.from("projects").delete().eq("id", queryId);
+        if (error) {
+          console.error(`[Supabase RLS Error] Failed to delete project with ID '${queryId}':`, error.message, error);
+        } else {
+          console.log(`[Supabase] Project with ID '${queryId}' deleted successfully from remote database.`);
         }
-        await client.from("projects").delete().eq("id", id);
       } catch (err) {
-        console.warn("[Supabase] Delete project notice:", err);
+        console.error("[Supabase Error] Delete project exception:", err);
       }
     }
 
@@ -343,22 +381,134 @@
 
   async function saveActivity(act) {
     if (!act.id) act.id = "act_" + Date.now();
+
+    const payload = {
+      title: act.title || "ACTIVITY",
+      organization: act.organization || act.host || "",
+      category: act.category || "WORKSHOP",
+      date: act.date || "",
+      description: act.description || "",
+      image_url: act.image_url || act.photo_url || ""
+    };
+
+    if (client) {
+      try {
+        if (typeof act.id === "number") {
+          const { error } = await client.from("activities").update(payload).eq("id", act.id);
+          if (error) console.error("[Supabase RLS Error] Update activity failed:", error.message, error);
+          else console.log("[Supabase] Activity updated successfully:", act.id);
+        } else {
+          const { data: inserted, error } = await client.from("activities").insert([payload]).select();
+          if (error) {
+            console.error("[Supabase RLS Error] Insert activity failed:", error.message, error);
+          } else if (inserted && inserted[0]) {
+            act.id = inserted[0].id;
+            console.log("[Supabase] Activity inserted successfully with ID:", act.id);
+          }
+        }
+      } catch (err) {
+        console.error("[Supabase Error] Save activity exception:", err);
+      }
+    }
+
     unmarkDeletedId(act.id);
     const current = await fetchAllFromCloud();
     if (!current.activities) current.activities = [];
-    current.activities.unshift(act);
+    const idx = current.activities.findIndex((a) => String(a.id) === String(act.id));
+    if (idx >= 0) {
+      current.activities[idx] = { ...current.activities[idx], ...act, ...payload };
+    } else {
+      current.activities.unshift({ ...act, ...payload });
+    }
     setLocalData(current);
     return true;
   }
 
   async function deleteActivity(id) {
     addDeletedId(id);
+
+    if (client) {
+      try {
+        const numId = Number(id);
+        const queryId = !isNaN(numId) ? numId : id;
+        const { error } = await client.from("activities").delete().eq("id", queryId);
+        if (error) {
+          console.error(`[Supabase RLS Error] Failed to delete activity '${queryId}':`, error.message, error);
+        } else {
+          console.log(`[Supabase] Activity '${queryId}' deleted successfully from remote database.`);
+        }
+      } catch (err) {
+        console.error("[Supabase Error] Delete activity exception:", err);
+      }
+    }
+
     const current = await fetchAllFromCloud();
     if (current && current.activities) {
       current.activities = current.activities.filter((a) => String(a.id) !== String(id));
       setLocalData(current);
     }
     return true;
+  }
+
+  /* ============================================================
+     5. REALTIME SUBSCRIPTION (AUTO-RENDER ON POSTGRES CHANGES)
+     ============================================================ */
+  function subscribeToRealtime(handlers = {}) {
+    if (!client || typeof client.channel !== "function") {
+      console.warn("[Supabase Realtime] Supabase client or channel API not available.");
+      return null;
+    }
+
+    try {
+      const channel = client
+        .channel("schema-db-changes")
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "activities" },
+          async (payload) => {
+            console.log("[Supabase Realtime] Event detected on 'activities' table:", payload);
+            if (typeof handlers.onActivitiesChange === "function") {
+              await handlers.onActivitiesChange(payload);
+            }
+          }
+        )
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "projects" },
+          async (payload) => {
+            console.log("[Supabase Realtime] Event detected on 'projects' table:", payload);
+            if (typeof handlers.onProjectsChange === "function") {
+              await handlers.onProjectsChange(payload);
+            }
+          }
+        )
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "certificates" },
+          async (payload) => {
+            console.log("[Supabase Realtime] Event detected on 'certificates' table:", payload);
+            if (typeof handlers.onCertificatesChange === "function") {
+              await handlers.onCertificatesChange(payload);
+            }
+          }
+        )
+        .subscribe((status, err) => {
+          if (err) {
+            console.error("[Supabase Realtime Error] Subscription failed:", err);
+          } else {
+            console.log("[Supabase Realtime] Subscribed to 'schema-db-changes' (status:", status, ")");
+          }
+        });
+
+      return channel;
+    } catch (err) {
+      console.error("[Supabase Realtime Error] Setup exception:", err);
+      return null;
+    }
+  }
+
+  function subscribeToProjects(callback) {
+    return subscribeToRealtime({ onProjectsChange: callback });
   }
 
   // Unified API exports
@@ -368,6 +518,8 @@
     fetchProjects,
     saveProject,
     deleteProject,
+    subscribeToProjects,
+    subscribeToRealtime,
     uploadStorageFile,
     uploadProject: async (projectData, file) => {
       if (file) {
@@ -395,6 +547,8 @@
   window.fetchProjects = fetchProjects;
   window.saveProject = saveProject;
   window.deleteProject = deleteProject;
+  window.subscribeToProjects = subscribeToProjects;
+  window.subscribeToRealtime = subscribeToRealtime;
   window.uploadProject = SupabaseCMS.uploadProject;
   window.uploadStorageFile = uploadStorageFile;
 })();

@@ -75,9 +75,6 @@
         <button type="button" class="secret-tab active" data-cms-tab="projects">
           Projects Management
         </button>
-        <button type="button" class="secret-tab" data-cms-tab="gallery">
-          Visual Gallery (Separate)
-        </button>
         <button type="button" class="secret-tab" data-cms-tab="certificates">
           Certificates &amp; Credentials
         </button>
@@ -256,127 +253,7 @@
         </div>
       </div>
 
-      <!-- TAB 2: VISUAL GALLERY (SEPARATE FROM CERTIFICATES) -->
-      <div class="cms-tab-content" id="cms-tab-gallery" style="display: none">
-        <div
-          class="admin-grid"
-          style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px"
-        >
-          <div class="double-bezel">
-            <div class="bezel-inner" style="padding: 24px">
-              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
-                Add Visual Gallery Photo / Telemetry
-              </h3>
-              <p
-                style="
-                  font-size: 0.85rem;
-                  color: var(--text-muted);
-                  margin-bottom: 16px;
-                "
-              >
-                This visual gallery is dedicated exclusively to project
-                screenshots, system telemetry, and laboratory snapshots.
-                (Separate from certificates).
-              </p>
-
-              <form
-                id="form-manage-gallery"
-                class="secret-form active"
-                style="display: grid; grid-template-columns: 1fr; gap: 12px"
-              >
-                <label
-                  >Title *
-                  <input
-                    name="title"
-                    id="gal-title"
-                    required
-                    placeholder="e.g. Warungio Real-Time POS Dashboard"
-                /></label>
-                <label
-                  >Category
-                  <select name="category" id="gal-category">
-                    <option value="PROJECT">PROJECT</option>
-                    <option value="LABORATORY">LABORATORY</option>
-                    <option value="SYSTEM ARCHITECTURE">
-                      SYSTEM ARCHITECTURE
-                    </option>
-                    <option value="AI TELEMETRY">AI TELEMETRY</option>
-                  </select>
-                </label>
-                <label
-                  >Associated Project
-                  <input
-                    name="project_id"
-                    id="gal-project-id"
-                    placeholder="e.g. warungio or smartsort-ai"
-                /></label>
-                <label
-                  >Date <input name="date" id="gal-date" placeholder="2025"
-                /></label>
-                <label
-                  >Description
-                  <textarea
-                    name="description"
-                    id="gal-desc"
-                    placeholder="Details regarding this visual screenshot..."
-                  ></textarea>
-                </label>
-                <label
-                  >Image File / URL (Upload to Supabase) *
-                  <input type="file" id="gal-file-input" accept="image/*" />
-                  <input
-                    type="text"
-                    name="image_url"
-                    id="gal-image-url"
-                    placeholder="Or enter image URL"
-                  />
-                </label>
-                <div
-                  id="gal-img-preview-box"
-                  style="
-                    display: none;
-                    padding: 8px;
-                    background: #020b12;
-                    border-radius: 6px;
-                  "
-                >
-                  <img
-                    id="gal-preview-img"
-                    style="
-                      max-height: 180px;
-                      max-width: 100%;
-                      object-fit: contain;
-                      border-radius: 4px;
-                      display: block;
-                    "
-                  />
-                </div>
-                <button type="submit" class="btn-clean primary">
-                  <span>SAVE GALLERY ITEM</span>
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <div class="double-bezel">
-            <div class="bezel-inner" style="padding: 24px">
-              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
-                Gallery Imagery Archive
-              </h3>
-              <div
-                id="cms-gallery-list"
-                style="
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                  gap: 12px;
-                "
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: CERTIFICATES & CREDENTIALS (SEPARATE) -->
+      <!-- TAB 2: CERTIFICATES & CREDENTIALS -->
       <div
         class="cms-tab-content"
         id="cms-tab-certificates"
@@ -425,14 +302,12 @@
                 /></label>
                 <label
                   >Category
-                  <select name="category" id="cert-category">
-                    <option value="CERTIFICATION">CERTIFICATION</option>
-                    <option value="COURSE">COURSE</option>
-                    <option value="TRAINING">TRAINING</option>
-                    <option value="WORKSHOP">WORKSHOP</option>
-                    <option value="ACADEMIC">ACADEMIC</option>
-                    <option value="FOUNDATION">FOUNDATION</option>
-                  </select>
+                  <input
+                    type="text"
+                    name="category"
+                    id="cert-category"
+                    placeholder="e.g. CERTIFICATION, DEEP LEARNING, CLOUD PLATFORM"
+                  />
                 </label>
                 <label
                   >Issue Date
@@ -452,7 +327,7 @@
                   >Credential URL
                   <input
                     name="credential_url"
-                    id="cert-url"
+                    id="cert-cred-url"
                     placeholder="https://www.credly.com/..."
                 /></label>
                 <label class="full-width"
@@ -460,17 +335,17 @@
                   <textarea
                     name="description"
                     id="cert-desc"
-                    placeholder="Skills, topics, and competencies verified..."
+                    placeholder="Key competencies demonstrated..."
                   ></textarea>
                 </label>
                 <label class="full-width"
-                  >Certificate Document File / Image
+                  >Certificate Badge / Document (Upload or paste URL)
                   <input type="file" id="cert-file-input" accept="image/*" />
                   <input
                     type="text"
                     name="image_url"
                     id="cert-image-url"
-                    placeholder="Or enter image URL"
+                    placeholder="Or enter certificate image URL"
                   />
                 </label>
                 <div
@@ -529,7 +404,7 @@
         </div>
       </div>
 
-      <!-- TAB 4: ACTIVITIES & EVENTS -->
+      <!-- TAB 3: ACTIVITIES & EVENTS -->
       <div
         class="cms-tab-content"
         id="cms-tab-activities"
@@ -542,8 +417,11 @@
           <div class="double-bezel">
             <div class="bezel-inner" style="padding: 24px">
               <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
-                Add Activity / Event
+                Add Activity / Event Documentation
               </h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                Central hub for recording activities, technical workshops, hackathons, and event photo documentation.
+              </p>
               <form
                 id="form-manage-activity"
                 class="secret-form active"
@@ -555,36 +433,75 @@
                     name="title"
                     id="act-title"
                     required
-                    placeholder="e.g. AI & Generative AI Deep-Dive Lab"
+                    placeholder="e.g. AI &amp; Generative AI Deep-Dive Lab"
                 /></label>
                 <label
                   >Organization / Host
                   <input
                     name="organization"
                     id="act-org"
-                    placeholder="e.g. Technical Workshop Series"
+                    placeholder="e.g. Technical Workshop Series / Google Developer Groups"
                 /></label>
                 <label
                   >Category
-                  <select name="category" id="act-category">
-                    <option value="WORKSHOP">WORKSHOP</option>
-                    <option value="EVENT">EVENT</option>
-                    <option value="TRAINING">TRAINING</option>
-                    <option value="HACKATHON">HACKATHON</option>
-                    <option value="COMMUNITY">COMMUNITY</option>
-                  </select>
+                  <input
+                    type="text"
+                    name="category"
+                    id="act-category"
+                    placeholder="e.g. AI WORKSHOP, HACKATHON, FIELD STUDY"
+                  />
                 </label>
                 <label
-                  >Date <input name="date" id="act-date" placeholder="2025"
+                  >Date <input name="date" id="act-date" placeholder="e.g. 2025 or Oct 2024"
                 /></label>
                 <label
                   >Description
                   <textarea
                     name="description"
                     id="act-desc"
-                    placeholder="Key takeaways and implementations..."
+                    placeholder="Key takeaways, implementations, and event summary..."
                   ></textarea>
                 </label>
+                <label class="full-width"
+                  >Documentation Photo (Upload to Supabase or URL)
+                  <input type="file" id="act-file-input" accept="image/*" />
+                  <input
+                    type="text"
+                    name="image_url"
+                    id="act-image-url"
+                    placeholder="Or enter documentation image URL"
+                  />
+                </label>
+                <div
+                  id="act-img-preview-box"
+                  style="
+                    display: none;
+                    padding: 8px;
+                    background: #020b12;
+                    border-radius: 6px;
+                  "
+                >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.65rem;
+                      color: var(--text-dim);
+                      display: block;
+                      margin-bottom: 4px;
+                    "
+                    >DOCUMENTATION PREVIEW:</span
+                  >
+                  <img
+                    id="act-preview-img"
+                    style="
+                      max-height: 180px;
+                      max-width: 100%;
+                      object-fit: contain;
+                      border-radius: 4px;
+                      display: block;
+                    "
+                  />
+                </div>
                 <button type="submit" class="btn-clean primary">
                   <span>SAVE ACTIVITY RECORD</span>
                 </button>
@@ -595,7 +512,7 @@
           <div class="double-bezel">
             <div class="bezel-inner" style="padding: 24px">
               <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
-                Recorded Activities
+                Recorded Activities &amp; Events
               </h3>
               <div
                 id="cms-activities-list"
@@ -605,11 +522,44 @@
           </div>
         </div>
       </div>
+      <!-- CYBERNETIC / AI LABORATORY TELEMETRY LOADER OVERLAY -->
+      <div id="lab-telemetry-loader" class="lab-loader-overlay">
+        <div class="lab-loader-content">
+          <div class="reactor-ring-wrapper">
+            <div class="reactor-ring-outer"></div>
+            <div class="reactor-ring-inner"></div>
+            <div class="reactor-core"></div>
+          </div>
+          <div class="telemetry-readout">
+            <span id="lab-loader-title" class="telemetry-status-blink"
+              >[ LAB PROTOCOL: UPLOADING TELEMETRY &amp; ASSETS... ]</span
+            >
+            <small id="lab-loader-sub" class="telemetry-sub"
+              >SYNCHRONIZING WITH SUPABASE CLOUD NODE</small
+            >
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
         const cms = window.SupabaseCMS;
+
+        // Telemetry Loader Helpers
+        function showLabLoader(title, sub) {
+          const loader = document.getElementById("lab-telemetry-loader");
+          if (!loader) return;
+          if (title)
+            document.getElementById("lab-loader-title").textContent = title;
+          if (sub) document.getElementById("lab-loader-sub").textContent = sub;
+          loader.classList.add("active");
+        }
+
+        function hideLabLoader() {
+          const loader = document.getElementById("lab-telemetry-loader");
+          if (loader) loader.classList.remove("active");
+        }
 
         // Tab switching
         document.querySelectorAll("[data-cms-tab]").forEach((tabBtn) => {
@@ -648,24 +598,23 @@
           document.getElementById("proj-preview-img"),
         );
         setupPreview(
-          document.getElementById("gal-file-input"),
-          document.getElementById("gal-img-preview-box"),
-          document.getElementById("gal-preview-img"),
-        );
-        setupPreview(
           document.getElementById("cert-file-input"),
           document.getElementById("cert-img-preview-box"),
           document.getElementById("cert-preview-img"),
+        );
+        setupPreview(
+          document.getElementById("act-file-input"),
+          document.getElementById("act-img-preview-box"),
+          document.getElementById("act-preview-img"),
         );
 
         // Render data
         async function reloadData() {
           const projects = await cms.fetchProjects();
-          const gallery = await cms.fetchGallery();
           const certificates = await cms.fetchCertificates();
           const activities = await cms.fetchActivities();
 
-          // Projects
+          // 1. Projects List
           const pList = document.getElementById("cms-projects-list");
           if (pList) {
             if (!projects || projects.length === 0) {
@@ -687,28 +636,7 @@
             }
           }
 
-          // Gallery
-          const gList = document.getElementById("cms-gallery-list");
-          if (gList) {
-            if (!gallery || gallery.length === 0) {
-              gList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);grid-column:1/-1;">No visual gallery images yet. Upload a screenshot on the left.</p>`;
-            } else {
-              gList.innerHTML = gallery
-                .map(
-                  (g) => `
-              <div class="secret-list-item" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;">
-                ${g.image_url ? `<img src="${g.image_url}" style="width:100%;height:120px;object-fit:contain;background:#020b12;border-radius:4px;">` : ""}
-                <strong style="color:#fff;font-size:0.85rem;">${g.title}</strong>
-                <small style="color:var(--text-dim);">${g.category || "PROJECT"}</small>
-                <button type="button" class="btn-clean" style="padding:4px 10px;font-size:0.7rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('gallery', '${g.id}')">Delete</button>
-              </div>
-            `,
-                )
-                .join("");
-            }
-          }
-
-          // Certificates
+          // 2. Certificates List
           const cList = document.getElementById("cms-certificates-list");
           if (cList) {
             if (!certificates || certificates.length === 0) {
@@ -730,21 +658,27 @@
             }
           }
 
-          // Activities
+          // 3. Activities & Events List (With Thumbnail & Custom Badge)
           const aList = document.getElementById("cms-activities-list");
           if (aList) {
             if (!activities || activities.length === 0) {
-              aList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No activities recorded yet.</p>`;
+              aList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No activities recorded yet. Use the form on the left to add workshops or events.</p>`;
             } else {
               aList.innerHTML = activities
                 .map(
                   (a) => `
-              <div class="secret-list-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
-                <div>
-                  <strong style="color:#fff;">${a.title}</strong>
-                  <small style="color:var(--cyan-light);display:block;">${a.organization || ""} · ${a.category || ""}</small>
+              <div class="secret-list-item" style="display:flex;gap:14px;align-items:center;padding:14px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:10px;">
+                ${a.image_url ? `<img src="${a.image_url}" alt="${a.title}" style="width:76px;height:56px;object-fit:cover;border-radius:4px;background:#020b12;border:1px solid rgba(56,189,248,0.25);flex-shrink:0;">` : `<div style="width:76px;height:56px;border-radius:4px;background:rgba(2,11,18,0.8);border:1px dashed var(--border-line);display:grid;place-items:center;color:var(--text-dim);font-size:0.6rem;font-family:var(--font-mono);flex-shrink:0;">NO DOC</div>`}
+                <div style="flex:1;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
+                    <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cyan-core);background:rgba(56,189,248,0.1);padding:2px 6px;border-radius:3px;letter-spacing:0.08em;font-weight:700;">${a.category || "EVENT"}</span>
+                    <small style="color:var(--text-dim);font-family:var(--font-mono);font-size:0.68rem;">${a.date || ""}</small>
+                  </div>
+                  <strong style="color:#fff;font-size:0.92rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.title}</strong>
+                  <small style="color:var(--cyan-light);display:block;">${a.organization || ""}</small>
+                  ${a.description ? `<p style="color:var(--text-muted);font-size:0.75rem;margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${a.description}</p>` : ""}
                 </div>
-                <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('activities', '${a.id}')">Delete</button>
+                <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;flex-shrink:0;" onclick="handleDelete('activities', '${a.id}')">Delete</button>
               </div>
             `,
                 )
@@ -755,15 +689,20 @@
 
         window.handleDelete = async function (type, id) {
           if (!confirm("Are you sure you want to delete this record?")) return;
+          showLabLoader(
+            "[ LAB PROTOCOL: PURGING TELEMETRY RECORD... ]",
+            `EXECUTING REMOTE DELETION ON SUPABASE (${type.toUpperCase()})`,
+          );
           try {
             if (type === "projects") await cms.deleteProject(id);
-            else if (type === "gallery") await cms.deleteGalleryItem(id);
             else if (type === "certificates") await cms.deleteCertificate(id);
             else if (type === "activities") await cms.deleteActivity(id);
             await reloadData();
           } catch (err) {
             console.error(err);
             alert("Error deleting record: " + err.message);
+          } finally {
+            hideLabLoader();
           }
         };
 
@@ -772,11 +711,16 @@
           .getElementById("form-manage-project")
           ?.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const btn = e.currentTarget.querySelector('button[type="submit"]');
+            const form = e.currentTarget;
+            const btn = form.querySelector('button[type="submit"]');
             if (btn) btn.disabled = true;
+            showLabLoader(
+              "[ LAB PROTOCOL: UPLOADING TELEMETRY & ASSETS... ]",
+              "SYNCHRONIZING PROJECT SCHEMA WITH SUPABASE CLOUD",
+            );
 
             try {
-              const fd = new FormData(e.currentTarget);
+              const fd = new FormData(form);
               let coverUrl = fd.get("cover_image") || "";
 
               const file = document.getElementById("proj-file-input")?.files[0];
@@ -805,66 +749,34 @@
               });
 
               alert("Project successfully saved to Supabase Cloud!");
-              e.currentTarget.reset();
-              document.getElementById("proj-img-preview-box").style.display = "none";
+              form.reset();
+              document.getElementById("proj-img-preview-box").style.display =
+                "none";
               await reloadData();
             } catch (err) {
               console.error(err);
               alert("Error saving project: " + err.message);
             } finally {
               if (btn) btn.disabled = false;
+              hideLabLoader();
             }
           });
 
-        // Form 2: Gallery
-        document
-          .getElementById("form-manage-gallery")
-          ?.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const btn = e.currentTarget.querySelector('button[type="submit"]');
-            if (btn) btn.disabled = true;
-
-            try {
-              const fd = new FormData(e.currentTarget);
-              let imgUrl = fd.get("image_url") || "";
-
-              const file = document.getElementById("gal-file-input")?.files[0];
-              if (file) {
-                imgUrl = await cms.uploadStorageFile(file, "gallery");
-              }
-
-              await cms.saveGalleryItem({
-                id: "gal_" + Date.now(),
-                title: fd.get("title"),
-                category: fd.get("category") || "PROJECT",
-                project_id: fd.get("project_id") || "",
-                date: fd.get("date") || "2025",
-                description: fd.get("description") || "",
-                image_url: imgUrl,
-              });
-
-              alert("Gallery snapshot successfully saved to Supabase Cloud!");
-              e.currentTarget.reset();
-              document.getElementById("gal-img-preview-box").style.display = "none";
-              await reloadData();
-            } catch (err) {
-              console.error(err);
-              alert("Error saving gallery item: " + err.message);
-            } finally {
-              if (btn) btn.disabled = false;
-            }
-          });
-
-        // Form 3: Certificate
+        // Form 2: Certificate
         document
           .getElementById("form-manage-cert")
           ?.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const btn = e.currentTarget.querySelector('button[type="submit"]');
+            const form = e.currentTarget;
+            const btn = form.querySelector('button[type="submit"]');
             if (btn) btn.disabled = true;
+            showLabLoader(
+              "[ LAB PROTOCOL: UPLOADING TELEMETRY & ASSETS... ]",
+              "VERIFYING AND STORING CREDENTIAL TO SUPABASE CLOUD",
+            );
 
             try {
-              const fd = new FormData(e.currentTarget);
+              const fd = new FormData(form);
               let imgUrl = fd.get("image_url") || "";
 
               const file = document.getElementById("cert-file-input")?.files[0];
@@ -885,38 +797,84 @@
               });
 
               alert("Certificate successfully saved to Supabase Cloud!");
-              e.currentTarget.reset();
-              document.getElementById("cert-img-preview-box").style.display = "none";
+              form.reset();
+              document.getElementById("cert-img-preview-box").style.display =
+                "none";
               await reloadData();
             } catch (err) {
               console.error(err);
               alert("Error saving certificate: " + err.message);
             } finally {
               if (btn) btn.disabled = false;
+              hideLabLoader();
             }
           });
 
-        // Form 4: Activity
+        // Form 3: Activity & Events
         document
           .getElementById("form-manage-activity")
           ?.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const fd = new FormData(e.currentTarget);
-            await cms.saveActivity({
-              id: "act_" + Date.now(),
-              title: fd.get("title"),
-              organization: fd.get("organization"),
-              category: fd.get("category"),
-              date: fd.get("date"),
-              description: fd.get("description"),
-            });
+            const form = e.currentTarget;
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+            showLabLoader(
+              "[ LAB PROTOCOL: UPLOADING TELEMETRY & ASSETS... ]",
+              "RECORDING ACTIVITY & DOCUMENTATION TO SUPABASE",
+            );
 
-            alert("Activity recorded successfully!");
-            e.currentTarget.reset();
-            reloadData();
+            try {
+              const fd = new FormData(form);
+              let imgUrl = fd.get("image_url") || "";
+
+              const file = document.getElementById("act-file-input")?.files[0];
+              if (file) {
+                imgUrl = await cms.uploadStorageFile(file, "activities");
+              }
+
+              await cms.saveActivity({
+                id: "act_" + Date.now(),
+                title: fd.get("title"),
+                organization: fd.get("organization"),
+                category: fd.get("category") || "WORKSHOP",
+                date: fd.get("date"),
+                description: fd.get("description"),
+                image_url: imgUrl,
+              });
+
+              alert("Activity recorded successfully to Supabase Cloud!");
+              form.reset();
+              document.getElementById("act-img-preview-box").style.display =
+                "none";
+              await reloadData();
+            } catch (err) {
+              console.error(err);
+              alert("Error recording activity: " + err.message);
+            } finally {
+              if (btn) btn.disabled = false;
+              hideLabLoader();
+            }
           });
 
-        reloadData();
+        await reloadData();
+
+        // Realtime subscription for multi-table auto-sync
+        if (cms && typeof cms.subscribeToRealtime === "function") {
+          cms.subscribeToRealtime({
+            onActivitiesChange: async () => {
+              console.log("[Admin Realtime] Activities updated remotely.");
+              await reloadData();
+            },
+            onProjectsChange: async () => {
+              console.log("[Admin Realtime] Projects updated remotely.");
+              await reloadData();
+            },
+            onCertificatesChange: async () => {
+              console.log("[Admin Realtime] Certificates updated remotely.");
+              await reloadData();
+            },
+          });
+        }
       });
     </script>
   </body>

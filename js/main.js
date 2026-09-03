@@ -290,6 +290,7 @@
     const projects = (cloudData && cloudData.projects) ? cloudData.projects : [];
     const certificates = (cloudData && cloudData.certificates) ? cloudData.certificates : [];
     const gallery = (cloudData && cloudData.gallery) ? cloudData.gallery : [];
+    const activities = (cloudData && cloudData.activities) ? cloudData.activities : [];
 
     // 1. Render Projects
     const projectList = $('#project-list');
@@ -440,10 +441,11 @@
       }
     }
 
-    // 3. Render Visual Gallery (#gallery-list)
+    // 3. Render Activities & Documentation Hub (#gallery-list)
     const galleryList = $('#gallery-list');
+    const activitiesItems = (activities && activities.length > 0) ? activities : (gallery || []);
     if (galleryList) {
-      if (gallery.length === 0) {
+      if (activitiesItems.length === 0) {
         galleryList.innerHTML = `
           <div class="empty-vault-state double-bezel" style="grid-column: 1 / -1; width: 100%; text-align: center;">
             <div class="bezel-inner" style="padding: 40px 24px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
@@ -454,27 +456,31 @@
                   <polyline points="21 15 16 10 5 21"/>
                 </svg>
               </div>
-              <h3 style="color: #fff; font-size: 1.1rem; letter-spacing: 0.06em;">NO VISUAL GALLERY SNAPSHOTS YET</h3>
-              <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 48ch;">Visual screenshots, system interface telemetry, and lab documentation uploaded via the Admin CMS will appear here.</p>
+              <h3 style="color: #fff; font-size: 1.1rem; letter-spacing: 0.06em;">NO ACTIVITY DOCUMENTATION YET</h3>
+              <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 48ch;">Activities, workshops, and event photo documentation uploaded via the Admin CMS will appear here.</p>
             </div>
           </div>
         `;
       } else {
         galleryList.innerHTML = '';
-        gallery.forEach((item) => {
+        activitiesItems.forEach((item) => {
           const card = document.createElement('div');
           card.className = 'gallery-card double-bezel';
           const imgUrl = item.image_url || item.image || '';
           card.innerHTML = `
             <div class="bezel-inner">
               <div class="gallery-img-box">
-                ${imgUrl ? `<img src="${imgUrl}" alt="${escapeHtml(item.title)}">` : '<div style="color:var(--cyan-light);font-family:var(--font-mono);font-size:0.75rem;">TELEMETRY SNAPSHOT</div>'}
+                ${imgUrl ? `<img src="${imgUrl}" alt="${escapeHtml(item.title)}">` : '<div style="color:var(--cyan-light);font-family:var(--font-mono);font-size:0.75rem;">ACTIVITY RECORD</div>'}
               </div>
-              <h4 class="gallery-card-title">${escapeHtml(item.title)}</h4>
-              <p class="gallery-card-desc">${escapeHtml(item.description || '')}</p>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
-                <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);">${escapeHtml(item.category || 'PROJECT')} · ${escapeHtml(item.date || '2025')}</span>
-                ${imgUrl ? `<button type="button" class="btn-gal-zoom doc-link-arrow" style="background:none;border:none;cursor:pointer;color:var(--cyan-light);font-size:0.75rem;">ZOOM VIEW →</button>` : ''}
+              <div style="margin-top:8px;">
+                <span class="hud-badge" style="display:inline-block;margin-bottom:4px;font-size:0.6rem;color:var(--cyan-core);background:rgba(56,189,248,0.1);padding:2px 6px;border-radius:3px;">${escapeHtml(item.category || 'WORKSHOP')}</span>
+                <h4 class="gallery-card-title">${escapeHtml(item.title)}</h4>
+                ${item.organization ? `<small style="color:var(--cyan-light);display:block;margin-bottom:6px;font-size:0.75rem;">${escapeHtml(item.organization)}</small>` : ''}
+                <p class="gallery-card-desc">${escapeHtml(item.description || '')}</p>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+                  <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);">${escapeHtml(item.date || '')}</span>
+                  ${imgUrl ? `<button type="button" class="btn-gal-zoom doc-link-arrow" style="background:none;border:none;cursor:pointer;color:var(--cyan-light);font-size:0.75rem;">VIEW PHOTO →</button>` : ''}
+                </div>
               </div>
             </div>
           `;
@@ -482,8 +488,8 @@
           card.querySelector('.btn-gal-zoom')?.addEventListener('click', () => {
             openLightbox({
               title: item.title,
-              issuer: 'TELEMETRY / GALLERY',
-              category: item.category || 'VISUAL SNAPSHOT',
+              issuer: item.organization || 'DOCUMENTATION',
+              category: item.category || 'ACTIVITY & WORKSHOP',
               image: imgUrl,
               description: item.description || '',
               url: ''
@@ -760,6 +766,30 @@
     initBackToTop();
     initVaultModal();
 
+    // 1. Initial portfolio data render
     await renderPortfolioData();
+
+    // 2. Supabase Realtime Subscription for live multi-tab & remote sync
+    if (window.SupabaseCMS && typeof window.SupabaseCMS.subscribeToRealtime === 'function') {
+      window.SupabaseCMS.subscribeToRealtime({
+        onActivitiesChange: async (payload) => {
+          console.log('[Portfolio Realtime] Activities changed remotely:', payload);
+          await renderPortfolioData();
+        },
+        onProjectsChange: async (payload) => {
+          console.log('[Portfolio Realtime] Projects changed remotely:', payload);
+          await renderPortfolioData();
+        },
+        onCertificatesChange: async (payload) => {
+          console.log('[Portfolio Realtime] Certificates changed remotely:', payload);
+          await renderPortfolioData();
+        }
+      });
+    } else if (window.SupabaseCMS && typeof window.SupabaseCMS.subscribeToProjects === 'function') {
+      window.SupabaseCMS.subscribeToProjects(async (payload) => {
+        console.log('[Portfolio Realtime] Projects changed remotely:', payload);
+        await renderPortfolioData();
+      });
+    }
   });
 })();
