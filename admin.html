@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Control Vault | Sagit Faturrakhman</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/supabase-client.js"></script>
+  </head>
+  <body class="lab-body admin-body">
+    <div class="lab-grid-overlay" aria-hidden="true"></div>
+    <div class="lab-vignette" aria-hidden="true"></div>
+
+    <!-- Admin Header -->
+    <header class="topbar admin-topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-title">
+            <strong class="name">SAGIT FATURRAKHMAN — ADMIN CMS</strong>
+            <span class="role"
+              >PORTFOLIO CONTROL VAULT (sagitfaturkhman.id/admin)</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="topbar-actions"
+          style="display: flex; gap: 12px; align-items: center"
+        >
+          <span
+            class="admin-user-tag"
+            style="
+              background: rgba(56, 189, 248, 0.15);
+              color: var(--cyan-light);
+              padding: 4px 10px;
+              border-radius: 4px;
+              font-family: var(--font-mono);
+              font-size: 0.75rem;
+            "
+            >CONNECTED: SUPABASE CLOUD</span
+          >
+          <a
+            href="index.html"
+            class="btn-clean primary"
+            style="padding: 8px 16px; font-size: 0.75rem"
+            ><span>← VIEW PUBLIC PORTFOLIO</span></a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main
+      class="main-container admin-main"
+      style="
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 90px;
+        max-width: 1400px;
+        margin: 0 auto;
+      "
+    >
+      <!-- CMS Nav Tabs -->
+      <div
+        class="secret-tabs"
+        style="margin-bottom: 24px; overflow-x: auto; padding-bottom: 6px"
+      >
+        <button type="button" class="secret-tab active" data-cms-tab="projects">
+          Projects Management
+        </button>
+        <button type="button" class="secret-tab" data-cms-tab="gallery">
+          Visual Gallery (Separate)
+        </button>
+        <button type="button" class="secret-tab" data-cms-tab="certificates">
+          Certificates &amp; Credentials
+        </button>
+        <button type="button" class="secret-tab" data-cms-tab="activities">
+          Activities &amp; Events
+        </button>
+      </div>
+
+      <!-- TAB 1: PROJECTS -->
+      <div class="cms-tab-content active" id="cms-tab-projects">
+        <div
+          class="admin-grid"
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px"
+        >
+          <!-- Add Project Form -->
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Add / Edit Project
+              </h3>
+              <form
+                id="form-manage-project"
+                class="secret-form active"
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px"
+              >
+                <label
+                  >Project Title *
+                  <input
+                    name="title"
+                    id="proj-title"
+                    required
+                    placeholder="WARUNGIO"
+                /></label>
+                <label
+                  >Slug
+                  <input name="slug" id="proj-slug" placeholder="warungio"
+                /></label>
+                <label class="full-width"
+                  >Subtitle
+                  <input
+                    name="subtitle"
+                    id="proj-subtitle"
+                    placeholder="AI-Powered Hyperlocal Marketplace"
+                /></label>
+                <label
+                  >Category
+                  <input
+                    name="category"
+                    id="proj-category"
+                    placeholder="FULL-STACK · AI · MARKETPLACE"
+                /></label>
+                <label
+                  >Status
+                  <select name="status" id="proj-status">
+                    <option value="LIVE SYSTEM">LIVE SYSTEM</option>
+                    <option value="CASE STUDY / ACTIVE RESEARCH">
+                      CASE STUDY / ACTIVE RESEARCH
+                    </option>
+                    <option value="IN DEVELOPMENT / RESEARCH">
+                      IN DEVELOPMENT / RESEARCH
+                    </option>
+                    <option value="CURRENTLY EXPLORING">
+                      CURRENTLY EXPLORING
+                    </option>
+                  </select>
+                </label>
+                <label class="full-width"
+                  >Tech Stack
+                  <input
+                    name="technologies"
+                    id="proj-technologies"
+                    placeholder="Django, Python, MariaDB, Redis, Docker, Midtrans"
+                /></label>
+                <label class="full-width"
+                  >AI Features
+                  <input
+                    name="ai_features"
+                    id="proj-ai"
+                    placeholder="AI Merchant Assistant, OCR Digitization, Waste Intelligence"
+                /></label>
+                <label class="full-width"
+                  >My Role
+                  <input
+                    name="role"
+                    id="proj-role"
+                    placeholder="Full-stack development, database architecture, payment gateway"
+                /></label>
+                <label class="full-width"
+                  >Description *
+                  <textarea
+                    name="description"
+                    id="proj-desc"
+                    required
+                    placeholder="Detailed project overview..."
+                  ></textarea>
+                </label>
+                <label
+                  >Live URL
+                  <input
+                    name="live_url"
+                    id="proj-live-url"
+                    type="url"
+                    placeholder="https://warungio.web.id"
+                /></label>
+                <label
+                  >Documentation URL
+                  <input
+                    name="documentation_url"
+                    id="proj-doc-url"
+                    placeholder="#documentation"
+                /></label>
+                <label class="full-width"
+                  >Cover Image / Screenshot (Upload or paste URL)
+                  <input type="file" id="proj-file-input" accept="image/*" />
+                  <input
+                    type="text"
+                    name="cover_image"
+                    id="proj-cover-url"
+                    placeholder="Or enter image URL"
+                  />
+                </label>
+                <div
+                  id="proj-img-preview-box"
+                  style="
+                    grid-column: 1/-1;
+                    display: none;
+                    padding: 8px;
+                    background: #020b12;
+                    border-radius: 6px;
+                  "
+                >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.65rem;
+                      color: var(--text-dim);
+                      display: block;
+                      margin-bottom: 4px;
+                    "
+                    >PREVIEW (ASPECT RATIO PRESERVED):</span
+                  >
+                  <img
+                    id="proj-preview-img"
+                    style="
+                      max-height: 180px;
+                      max-width: 100%;
+                      object-fit: contain;
+                      border-radius: 4px;
+                      display: block;
+                    "
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn-clean primary"
+                  style="grid-column: 1/-1"
+                >
+                  <span>SAVE PROJECT TO SUPABASE</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Projects List -->
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Published Projects
+              </h3>
+              <div
+                id="cms-projects-list"
+                style="display: flex; flex-direction: column; gap: 10px"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: VISUAL GALLERY (SEPARATE FROM CERTIFICATES) -->
+      <div class="cms-tab-content" id="cms-tab-gallery" style="display: none">
+        <div
+          class="admin-grid"
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px"
+        >
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Add Visual Gallery Photo / Telemetry
+              </h3>
+              <p
+                style="
+                  font-size: 0.85rem;
+                  color: var(--text-muted);
+                  margin-bottom: 16px;
+                "
+              >
+                This visual gallery is dedicated exclusively to project
+                screenshots, system telemetry, and laboratory snapshots.
+                (Separate from certificates).
+              </p>
+
+              <form
+                id="form-manage-gallery"
+                class="secret-form active"
+                style="display: grid; grid-template-columns: 1fr; gap: 12px"
+              >
+                <label
+                  >Title *
+                  <input
+                    name="title"
+                    id="gal-title"
+                    required
+                    placeholder="e.g. Warungio Real-Time POS Dashboard"
+                /></label>
+                <label
+                  >Category
+                  <select name="category" id="gal-category">
+                    <option value="PROJECT">PROJECT</option>
+                    <option value="LABORATORY">LABORATORY</option>
+                    <option value="SYSTEM ARCHITECTURE">
+                      SYSTEM ARCHITECTURE
+                    </option>
+                    <option value="AI TELEMETRY">AI TELEMETRY</option>
+                  </select>
+                </label>
+                <label
+                  >Associated Project
+                  <input
+                    name="project_id"
+                    id="gal-project-id"
+                    placeholder="e.g. warungio or smartsort-ai"
+                /></label>
+                <label
+                  >Date <input name="date" id="gal-date" placeholder="2025"
+                /></label>
+                <label
+                  >Description
+                  <textarea
+                    name="description"
+                    id="gal-desc"
+                    placeholder="Details regarding this visual screenshot..."
+                  ></textarea>
+                </label>
+                <label
+                  >Image File / URL (Upload to Supabase) *
+                  <input type="file" id="gal-file-input" accept="image/*" />
+                  <input
+                    type="text"
+                    name="image_url"
+                    id="gal-image-url"
+                    placeholder="Or enter image URL"
+                  />
+                </label>
+                <div
+                  id="gal-img-preview-box"
+                  style="
+                    display: none;
+                    padding: 8px;
+                    background: #020b12;
+                    border-radius: 6px;
+                  "
+                >
+                  <img
+                    id="gal-preview-img"
+                    style="
+                      max-height: 180px;
+                      max-width: 100%;
+                      object-fit: contain;
+                      border-radius: 4px;
+                      display: block;
+                    "
+                  />
+                </div>
+                <button type="submit" class="btn-clean primary">
+                  <span>SAVE GALLERY ITEM</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Gallery Imagery Archive
+              </h3>
+              <div
+                id="cms-gallery-list"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                  gap: 12px;
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: CERTIFICATES & CREDENTIALS (SEPARATE) -->
+      <div
+        class="cms-tab-content"
+        id="cms-tab-certificates"
+        style="display: none"
+      >
+        <div
+          class="admin-grid"
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px"
+        >
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Add Certificate / Credential
+              </h3>
+              <p
+                style="
+                  font-size: 0.85rem;
+                  color: var(--text-muted);
+                  margin-bottom: 16px;
+                "
+              >
+                Certificates are kept separate and preserve 100% full aspect
+                ratio without cropping.
+              </p>
+
+              <form
+                id="form-manage-cert"
+                class="secret-form active"
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px"
+              >
+                <label class="full-width"
+                  >Certificate Title *
+                  <input
+                    name="title"
+                    id="cert-title"
+                    required
+                    placeholder="e.g. Google Cloud Foundations"
+                /></label>
+                <label
+                  >Issuer *
+                  <input
+                    name="issuer"
+                    id="cert-issuer"
+                    required
+                    placeholder="e.g. Google Cloud Platform"
+                /></label>
+                <label
+                  >Category
+                  <select name="category" id="cert-category">
+                    <option value="CERTIFICATION">CERTIFICATION</option>
+                    <option value="COURSE">COURSE</option>
+                    <option value="TRAINING">TRAINING</option>
+                    <option value="WORKSHOP">WORKSHOP</option>
+                    <option value="ACADEMIC">ACADEMIC</option>
+                    <option value="FOUNDATION">FOUNDATION</option>
+                  </select>
+                </label>
+                <label
+                  >Issue Date
+                  <input
+                    name="issued_date"
+                    id="cert-date"
+                    placeholder="e.g. 2024 or 2024 — PRESENT"
+                /></label>
+                <label
+                  >Credential ID
+                  <input
+                    name="credential_id"
+                    id="cert-cred-id"
+                    placeholder="e.g. GCP-FND-2024"
+                /></label>
+                <label class="full-width"
+                  >Credential URL
+                  <input
+                    name="credential_url"
+                    id="cert-url"
+                    placeholder="https://www.credly.com/..."
+                /></label>
+                <label class="full-width"
+                  >Description
+                  <textarea
+                    name="description"
+                    id="cert-desc"
+                    placeholder="Skills, topics, and competencies verified..."
+                  ></textarea>
+                </label>
+                <label class="full-width"
+                  >Certificate Document File / Image
+                  <input type="file" id="cert-file-input" accept="image/*" />
+                  <input
+                    type="text"
+                    name="image_url"
+                    id="cert-image-url"
+                    placeholder="Or enter image URL"
+                  />
+                </label>
+                <div
+                  id="cert-img-preview-box"
+                  style="
+                    grid-column: 1/-1;
+                    display: none;
+                    padding: 8px;
+                    background: #020b12;
+                    border-radius: 6px;
+                  "
+                >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.65rem;
+                      color: var(--text-dim);
+                      display: block;
+                      margin-bottom: 4px;
+                    "
+                    >DOCUMENT PREVIEW (NO CROPPING):</span
+                  >
+                  <img
+                    id="cert-preview-img"
+                    style="
+                      max-height: 200px;
+                      max-width: 100%;
+                      object-fit: contain;
+                      border-radius: 4px;
+                      display: block;
+                    "
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn-clean primary"
+                  style="grid-column: 1/-1"
+                >
+                  <span>SAVE CERTIFICATE RECORD</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Current Verified Certificates
+              </h3>
+              <div
+                id="cms-certificates-list"
+                style="display: flex; flex-direction: column; gap: 10px"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: ACTIVITIES & EVENTS -->
+      <div
+        class="cms-tab-content"
+        id="cms-tab-activities"
+        style="display: none"
+      >
+        <div
+          class="admin-grid"
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px"
+        >
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Add Activity / Event
+              </h3>
+              <form
+                id="form-manage-activity"
+                class="secret-form active"
+                style="display: grid; grid-template-columns: 1fr; gap: 12px"
+              >
+                <label
+                  >Activity Title *
+                  <input
+                    name="title"
+                    id="act-title"
+                    required
+                    placeholder="e.g. AI & Generative AI Deep-Dive Lab"
+                /></label>
+                <label
+                  >Organization / Host
+                  <input
+                    name="organization"
+                    id="act-org"
+                    placeholder="e.g. Technical Workshop Series"
+                /></label>
+                <label
+                  >Category
+                  <select name="category" id="act-category">
+                    <option value="WORKSHOP">WORKSHOP</option>
+                    <option value="EVENT">EVENT</option>
+                    <option value="TRAINING">TRAINING</option>
+                    <option value="HACKATHON">HACKATHON</option>
+                    <option value="COMMUNITY">COMMUNITY</option>
+                  </select>
+                </label>
+                <label
+                  >Date <input name="date" id="act-date" placeholder="2025"
+                /></label>
+                <label
+                  >Description
+                  <textarea
+                    name="description"
+                    id="act-desc"
+                    placeholder="Key takeaways and implementations..."
+                  ></textarea>
+                </label>
+                <button type="submit" class="btn-clean primary">
+                  <span>SAVE ACTIVITY RECORD</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="double-bezel">
+            <div class="bezel-inner" style="padding: 24px">
+              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
+                Recorded Activities
+              </h3>
+              <div
+                id="cms-activities-list"
+                style="display: flex; flex-direction: column; gap: 10px"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const cms = window.SupabaseCMS;
+
+        // Tab switching
+        document.querySelectorAll("[data-cms-tab]").forEach((tabBtn) => {
+          tabBtn.addEventListener("click", () => {
+            document
+              .querySelectorAll("[data-cms-tab]")
+              .forEach((t) => t.classList.remove("active"));
+            document
+              .querySelectorAll(".cms-tab-content")
+              .forEach((c) => (c.style.display = "none"));
+
+            tabBtn.classList.add("active");
+            const target = tabBtn.dataset.cmsTab;
+            const targetEl = document.getElementById(`cms-tab-${target}`);
+            if (targetEl) targetEl.style.display = "block";
+          });
+        });
+
+        // Image preview helpers
+        function setupPreview(inputEl, previewBox, imgEl) {
+          inputEl?.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = (evt) => {
+                imgEl.src = evt.target.result;
+                previewBox.style.display = "block";
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+        }
+        setupPreview(
+          document.getElementById("proj-file-input"),
+          document.getElementById("proj-img-preview-box"),
+          document.getElementById("proj-preview-img"),
+        );
+        setupPreview(
+          document.getElementById("gal-file-input"),
+          document.getElementById("gal-img-preview-box"),
+          document.getElementById("gal-preview-img"),
+        );
+        setupPreview(
+          document.getElementById("cert-file-input"),
+          document.getElementById("cert-img-preview-box"),
+          document.getElementById("cert-preview-img"),
+        );
+
+        // Render data
+        async function reloadData() {
+          const projects = await cms.fetchProjects();
+          const gallery = await cms.fetchGallery();
+          const certificates = await cms.fetchCertificates();
+          const activities = await cms.fetchActivities();
+
+          // Projects
+          const pList = document.getElementById("cms-projects-list");
+          if (pList) {
+            if (!projects || projects.length === 0) {
+              pList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No projects published yet. Fill out the form on the left to add your first real project.</p>`;
+            } else {
+              pList.innerHTML = projects
+                .map(
+                  (p) => `
+              <div class="secret-list-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
+                <div>
+                  <strong style="color:#fff;">${p.title}</strong>
+                  <small style="color:var(--cyan-light);display:block;">${p.category || "PROJECT"} · ${p.status || "ACTIVE"}</small>
+                </div>
+                <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('projects', '${p.id}')">Delete</button>
+              </div>
+            `,
+                )
+                .join("");
+            }
+          }
+
+          // Gallery
+          const gList = document.getElementById("cms-gallery-list");
+          if (gList) {
+            if (!gallery || gallery.length === 0) {
+              gList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);grid-column:1/-1;">No visual gallery images yet. Upload a screenshot on the left.</p>`;
+            } else {
+              gList.innerHTML = gallery
+                .map(
+                  (g) => `
+              <div class="secret-list-item" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;">
+                ${g.image_url ? `<img src="${g.image_url}" style="width:100%;height:120px;object-fit:contain;background:#020b12;border-radius:4px;">` : ""}
+                <strong style="color:#fff;font-size:0.85rem;">${g.title}</strong>
+                <small style="color:var(--text-dim);">${g.category || "PROJECT"}</small>
+                <button type="button" class="btn-clean" style="padding:4px 10px;font-size:0.7rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('gallery', '${g.id}')">Delete</button>
+              </div>
+            `,
+                )
+                .join("");
+            }
+          }
+
+          // Certificates
+          const cList = document.getElementById("cms-certificates-list");
+          if (cList) {
+            if (!certificates || certificates.length === 0) {
+              cList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No certificates added yet. Use the form on the left to record your credentials.</p>`;
+            } else {
+              cList.innerHTML = certificates
+                .map(
+                  (c) => `
+              <div class="secret-list-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
+                <div>
+                  <strong style="color:#fff;">${c.title}</strong>
+                  <small style="color:var(--cyan-light);display:block;">${c.issuer || ""} · ${c.category || ""}</small>
+                </div>
+                <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('certificates', '${c.id}')">Delete</button>
+              </div>
+            `,
+                )
+                .join("");
+            }
+          }
+
+          // Activities
+          const aList = document.getElementById("cms-activities-list");
+          if (aList) {
+            if (!activities || activities.length === 0) {
+              aList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No activities recorded yet.</p>`;
+            } else {
+              aList.innerHTML = activities
+                .map(
+                  (a) => `
+              <div class="secret-list-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
+                <div>
+                  <strong style="color:#fff;">${a.title}</strong>
+                  <small style="color:var(--cyan-light);display:block;">${a.organization || ""} · ${a.category || ""}</small>
+                </div>
+                <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('activities', '${a.id}')">Delete</button>
+              </div>
+            `,
+                )
+                .join("");
+            }
+          }
+        }
+
+        window.handleDelete = async function (type, id) {
+          if (!confirm("Are you sure you want to delete this record?")) return;
+          try {
+            if (type === "projects") await cms.deleteProject(id);
+            else if (type === "gallery") await cms.deleteGalleryItem(id);
+            else if (type === "certificates") await cms.deleteCertificate(id);
+            else if (type === "activities") await cms.deleteActivity(id);
+            await reloadData();
+          } catch (err) {
+            console.error(err);
+            alert("Error deleting record: " + err.message);
+          }
+        };
+
+        // Form 1: Project
+        document
+          .getElementById("form-manage-project")
+          ?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = e.currentTarget.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+
+            try {
+              const fd = new FormData(e.currentTarget);
+              let coverUrl = fd.get("cover_image") || "";
+
+              const file = document.getElementById("proj-file-input")?.files[0];
+              if (file) {
+                coverUrl = await cms.uploadStorageFile(file, "projects");
+              }
+
+              await cms.saveProject({
+                title: fd.get("title"),
+                main_title: fd.get("title"),
+                slug:
+                  fd.get("slug") ||
+                  fd.get("title").toLowerCase().replace(/\s+/g, "-"),
+                subtitle: fd.get("subtitle") || "",
+                category: fd.get("category") || "PROJECT",
+                status: fd.get("status") || "LIVE SYSTEM",
+                technologies: fd.get("technologies") || "",
+                ai_features: fd.get("ai_features") || "",
+                role: fd.get("role") || "",
+                description: fd.get("description") || "",
+                live_url: fd.get("live_url") || "",
+                project_url: fd.get("live_url") || "",
+                documentation_url: fd.get("documentation_url") || "",
+                cover_image: coverUrl,
+                image_url: coverUrl,
+              });
+
+              alert("Project successfully saved to Supabase Cloud!");
+              e.currentTarget.reset();
+              document.getElementById("proj-img-preview-box").style.display = "none";
+              await reloadData();
+            } catch (err) {
+              console.error(err);
+              alert("Error saving project: " + err.message);
+            } finally {
+              if (btn) btn.disabled = false;
+            }
+          });
+
+        // Form 2: Gallery
+        document
+          .getElementById("form-manage-gallery")
+          ?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = e.currentTarget.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+
+            try {
+              const fd = new FormData(e.currentTarget);
+              let imgUrl = fd.get("image_url") || "";
+
+              const file = document.getElementById("gal-file-input")?.files[0];
+              if (file) {
+                imgUrl = await cms.uploadStorageFile(file, "gallery");
+              }
+
+              await cms.saveGalleryItem({
+                id: "gal_" + Date.now(),
+                title: fd.get("title"),
+                category: fd.get("category") || "PROJECT",
+                project_id: fd.get("project_id") || "",
+                date: fd.get("date") || "2025",
+                description: fd.get("description") || "",
+                image_url: imgUrl,
+              });
+
+              alert("Gallery snapshot successfully saved to Supabase Cloud!");
+              e.currentTarget.reset();
+              document.getElementById("gal-img-preview-box").style.display = "none";
+              await reloadData();
+            } catch (err) {
+              console.error(err);
+              alert("Error saving gallery item: " + err.message);
+            } finally {
+              if (btn) btn.disabled = false;
+            }
+          });
+
+        // Form 3: Certificate
+        document
+          .getElementById("form-manage-cert")
+          ?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = e.currentTarget.querySelector('button[type="submit"]');
+            if (btn) btn.disabled = true;
+
+            try {
+              const fd = new FormData(e.currentTarget);
+              let imgUrl = fd.get("image_url") || "";
+
+              const file = document.getElementById("cert-file-input")?.files[0];
+              if (file) {
+                imgUrl = await cms.uploadStorageFile(file, "certificates");
+              }
+
+              await cms.saveCertificate({
+                id: "cert_" + Date.now(),
+                title: fd.get("title"),
+                issuer: fd.get("issuer"),
+                category: fd.get("category") || "CERTIFICATION",
+                issued_date: fd.get("issued_date") || "2024",
+                credential_id: fd.get("credential_id") || "",
+                credential_url: fd.get("credential_url") || "",
+                description: fd.get("description") || "",
+                image_url: imgUrl,
+              });
+
+              alert("Certificate successfully saved to Supabase Cloud!");
+              e.currentTarget.reset();
+              document.getElementById("cert-img-preview-box").style.display = "none";
+              await reloadData();
+            } catch (err) {
+              console.error(err);
+              alert("Error saving certificate: " + err.message);
+            } finally {
+              if (btn) btn.disabled = false;
+            }
+          });
+
+        // Form 4: Activity
+        document
+          .getElementById("form-manage-activity")
+          ?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fd = new FormData(e.currentTarget);
+            await cms.saveActivity({
+              id: "act_" + Date.now(),
+              title: fd.get("title"),
+              organization: fd.get("organization"),
+              category: fd.get("category"),
+              date: fd.get("date"),
+              description: fd.get("description"),
+            });
+
+            alert("Activity recorded successfully!");
+            e.currentTarget.reset();
+            reloadData();
+          });
+
+        reloadData();
+      });
+    </script>
+  </body>
+</html>

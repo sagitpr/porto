@@ -1,6 +1,13 @@
 /**
  * AI LABORATORY & SOFTWARE ENGINEERING PORTFOLIO ENGINE
  * SAGIT FATURRAKHMAN — 2026
+ * 
+ * Preserves the exact design & structure of sagitfaturakhman.id
+ * Enhanced with:
+ * 1. Supabase Cloud + Local Storage auto-sync
+ * 2. 65 Calm particle dots + 3D transparent undulating wave grid
+ * 3. Strict separation of Certificates (#cert-list) and Visual Gallery (#gallery-list)
+ * 4. 100% Full aspect-ratio Lightbox modal for certificates & screenshots
  */
 
 (function () {
@@ -10,7 +17,7 @@
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
   /* ============================================================
-     1. THREE.JS 3D LABORATORY BACKGROUND (SPHERE + PARTICLES + HOLOGRAM)
+     1. THREE.JS 3D LABORATORY (CALM 65 PARTICLES + UNDULATING WAVE GRID)
      ============================================================ */
   function initThreeLabCanvas() {
     const canvas = $('#lab-canvas');
@@ -40,7 +47,7 @@
       color: 0x38bdf8,
       wireframe: true,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.15,
     });
     const sphere = new THREE.Mesh(sphereGeo, sphereMat);
     labGroup.add(sphere);
@@ -51,7 +58,7 @@
       color: 0x7dd3fc,
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.28,
     });
     const innerCore = new THREE.Mesh(innerGeo, innerMat);
     labGroup.add(innerCore);
@@ -62,47 +69,48 @@
       color: 0x38bdf8,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.18,
     });
     const ring1 = new THREE.Mesh(ring1Geo, ringMat);
     ring1.rotation.x = Math.PI / 3;
     labGroup.add(ring1);
 
-    const ring2Geo = new THREE.RingGeometry(13.5, 13.58, 64);
-    const ring2Mat = new THREE.MeshBasicMaterial({
-      color: 0x0284c7,
-      side: THREE.DoubleSide,
+    // 4. Undulating Transparent 3D Wave Grid (Animasi Ombak Transparan)
+    const waveGeo = new THREE.PlaneGeometry(80, 80, 26, 26);
+    const waveMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      wireframe: true,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.08,
     });
-    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.y = Math.PI / 4;
-    labGroup.add(ring2);
+    const waveMesh = new THREE.Mesh(waveGeo, waveMat);
+    waveMesh.rotation.x = -Math.PI / 2.3;
+    waveMesh.position.y = -11;
+    labGroup.add(waveMesh);
 
-    // 4. Floating AI Laboratory Particle Field (Bintik / Hologram Bergerak)
-    const particleCount = 850;
+    // 5. Reduced Particle Field (65 Calm Dots - Tidak Padat Bintik)
+    const particleCount = 65;
     const particleGeo = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
     const particleSpeeds = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePositions[i] = (Math.random() - 0.5) * 80;
-      particlePositions[i + 1] = (Math.random() - 0.5) * 80;
-      particlePositions[i + 2] = (Math.random() - 0.5) * 60;
+      particlePositions[i] = (Math.random() - 0.5) * 65;
+      particlePositions[i + 1] = (Math.random() - 0.5) * 65;
+      particlePositions[i + 2] = (Math.random() - 0.5) * 45;
 
-      particleSpeeds[i] = (Math.random() - 0.5) * 0.02;
-      particleSpeeds[i + 1] = (Math.random() - 0.5) * 0.02;
-      particleSpeeds[i + 2] = (Math.random() - 0.5) * 0.02;
+      particleSpeeds[i] = (Math.random() - 0.5) * 0.008;
+      particleSpeeds[i + 1] = (Math.random() - 0.5) * 0.008;
+      particleSpeeds[i + 2] = (Math.random() - 0.5) * 0.008;
     }
 
     particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
 
-    // Particle Material with Soft Glowing Dot Texture
     const particleMat = new THREE.PointsMaterial({
       color: 0x7dd3fc,
-      size: 0.7,
+      size: 0.5,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.45,
       blending: THREE.AdditiveBlending,
     });
 
@@ -124,6 +132,8 @@
     }
     window.addEventListener('resize', onResize);
 
+    let clock = 0;
+
     function animate() {
       requestAnimationFrame(animate);
 
@@ -132,32 +142,42 @@
       const progress = totalHeight > 0 ? scrollY / totalHeight : 0;
 
       if (!prefersReducedMotion) {
-        sphere.rotation.x += 0.0012;
-        sphere.rotation.y += 0.0018;
-        innerCore.rotation.x -= 0.0018;
-        innerCore.rotation.y -= 0.0022;
-        ring1.rotation.z += 0.0015;
-        ring2.rotation.z -= 0.0012;
+        clock += 0.015;
 
-        // Particle drifting animation
+        sphere.rotation.x += 0.0008;
+        sphere.rotation.y += 0.0012;
+        innerCore.rotation.x -= 0.0012;
+        innerCore.rotation.y -= 0.0015;
+        ring1.rotation.z += 0.001;
+
+        // Gentle undulating wave animation on the grid
+        const posAttr = waveGeo.attributes.position;
+        for (let i = 0; i < posAttr.count; i++) {
+          const u = posAttr.getX(i);
+          const v = posAttr.getY(i);
+          const z = Math.sin(u * 0.18 + clock * 0.8) * Math.cos(v * 0.18 + clock * 0.6) * 1.4;
+          posAttr.setZ(i, z);
+        }
+        posAttr.needsUpdate = true;
+
+        // Slow calm particle drifting
         const positions = particleGeo.attributes.position.array;
         for (let i = 0; i < particleCount * 3; i += 3) {
           positions[i] += particleSpeeds[i];
           positions[i + 1] += particleSpeeds[i + 1];
           positions[i + 2] += particleSpeeds[i + 2];
 
-          // Wrap around boundaries
-          if (positions[i] > 40) positions[i] = -40;
-          if (positions[i] < -40) positions[i] = 40;
-          if (positions[i + 1] > 40) positions[i + 1] = -40;
-          if (positions[i + 1] < -40) positions[i + 1] = 40;
+          if (positions[i] > 32) positions[i] = -32;
+          if (positions[i] < -32) positions[i] = 32;
+          if (positions[i + 1] > 32) positions[i + 1] = -32;
+          if (positions[i + 1] < -32) positions[i + 1] = 32;
         }
         particleGeo.attributes.position.needsUpdate = true;
       }
 
-      const targetZ = 32 - progress * 10;
-      const targetRotationY = progress * Math.PI * 1.5 + mouseX * 0.2;
-      const targetRotationX = mouseY * 0.15;
+      const targetZ = 32 - progress * 8;
+      const targetRotationY = progress * Math.PI + mouseX * 0.12;
+      const targetRotationX = mouseY * 0.08;
 
       labGroup.rotation.y += (targetRotationY - labGroup.rotation.y) * 0.05;
       labGroup.rotation.x += (targetRotationX - labGroup.rotation.x) * 0.05;
@@ -183,7 +203,7 @@
       const scrollPercent = totalScroll > 0 ? (window.scrollY / totalScroll) * 100 : 0;
 
       if (progressBar) {
-        progressBar.style.height = `${Math.min(100, Math.max(8, scrollPercent))}%`;
+        progressBar.style.height = `${Math.min(100, Math.max(10, scrollPercent))}%`;
       }
 
       let activeId = 'hero';
@@ -196,13 +216,11 @@
         }
       });
 
-      // Update Rail Items
       railItems.forEach((item) => {
         const target = item.getAttribute('data-rail');
         item.classList.toggle('active', target === activeId);
       });
 
-      // Update Topbar Links
       navLinks.forEach((link) => {
         const target = link.getAttribute('data-chapter');
         link.classList.toggle('active', target === activeId);
@@ -242,22 +260,311 @@
   }
 
   /* ============================================================
-     4. DOCUMENTATION FILTER TABS (CHAPTER 09)
+     4. DATA RENDERING (PROJECTS, SEPARATE CERTIFICATES & GALLERY)
+     ============================================================ */
+  const VAULT_STORE_KEY = 'sagit.portfolio.vault.v5';
+  const vaultDefaults = { projects: [], docs: [] };
+
+  function readVault() {
+    try {
+      return { ...vaultDefaults, ...JSON.parse(localStorage.getItem(VAULT_STORE_KEY) || '{}') };
+    } catch {
+      return { ...vaultDefaults };
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;',
+    }[char]));
+  }
+
+  async function renderPortfolioData() {
+    let cloudData = null;
+    if (window.SupabaseCMS) {
+      cloudData = await window.SupabaseCMS.fetchAllFromCloud();
+    } else {
+      cloudData = readVault();
+    }
+
+    const projects = (cloudData && cloudData.projects) ? cloudData.projects : [];
+    const certificates = (cloudData && cloudData.certificates) ? cloudData.certificates : [];
+    const gallery = (cloudData && cloudData.gallery) ? cloudData.gallery : [];
+
+    // 1. Render Projects
+    const projectList = $('#project-list');
+    const projectEmptyState = $('#project-empty-state');
+
+    if (projectList) {
+      if (projects.length === 0) {
+        if (projectEmptyState) {
+          projectEmptyState.style.display = 'block';
+          projectList.innerHTML = '';
+          projectList.appendChild(projectEmptyState);
+        }
+      } else {
+        if (projectEmptyState) projectEmptyState.style.display = 'none';
+        projectList.innerHTML = '';
+
+        projects.forEach((item, index) => {
+          const card = document.createElement('article');
+          card.className = 'project-master-card double-bezel';
+          card.dataset.vaultDynamic = 'true';
+          const title = item.title || item.main_title || 'PROJECT';
+          const cover = item.cover_image || item.image_url || item.image || '';
+          const live = item.live_url || item.project_url || item.url || '';
+
+          card.innerHTML = `
+            <div class="bezel-inner">
+              <div class="project-top-row">
+                <div class="project-category-pills">
+                  <span class="badge-index">0${index + 1}</span>
+                  <span class="proj-badge">${escapeHtml(item.category || 'PROJECT')}</span>
+                </div>
+                <span class="proj-status-live">${escapeHtml(item.status || 'PUBLISHED')}</span>
+              </div>
+              <div class="project-body-grid">
+                <div class="project-details">
+                  <h3 class="proj-name">${escapeHtml(title)}</h3>
+                  ${item.subtitle ? `<h4 class="proj-subtitle">${escapeHtml(item.subtitle)}</h4>` : ''}
+                  <p class="proj-description">${escapeHtml(item.description || '')}</p>
+                  
+                  ${item.problem ? `
+                    <div class="proj-problem-solution" style="display:grid;gap:8px;margin:12px 0;">
+                      <div class="meta-block"><strong>PROBLEM STATEMENT</strong><p>${escapeHtml(item.problem)}</p></div>
+                      <div class="meta-block"><strong>ENGINEERING SOLUTION</strong><p>${escapeHtml(item.solution)}</p></div>
+                    </div>
+                  ` : ''}
+
+                  <div class="proj-meta-section">
+                    ${(item.technologies || item.stack) ? `<div class="meta-block"><strong>TECH STACK</strong><p>${escapeHtml(item.technologies || item.stack)}</p></div>` : ''}
+                    ${(item.ai_features || item.ai) ? `<div class="meta-block"><strong>AI CAPABILITIES</strong><p>${escapeHtml(item.ai_features || item.ai)}</p></div>` : ''}
+                    ${item.role ? `<div class="meta-block"><strong>MY ROLE</strong><p>${escapeHtml(item.role)}</p></div>` : ''}
+                  </div>
+
+                  <div class="project-action-row" style="display:flex;gap:10px;margin-top:16px;">
+                    ${live ? `
+                      <a class="btn-clean primary" href="${escapeHtml(live)}" target="_blank" rel="noreferrer">
+                        <span>LIVE PROJECT</span>
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      </a>
+                    ` : ''}
+                    <a class="btn-clean secondary" href="#documentation">
+                      <span>DOCUMENTATION →</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="project-screen-mockup">
+                  <div class="mockup-window-bar">
+                    <span class="mock-dot red"></span>
+                    <span class="mock-dot yellow"></span>
+                    <span class="mock-dot green"></span>
+                    <span class="mock-url">${escapeHtml((item.slug || title).toLowerCase().replace(/\s+/g, '-'))}.dev</span>
+                  </div>
+                  <div class="mockup-screen-inner" style="padding:12px;background:#01060b;display:flex;align-items:center;justify-content:center;">
+                    ${cover ? `
+                      <img src="${cover}" alt="${escapeHtml(title)}" style="max-height:280px;width:auto;max-width:100%;object-fit:contain;display:block;">
+                    ` : `
+                      <div class="mockup-hero-banner" style="padding:32px 16px;text-align:center;">
+                        <span class="banner-badge">${escapeHtml(item.category || 'PROJECT')}</span>
+                        <h4 style="color:#fff;font-size:1.3rem;margin:8px 0;">${escapeHtml(title)}</h4>
+                        <small style="color:var(--cyan-light);">${escapeHtml(item.subtitle || '')}</small>
+                      </div>
+                    `}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          projectList.appendChild(card);
+        });
+      }
+    }
+
+    // 2. Render Certificates (#cert-list)
+    const certList = $('#cert-list');
+    const docEmptyState = $('#doc-empty-state');
+
+    if (certList) {
+      if (certificates.length === 0) {
+        if (docEmptyState) {
+          docEmptyState.style.display = 'block';
+          certList.innerHTML = '';
+          certList.appendChild(docEmptyState);
+        }
+      } else {
+        if (docEmptyState) docEmptyState.style.display = 'none';
+        certList.innerHTML = '';
+
+        certificates.forEach((item) => {
+          const card = document.createElement('article');
+          card.className = 'doc-entry-card double-bezel';
+          card.dataset.category = (item.category || 'certificates').toLowerCase();
+          
+          const imgUrl = item.image_url || item.image || '';
+
+          card.innerHTML = `
+            <div class="bezel-inner">
+              <div class="doc-badge-preview">
+                ${imgUrl ? `<img src="${imgUrl}" alt="${escapeHtml(item.title)}" class="doc-thumb">` : '<span style="font-weight:bold;color:var(--cyan-core);font-family:var(--font-mono);font-size:0.75rem;">VERIFIED CREDENTIAL</span>'}
+                <span class="doc-type-tag">${escapeHtml((item.category || 'CERTIFICATE').toUpperCase())}</span>
+              </div>
+              <div class="doc-info">
+                <h3 class="doc-title">${escapeHtml(item.title)}</h3>
+                ${(item.issuer || item.organization) ? `<span class="doc-issuer">${escapeHtml(item.issuer || item.organization)}</span>` : ''}
+                <p class="doc-summary">${escapeHtml(item.description || '')}</p>
+                <div class="doc-footer-meta">
+                  <span class="doc-date">${escapeHtml(item.issued_date || item.date || '2024')}</span>
+                  <button type="button" class="btn-open-lightbox doc-link-arrow" style="background:none;border:none;cursor:pointer;color:var(--cyan-light);">
+                    VIEW FULL DOCUMENT →
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+
+          card.querySelector('.btn-open-lightbox')?.addEventListener('click', () => {
+            openLightbox({
+              title: item.title,
+              issuer: item.issuer || item.organization || '',
+              category: item.category || 'CERTIFICATE',
+              image: imgUrl,
+              description: item.description || '',
+              url: item.credential_url || item.url || ''
+            });
+          });
+
+          certList.appendChild(card);
+        });
+      }
+    }
+
+    // 3. Render Visual Gallery (#gallery-list)
+    const galleryList = $('#gallery-list');
+    if (galleryList) {
+      if (gallery.length === 0) {
+        galleryList.innerHTML = `
+          <div class="empty-vault-state double-bezel" style="grid-column: 1 / -1; width: 100%; text-align: center;">
+            <div class="bezel-inner" style="padding: 40px 24px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+              <div class="empty-state-icon" style="width: 48px; height: 48px; border-radius: 10px; background: rgba(6, 22, 38, 0.8); border: 1px solid var(--border-line); display: grid; place-items: center; color: var(--cyan-core); margin-bottom: 6px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </div>
+              <h3 style="color: #fff; font-size: 1.1rem; letter-spacing: 0.06em;">NO VISUAL GALLERY SNAPSHOTS YET</h3>
+              <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 48ch;">Visual screenshots, system interface telemetry, and lab documentation uploaded via the Admin CMS will appear here.</p>
+            </div>
+          </div>
+        `;
+      } else {
+        galleryList.innerHTML = '';
+        gallery.forEach((item) => {
+          const card = document.createElement('div');
+          card.className = 'gallery-card double-bezel';
+          const imgUrl = item.image_url || item.image || '';
+          card.innerHTML = `
+            <div class="bezel-inner">
+              <div class="gallery-img-box">
+                ${imgUrl ? `<img src="${imgUrl}" alt="${escapeHtml(item.title)}">` : '<div style="color:var(--cyan-light);font-family:var(--font-mono);font-size:0.75rem;">TELEMETRY SNAPSHOT</div>'}
+              </div>
+              <h4 class="gallery-card-title">${escapeHtml(item.title)}</h4>
+              <p class="gallery-card-desc">${escapeHtml(item.description || '')}</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+                <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text-dim);">${escapeHtml(item.category || 'PROJECT')} · ${escapeHtml(item.date || '2025')}</span>
+                ${imgUrl ? `<button type="button" class="btn-gal-zoom doc-link-arrow" style="background:none;border:none;cursor:pointer;color:var(--cyan-light);font-size:0.75rem;">ZOOM VIEW →</button>` : ''}
+              </div>
+            </div>
+          `;
+
+          card.querySelector('.btn-gal-zoom')?.addEventListener('click', () => {
+            openLightbox({
+              title: item.title,
+              issuer: 'TELEMETRY / GALLERY',
+              category: item.category || 'VISUAL SNAPSHOT',
+              image: imgUrl,
+              description: item.description || '',
+              url: ''
+            });
+          });
+
+          galleryList.appendChild(card);
+        });
+      }
+    }
+  }
+
+  /* ============================================================
+     5. LIGHTBOX MODAL (100% ASPECT RATIO PRESERVATION)
+     ============================================================ */
+  function openLightbox(data) {
+    const modal = $('#cert-lightbox-modal');
+    if (!modal) return;
+
+    $('#lb-cat').textContent = data.category || 'VERIFIED CREDENTIAL';
+    $('#lb-title').textContent = data.title || '';
+    $('#lb-issuer').textContent = data.issuer || '';
+    $('#lb-desc').textContent = data.description || '';
+
+    const img = $('#lb-img');
+    if (data.image) {
+      img.src = data.image;
+      img.style.display = 'block';
+    } else {
+      img.style.display = 'none';
+    }
+
+    const verifyLink = $('#lb-verify-link');
+    if (data.url) {
+      verifyLink.href = data.url;
+      verifyLink.style.display = 'inline-flex';
+    } else {
+      verifyLink.style.display = 'none';
+    }
+
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeLightbox() {
+    const modal = $('#cert-lightbox-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  function initLightboxEvents() {
+    $('#btn-close-lightbox')?.addEventListener('click', closeLightbox);
+    $('#cert-lightbox-close-backdrop')?.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  }
+
+  /* ============================================================
+     6. CERTIFICATE FILTER TABS
      ============================================================ */
   function initDocTabs() {
     const tabs = $$('.doc-tab');
-
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         tabs.forEach((t) => t.classList.remove('active'));
         tab.classList.add('active');
 
         const filter = tab.getAttribute('data-filter');
-        const docCards = $$('.doc-entry-card');
+        const docCards = $$('#cert-list .doc-entry-card');
 
         docCards.forEach((card) => {
-          const category = card.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
+          const category = (card.getAttribute('data-category') || '').toLowerCase();
+          if (filter === 'all') {
+            card.style.display = 'block';
+          } else if (filter === 'certificates' && (category.includes('cert') || category.includes('found'))) {
+            card.style.display = 'block';
+          } else if (filter === 'training' && (category.includes('train') || category.includes('work') || category.includes('activ'))) {
+            card.style.display = 'block';
+          } else if (filter === 'academic' && (category.includes('acad') || category.includes('s1'))) {
             card.style.display = 'block';
           } else {
             card.style.display = 'none';
@@ -268,7 +575,7 @@
   }
 
   /* ============================================================
-     5. SCROLL TO TOP
+     7. SCROLL TO TOP
      ============================================================ */
   function initBackToTop() {
     const btn = $('#back-top');
@@ -290,328 +597,153 @@
   }
 
   /* ============================================================
-     6. PRIVATE CONTENT VAULT (ADMIN MODAL & STATE CONTROLLER)
+     8. CONTENT VAULT MODAL (SYNCED DIRECTLY TO SUPABASE CMS)
      ============================================================ */
-  const VAULT_STORE_KEY = 'sagit.portfolio.vault.v4';
-  const vaultDefaults = { projects: [], docs: [] };
+  function initVaultModal() {
+    const adminModal = $('#secret-admin');
+    if (!adminModal) return;
 
-  function readVault() {
-    try {
-      return { ...vaultDefaults, ...JSON.parse(localStorage.getItem(VAULT_STORE_KEY) || '{}') };
-    } catch {
-      return { ...vaultDefaults };
-    }
-  }
+    function openVault(targetTab = 'project') {
+      adminModal.classList.add('active');
+      adminModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
 
-  function writeVault(data) {
-    localStorage.setItem(VAULT_STORE_KEY, JSON.stringify(data));
-  }
-
-  function escapeHtml(value) {
-    return String(value || '').replace(/[&<>"']/g, (char) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;',
-    }[char]));
-  }
-
-  function fileToDataUrl(file) {
-    return new Promise((resolve) => {
-      if (!file || !file.size) return resolve('');
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function renderVaultProjectsAndDocs() {
-    const data = readVault();
-    $$('[data-vault-dynamic="true"]').forEach((node) => node.remove());
-
-    // Render Projects
-    const projectList = $('#project-list');
-    const projectEmptyState = $('#project-empty-state');
-
-    if (projectList) {
-      if (data.projects.length === 0) {
-        if (projectEmptyState) projectEmptyState.style.display = 'block';
-      } else {
-        if (projectEmptyState) projectEmptyState.style.display = 'none';
-
-        data.projects.forEach((item, index) => {
-          const card = document.createElement('article');
-          card.className = 'project-master-card double-bezel';
-          card.dataset.vaultDynamic = 'true';
-          card.innerHTML = `
-            <div class="bezel-inner">
-              <div class="project-top-row">
-                <div class="project-category-pills">
-                  <span class="badge-index">0${index + 1}</span>
-                  <span class="proj-badge">${escapeHtml(item.category || 'PROJECT')}</span>
-                </div>
-                <span class="proj-status-live">PUBLISHED</span>
-              </div>
-              <div class="project-body-grid">
-                <div class="project-details">
-                  <h3 class="proj-name">${escapeHtml(item.title)}</h3>
-                  ${item.subtitle ? `<h4 class="proj-subtitle">${escapeHtml(item.subtitle)}</h4>` : ''}
-                  <p class="proj-description">${escapeHtml(item.description)}</p>
-                  
-                  <div class="proj-meta-section">
-                    ${item.stack ? `<div class="meta-block"><strong>TECH STACK</strong><p>${escapeHtml(item.stack)}</p></div>` : ''}
-                    ${item.ai ? `<div class="meta-block"><strong>AI CAPABILITIES</strong><p>${escapeHtml(item.ai)}</p></div>` : ''}
-                    ${item.role ? `<div class="meta-block"><strong>MY ROLE</strong><p>${escapeHtml(item.role)}</p></div>` : ''}
-                  </div>
-
-                  ${item.url ? `
-                    <div class="project-action-row">
-                      <a class="btn-clean primary" href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">
-                        <span>LIVE PROJECT</span>
-                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                      </a>
-                    </div>
-                  ` : ''}
-                </div>
-
-                ${item.image ? `
-                  <div class="project-screen-mockup">
-                    <div class="mockup-window-bar">
-                      <span class="mock-dot red"></span>
-                      <span class="mock-dot yellow"></span>
-                      <span class="mock-dot green"></span>
-                      <span class="mock-url">${escapeHtml(item.title.toLowerCase().replace(/\s+/g, '-'))}.dev</span>
-                    </div>
-                    <img src="${item.image}" alt="${escapeHtml(item.title)}" style="width:100%;height:auto;display:block;">
-                  </div>
-                ` : `
-                  <div class="project-screen-mockup">
-                    <div class="mockup-window-bar">
-                      <span class="mock-dot red"></span>
-                      <span class="mock-dot yellow"></span>
-                      <span class="mock-dot green"></span>
-                      <span class="mock-url">${escapeHtml(item.title.toLowerCase().replace(/\s+/g, '-'))}.dev</span>
-                    </div>
-                    <div class="mockup-screen-inner warungio-preview">
-                      <div class="mockup-hero-banner">
-                        <span class="banner-badge">${escapeHtml(item.category || 'PROJECT')}</span>
-                        <h4>${escapeHtml(item.title)}</h4>
-                      </div>
-                    </div>
-                  </div>
-                `}
-              </div>
-            </div>
-          `;
-          projectList.appendChild(card);
-        });
-      }
+      $$('.secret-tab').forEach((t) => {
+        t.classList.toggle('active', t.getAttribute('data-secret-tab') === targetTab);
+      });
+      $$('.secret-form').forEach((f) => {
+        const id = f.id;
+        if (targetTab === 'project' && id.includes('project')) f.classList.add('active');
+        else if (targetTab === 'doc' && id.includes('doc')) f.classList.add('active');
+        else if (targetTab === 'backup' && id.includes('backup')) f.classList.add('active');
+        else f.classList.remove('active');
+      });
     }
 
-    // Render Documentation & Gallery
-    const docList = $('#doc-list');
-    const docEmptyState = $('#doc-empty-state');
-
-    if (docList) {
-      if (data.docs.length === 0) {
-        if (docEmptyState) docEmptyState.style.display = 'block';
-      } else {
-        if (docEmptyState) docEmptyState.style.display = 'none';
-
-        data.docs.forEach((item) => {
-          const card = document.createElement('article');
-          card.className = 'doc-entry-card double-bezel';
-          card.dataset.vaultDynamic = 'true';
-          card.dataset.category = item.category || 'certificates';
-          
-          let previewContent = '';
-          if (item.image) {
-            previewContent = `<img src="${item.image}" alt="${escapeHtml(item.title)}" class="doc-thumb">`;
-          } else if (item.category === 'experience') {
-            previewContent = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="exp-icon-svg"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
-          } else {
-            previewContent = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="exp-icon-svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
-          }
-
-          card.innerHTML = `
-            <div class="bezel-inner">
-              <div class="doc-badge-preview ${item.category === 'experience' ? 'exp-preview' : ''} ${item.category === 'gallery' ? 'gallery-preview' : ''}">
-                ${previewContent}
-                <span class="doc-type-tag">${escapeHtml((item.category || 'DOCUMENT').toUpperCase())}</span>
-              </div>
-              <div class="doc-info">
-                <h3 class="doc-title">${escapeHtml(item.title)}</h3>
-                ${item.issuer ? `<span class="doc-issuer">${escapeHtml(item.issuer)}</span>` : ''}
-                <p class="doc-summary">${escapeHtml(item.description)}</p>
-                <div class="doc-footer-meta">
-                  <span class="doc-date">${escapeHtml(item.date || '2026')}</span>
-                  ${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" class="doc-link-arrow">VIEW DOCUMENT →</a>` : '<span class="doc-link-arrow">VERIFIED →</span>'}
-                </div>
-              </div>
-            </div>
-          `;
-          docList.appendChild(card);
-        });
-      }
+    function closeVault() {
+      adminModal.classList.remove('active');
+      adminModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
     }
 
-    // Update list in secret admin modal
-    const list = $('#secret-list');
-    if (list) {
-      list.innerHTML = '';
-      if (data.projects.length === 0 && data.docs.length === 0) {
-        list.innerHTML = '<div style="color:var(--text-dim);font-size:0.8rem;padding:8px 0;">No entries created yet. Fill out the forms above to add items.</div>';
-      } else {
-        [
-          ...data.projects.map((p, i) => ({ type: 'projects', item: p, idx: i })),
-          ...data.docs.map((d, i) => ({ type: 'docs', item: d, idx: i })),
-        ].forEach(({ type, item, idx }) => {
-          const row = document.createElement('div');
-          row.className = 'secret-list-item';
-          row.innerHTML = `
-            <span><strong>[${type === 'projects' ? 'PROJECT' : (item.category || 'DOC').toUpperCase()}]</strong> ${escapeHtml(item.title)}</span>
-            <button type="button">Delete</button>
-          `;
-          row.querySelector('button').addEventListener('click', () => {
-            const next = readVault();
-            next[type].splice(idx, 1);
-            writeVault(next);
-            renderVaultProjectsAndDocs();
-          });
-          list.appendChild(row);
-        });
-      }
-    }
-  }
-
-  function initSecretAdmin() {
-    const admin = $('#secret-admin');
-    if (!admin) return;
-
-    const open = (targetTab = 'project') => {
-      admin.classList.add('open');
-      admin.setAttribute('aria-hidden', 'false');
-
-      // Set active tab
-      $$('.secret-tab').forEach((t) => t.classList.toggle('active', t.dataset.secretTab === targetTab));
-      $$('.secret-form').forEach((f) => f.classList.toggle('active', f.id.includes(targetTab)));
-    };
-
-    const close = () => {
-      admin.classList.remove('open');
-      admin.setAttribute('aria-hidden', 'true');
-      if (window.location.hash === '#sagit-admin') {
-        history.replaceState(null, '', window.location.pathname);
-      }
-    };
-
-    if (window.location.hash === '#sagit-admin') open();
-
-    $$('[data-secret-close]').forEach((el) => el.addEventListener('click', close));
-
-    // Open triggers from empty state and footer
+    $$('[data-secret-close]').forEach((btn) => btn.addEventListener('click', closeVault));
     $$('.open-vault-trigger').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.vaultTarget || 'project';
-        open(target);
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openVault(btn.getAttribute('data-vault-target') || 'project');
       });
     });
 
-    $$('.secret-tab').forEach((tab) => {
-      tab.addEventListener('click', () => {
-        $$('.secret-tab').forEach((t) => t.classList.toggle('active', t === tab));
-        $$('.secret-form').forEach((f) => f.classList.toggle('active', f.id.includes(tab.dataset.secretTab)));
-      });
-    });
-
-    let typedKeySequence = '';
-    document.addEventListener('keydown', (e) => {
-      if (e.target.matches('input, textarea, select')) return;
-      typedKeySequence = (typedKeySequence + e.key.toUpperCase()).slice(-10);
-      if (typedKeySequence === 'SAGITADMIN') open();
-      if (e.key === 'Escape') close();
-    });
-
-    // Form 1: Add Project
+    // Form 1: Save Project directly to Supabase
     $('#secret-project-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.currentTarget;
       const fd = new FormData(form);
-      const data = readVault();
-      data.projects.unshift({
-        title: fd.get('title'),
-        subtitle: fd.get('subtitle'),
-        category: fd.get('category'),
-        stack: fd.get('stack'),
-        ai: fd.get('ai'),
-        role: fd.get('role'),
-        description: fd.get('description'),
-        url: fd.get('url'),
-        image: await fileToDataUrl(fd.get('image')),
-      });
-      writeVault(data);
-      form.reset();
-      renderVaultProjectsAndDocs();
-      alert('Project saved successfully to Vault!');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        let imageUrl = '';
+        const fileInput = form.querySelector('input[name="image"]');
+        if (fileInput && fileInput.files[0] && window.SupabaseCMS) {
+          imageUrl = await window.SupabaseCMS.uploadStorageFile(fileInput.files[0], 'projects');
+        }
+
+        if (window.SupabaseCMS) {
+          await window.SupabaseCMS.saveProject({
+            title: fd.get('title'),
+            main_title: fd.get('title'),
+            subtitle: fd.get('subtitle') || '',
+            category: fd.get('category') || 'PROJECT',
+            stack: fd.get('stack') || '',
+            technologies: fd.get('stack') || '',
+            ai: fd.get('ai') || '',
+            ai_features: fd.get('ai') || '',
+            role: fd.get('role') || '',
+            description: fd.get('description') || '',
+            url: fd.get('url') || '',
+            live_url: fd.get('url') || '',
+            cover_image: imageUrl,
+            image_url: imageUrl,
+            status: 'PUBLISHED'
+          });
+        }
+
+        alert('Project successfully saved and published!');
+        form.reset();
+        closeVault();
+        await renderPortfolioData();
+      } catch (err) {
+        alert('Save error: ' + err.message);
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
 
-    // Form 2: Add Document / Gallery / Experience
+    // Form 2: Save Doc / Certificate / Gallery directly to Supabase
     $('#secret-doc-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.currentTarget;
       const fd = new FormData(form);
-      const data = readVault();
-      data.docs.unshift({
-        title: fd.get('title'),
-        category: fd.get('category'),
-        issuer: fd.get('issuer'),
-        date: fd.get('date'),
-        description: fd.get('description'),
-        url: fd.get('url'),
-        image: await fileToDataUrl(fd.get('image')),
-      });
-      writeVault(data);
-      form.reset();
-      renderVaultProjectsAndDocs();
-      alert('Archive entry saved successfully to Vault!');
-    });
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
 
-    // Backup Export
-    $('#btn-export-vault')?.addEventListener('click', () => {
-      const data = readVault();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `sagit-portfolio-vault-backup-${new Date().toISOString().split('T')[0]}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
+      try {
+        let imageUrl = '';
+        const fileInput = form.querySelector('input[name="image"]');
+        const category = fd.get('category') || 'certificates';
 
-    // Backup Import
-    $('#input-import-vault')?.addEventListener('change', (e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const parsed = JSON.parse(event.target.result);
-          if (Array.isArray(parsed.projects) || Array.isArray(parsed.docs)) {
-            writeVault({ projects: parsed.projects || [], docs: parsed.docs || [] });
-            renderVaultProjectsAndDocs();
-            alert('Backup successfully imported!');
-          } else {
-            alert('Invalid backup file format.');
-          }
-        } catch (err) {
-          alert('Failed to parse JSON file.');
+        if (fileInput && fileInput.files[0] && window.SupabaseCMS) {
+          imageUrl = await window.SupabaseCMS.uploadStorageFile(fileInput.files[0], category);
         }
-      };
-      reader.readAsText(file);
+
+        if (window.SupabaseCMS) {
+          if (category === 'gallery') {
+            await window.SupabaseCMS.saveGalleryItem({
+              id: 'gal_' + Date.now(),
+              title: fd.get('title'),
+              category: 'GALLERY',
+              description: fd.get('description') || '',
+              date: fd.get('date') || '2025',
+              image_url: imageUrl
+            });
+          } else {
+            await window.SupabaseCMS.saveCertificate({
+              id: 'cert_' + Date.now(),
+              title: fd.get('title'),
+              issuer: fd.get('issuer') || '',
+              category: category.toUpperCase(),
+              issued_date: fd.get('date') || '2024',
+              description: fd.get('description') || '',
+              credential_url: fd.get('url') || '',
+              image_url: imageUrl
+            });
+          }
+        }
+
+        alert('Archive entry successfully saved and published!');
+        form.reset();
+        closeVault();
+        await renderPortfolioData();
+      } catch (err) {
+        alert('Save error: ' + err.message);
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
 
-    // Clear All Data
-    $('#btn-clear-vault')?.addEventListener('click', () => {
-      if (confirm('Are you sure you want to clear all data in the vault?')) {
-        writeVault(vaultDefaults);
-        renderVaultProjectsAndDocs();
+    // Keyboard trigger "SAGITADMIN"
+    let buffer = '';
+    window.addEventListener('keydown', (e) => {
+      if (['input', 'textarea', 'select'].includes(document.activeElement?.tagName?.toLowerCase())) return;
+      if (e.key === 'Escape') closeVault();
+
+      if (e.key && e.key.length === 1) {
+        buffer = (buffer + e.key.toUpperCase()).slice(-10);
+        if (buffer === 'SAGITADMIN') {
+          openVault('project');
+          buffer = '';
+        }
       }
     });
   }
@@ -619,13 +751,15 @@
   /* ============================================================
      INITIALIZATION
      ============================================================ */
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
     initThreeLabCanvas();
     initScrollSpy();
     initGithubHeatmap();
+    initLightboxEvents();
     initDocTabs();
     initBackToTop();
-    initSecretAdmin();
-    renderVaultProjectsAndDocs();
+    initVaultModal();
+
+    await renderPortfolioData();
   });
 })();

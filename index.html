@@ -1,1195 +1,2407 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sagit Faturrakhman | Software Engineer · AI Engineer</title>
-  <meta name="description" content="Sagit Faturrakhman — Information Systems student developing toward Software Engineering and AI Engineering, with a focus on full-stack applications, intelligent systems, data infrastructure, RAG, AI agents, automation, and system architecture.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-</head>
-<body class="lab-body">
-  <!-- Interactive 3D Background Sphere Canvas -->
-  <canvas id="lab-canvas" class="lab-canvas" aria-hidden="true"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sagit Faturrakhman | Software Engineer · AI Engineer</title>
+    <meta
+      name="description"
+      content="Sagit Faturrakhman — Information Systems student developing toward Software Engineering and AI Engineering, with a focus on full-stack applications, intelligent systems, data infrastructure, RAG, AI agents, automation, and system architecture."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  </head>
+  <body class="lab-body">
+    <!-- Interactive 3D Background Sphere Canvas -->
+    <canvas id="lab-canvas" class="lab-canvas" aria-hidden="true"></canvas>
 
-  <!-- Subtle Ambient Background Grid -->
-  <div class="lab-grid-overlay" aria-hidden="true"></div>
-  <div class="lab-vignette" aria-hidden="true"></div>
+    <!-- Subtle Ambient Background Grid -->
+    <div class="lab-grid-overlay" aria-hidden="true"></div>
+    <div class="lab-vignette" aria-hidden="true"></div>
 
-  <!-- Top Navigation Bar (Clean Editorial Engineering Header) -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#hero" aria-label="Sagit Faturrakhman Home">
-        <div class="brand-title">
-          <strong class="name">SAGIT FATURRAKHMAN</strong>
-          <span class="role">SOFTWARE ENGINEER · AI ENGINEER</span>
+    <!-- Top Navigation Bar (Clean Editorial Engineering Header) -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#hero" aria-label="Sagit Faturrakhman Home">
+          <div class="brand-title">
+            <strong class="name">SAGIT FATURRAKHMAN</strong>
+            <span class="role">SOFTWARE ENGINEER · AI ENGINEER</span>
+          </div>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#about" class="nav-link" data-chapter="about">ABOUT</a>
+          <a href="#journey" class="nav-link" data-chapter="journey">JOURNEY</a>
+          <a href="#engineering" class="nav-link" data-chapter="engineering"
+            >ENGINEERING</a
+          >
+          <a href="#ai" class="nav-link" data-chapter="ai">AI</a>
+          <a href="#data" class="nav-link" data-chapter="data">DATA</a>
+          <a href="#toolchain" class="nav-link" data-chapter="toolchain"
+            >TOOLCHAIN</a
+          >
+          <a href="#projects" class="nav-link" data-chapter="projects"
+            >PROJECTS</a
+          >
+          <a href="#documentation" class="nav-link" data-chapter="documentation"
+            >DOCUMENTATION</a
+          >
+          <a href="#contact" class="nav-link" data-chapter="contact">CONTACT</a>
+        </nav>
+
+        <div class="topbar-actions">
+          <a class="btn-topbar" href="#contact">
+            <span>DOWNLOAD CV</span>
+            <svg
+              class="btn-icon-svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+          </a>
         </div>
-      </a>
+      </div>
+    </header>
 
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#about" class="nav-link" data-chapter="about">ABOUT</a>
-        <a href="#journey" class="nav-link" data-chapter="journey">JOURNEY</a>
-        <a href="#engineering" class="nav-link" data-chapter="engineering">ENGINEERING</a>
-        <a href="#ai" class="nav-link" data-chapter="ai">AI</a>
-        <a href="#data" class="nav-link" data-chapter="data">DATA</a>
-        <a href="#toolchain" class="nav-link" data-chapter="toolchain">TOOLCHAIN</a>
-        <a href="#projects" class="nav-link" data-chapter="projects">PROJECTS</a>
-        <a href="#documentation" class="nav-link" data-chapter="documentation">DOCUMENTATION</a>
-        <a href="#contact" class="nav-link" data-chapter="contact">CONTACT</a>
-      </nav>
-
-      <div class="topbar-actions">
-        <a class="btn-topbar" href="#contact">
-          <span>DOWNLOAD CV</span>
-          <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <!-- Left Chapter Rail Navigation (Fixed Sidebar) -->
+    <aside class="left-chapter-rail" aria-label="Chapter Navigation">
+      <div class="rail-track">
+        <div class="rail-progress-bar" id="rail-progress"></div>
+        <a
+          href="#hero"
+          class="rail-item active"
+          data-rail="hero"
+          title="01 Hero"
+        >
+          <span class="rail-num">01</span>
+          <span class="rail-label">HERO</span>
+        </a>
+        <a href="#about" class="rail-item" data-rail="about" title="02 About">
+          <span class="rail-num">02</span>
+          <span class="rail-label">ABOUT</span>
+        </a>
+        <a
+          href="#journey"
+          class="rail-item"
+          data-rail="journey"
+          title="03 Journey"
+        >
+          <span class="rail-num">03</span>
+          <span class="rail-label">JOURNEY</span>
+        </a>
+        <a
+          href="#engineering"
+          class="rail-item"
+          data-rail="engineering"
+          title="04 Software Engineering"
+        >
+          <span class="rail-num">04</span>
+          <span class="rail-label">SOFTWARE ENG</span>
+        </a>
+        <a
+          href="#ai"
+          class="rail-item"
+          data-rail="ai"
+          title="05 AI Engineering"
+        >
+          <span class="rail-num">05</span>
+          <span class="rail-label">AI ENG</span>
+        </a>
+        <a
+          href="#data"
+          class="rail-item"
+          data-rail="data"
+          title="06 Data & Systems"
+        >
+          <span class="rail-num">06</span>
+          <span class="rail-label">DATA & SYSTEMS</span>
+        </a>
+        <a
+          href="#toolchain"
+          class="rail-item"
+          data-rail="toolchain"
+          title="07 Toolchain"
+        >
+          <span class="rail-num">07</span>
+          <span class="rail-label">TOOLCHAIN</span>
+        </a>
+        <a
+          href="#projects"
+          class="rail-item"
+          data-rail="projects"
+          title="08 Projects"
+        >
+          <span class="rail-num">08</span>
+          <span class="rail-label">PROJECTS</span>
+        </a>
+        <a
+          href="#documentation"
+          class="rail-item"
+          data-rail="documentation"
+          title="09 Documentation"
+        >
+          <span class="rail-num">09</span>
+          <span class="rail-label">DOCUMENTATION</span>
+        </a>
+        <a
+          href="#contact"
+          class="rail-item"
+          data-rail="contact"
+          title="10 Contact"
+        >
+          <span class="rail-num">10</span>
+          <span class="rail-label">CONTACT</span>
         </a>
       </div>
-    </div>
-  </header>
+    </aside>
 
-  <!-- Left Chapter Rail Navigation (Fixed Sidebar) -->
-  <aside class="left-chapter-rail" aria-label="Chapter Navigation">
-    <div class="rail-track">
-      <div class="rail-progress-bar" id="rail-progress"></div>
-      <a href="#hero" class="rail-item active" data-rail="hero" title="01 Hero">
-        <span class="rail-num">01</span>
-        <span class="rail-label">HERO</span>
-      </a>
-      <a href="#about" class="rail-item" data-rail="about" title="02 About">
-        <span class="rail-num">02</span>
-        <span class="rail-label">ABOUT</span>
-      </a>
-      <a href="#journey" class="rail-item" data-rail="journey" title="03 Journey">
-        <span class="rail-num">03</span>
-        <span class="rail-label">JOURNEY</span>
-      </a>
-      <a href="#engineering" class="rail-item" data-rail="engineering" title="04 Software Engineering">
-        <span class="rail-num">04</span>
-        <span class="rail-label">SOFTWARE ENG</span>
-      </a>
-      <a href="#ai" class="rail-item" data-rail="ai" title="05 AI Engineering">
-        <span class="rail-num">05</span>
-        <span class="rail-label">AI ENG</span>
-      </a>
-      <a href="#data" class="rail-item" data-rail="data" title="06 Data & Systems">
-        <span class="rail-num">06</span>
-        <span class="rail-label">DATA & SYSTEMS</span>
-      </a>
-      <a href="#toolchain" class="rail-item" data-rail="toolchain" title="07 Toolchain">
-        <span class="rail-num">07</span>
-        <span class="rail-label">TOOLCHAIN</span>
-      </a>
-      <a href="#projects" class="rail-item" data-rail="projects" title="08 Projects">
-        <span class="rail-num">08</span>
-        <span class="rail-label">PROJECTS</span>
-      </a>
-      <a href="#documentation" class="rail-item" data-rail="documentation" title="09 Documentation">
-        <span class="rail-num">09</span>
-        <span class="rail-label">DOCUMENTATION</span>
-      </a>
-      <a href="#contact" class="rail-item" data-rail="contact" title="10 Contact">
-        <span class="rail-num">10</span>
-        <span class="rail-label">CONTACT</span>
-      </a>
-    </div>
-  </aside>
-
-  <!-- Main 10 Chapters Container -->
-  <main class="main-container">
-
-    <!-- ============================================================
+    <!-- Main 10 Chapters Container -->
+    <main class="main-container">
+      <!-- ============================================================
          CHAPTER 01 — LABORATORY ENTRY (HERO - Centered Precision)
          ============================================================ -->
-    <section class="chapter-section chapter-hero" id="hero" data-chapter-index="01">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">01</span>
-        <span class="badge-tag">HERO</span>
-      </div>
-
-      <div class="hero-centered-content">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">WELCOME TO MY LABORATORY</span>
-          <span class="eyebrow-line"></span>
+      <section
+        class="chapter-section chapter-hero"
+        id="hero"
+        data-chapter-index="01"
+      >
+        <div class="chapter-rail-badge">
+          <span class="badge-num">01</span>
+          <span class="badge-tag">HERO</span>
         </div>
 
-        <h1 class="hero-main-title">
-          I BUILD DIGITAL SYSTEMS<br>
-          THAT TURN IDEAS<br>
-          <span class="gradient-text">INTO REAL PRODUCTS.</span>
-        </h1>
-
-        <p class="hero-description">
-          Software engineer & AI engineer passionate about building scalable applications, intelligent systems, data infrastructure, and meaningful digital solutions.
-        </p>
-
-        <div class="hero-cta-group">
-          <a class="btn-clean primary" href="#projects">
-            <span>VIEW PROJECTS</span>
-            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a class="btn-clean secondary" href="#contact">
-            <span>DOWNLOAD CV</span>
-            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          </a>
-        </div>
-
-        <div class="social-connect-row">
-          <span class="connect-label">CONNECT WITH ME</span>
-          <div class="social-icons">
-            <a href="https://github.com" target="_blank" rel="noreferrer" class="social-btn" title="GitHub" aria-label="GitHub Profile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="social-btn" title="LinkedIn" aria-label="LinkedIn Profile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" class="social-btn" title="Instagram" aria-label="Instagram Profile">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="mailto:sagitfaturrakhman@gmail.com" class="social-btn" title="Email" aria-label="Send Email">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Flowing Engineering Domains Marquee Ribbon (Clean Wide Experience) -->
-        <div class="hero-domains-ribbon double-bezel">
-          <div class="bezel-inner">
-            <div class="domains-ribbon-head">
-              <span class="ribbon-label">ENGINEERING DOMAINS &amp; CAPABILITIES</span>
-            </div>
-            <div class="marquee-wrapper">
-              <div class="marquee-track track-left">
-                <span class="stream-pill">SOFTWARE ENGINEERING</span>
-                <span class="stream-pill">AI ENGINEERING</span>
-                <span class="stream-pill">DATA SYSTEMS</span>
-                <span class="stream-pill">SYSTEM ARCHITECTURE</span>
-                <span class="stream-pill">AUTOMATION</span>
-                <span class="stream-pill">CLOUD INFRASTRUCTURE</span>
-                <span class="stream-pill alt">RAG PIPELINES</span>
-                <span class="stream-pill alt">AI AGENTS</span>
-                <span class="stream-pill alt">RESTFUL APIS</span>
-                <span class="stream-pill alt">VECTOR DATABASES</span>
-                <!-- Loop -->
-                <span class="stream-pill">SOFTWARE ENGINEERING</span>
-                <span class="stream-pill">AI ENGINEERING</span>
-                <span class="stream-pill">DATA SYSTEMS</span>
-                <span class="stream-pill">SYSTEM ARCHITECTURE</span>
-                <span class="stream-pill">AUTOMATION</span>
-                <span class="stream-pill">CLOUD INFRASTRUCTURE</span>
-                <span class="stream-pill alt">RAG PIPELINES</span>
-                <span class="stream-pill alt">AI AGENTS</span>
-                <span class="stream-pill alt">RESTFUL APIS</span>
-                <span class="stream-pill alt">VECTOR DATABASES</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         CHAPTER 02 — ABOUT THE ENGINEER
-         ============================================================ -->
-    <section class="chapter-section" id="about" data-chapter-index="02">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">02</span>
-        <span class="badge-tag">ABOUT</span>
-      </div>
-
-      <div class="about-grid">
-        <!-- Left: Profile Portrait Card with Double-Bezel & Crisp HUD Reticle -->
-        <div class="about-portrait-card double-bezel">
-          <div class="bezel-inner">
-            <div class="portrait-hud-frame">
-              <img src="./asset/image/1777520674166.jfif" alt="Sagit Faturrakhman Portrait" class="engineer-photo">
-              <div class="corner-bracket top-left"></div>
-              <div class="corner-bracket top-right"></div>
-              <div class="corner-bracket bottom-left"></div>
-              <div class="corner-bracket bottom-right"></div>
-              <div class="portrait-overlay-hud">
-                <span>IDENTITY // SAGIT FATURRAKHMAN</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Middle: Bio & Positioning Statement -->
-        <div class="about-bio-col">
+        <div class="hero-centered-content">
           <div class="lab-eyebrow">
             <span class="eyebrow-line"></span>
-            <span class="eyebrow-text">ABOUT THE ENGINEER</span>
+            <span class="eyebrow-text">WELCOME TO MY LABORATORY</span>
+            <span class="eyebrow-line"></span>
           </div>
-          <h2 class="section-heading">
-            Building solutions with code, intelligence, and purpose.
-          </h2>
-          <p class="bio-text">
-            I am an Information Systems student focused on software engineering and artificial intelligence. I enjoy turning complex problems into simple, scalable, and intelligent systems by connecting modern full-stack architectures with deep learning models, data infrastructure, and workflow automation.
+
+          <h1 class="hero-main-title">
+            I BUILD DIGITAL SYSTEMS<br />
+            THAT TURN IDEAS<br />
+            <span class="gradient-text">INTO REAL PRODUCTS.</span>
+          </h1>
+
+          <p class="hero-description">
+            Software engineer & AI engineer passionate about building scalable
+            applications, intelligent systems, data infrastructure, and
+            meaningful digital solutions.
           </p>
 
-          <div class="identity-meta-grid">
-            <div class="meta-item">
-              <span class="meta-label">LOCATION</span>
-              <strong class="meta-val">Tasikmalaya, Indonesia</strong>
+          <div class="hero-cta-group">
+            <a class="btn-clean primary" href="#projects">
+              <span>VIEW PROJECTS</span>
+              <svg
+                class="btn-arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a class="btn-clean secondary" href="#contact">
+              <span>DOWNLOAD CV</span>
+              <svg
+                class="btn-arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="social-connect-row">
+            <span class="connect-label">CONNECT WITH ME</span>
+            <div class="social-icons">
+              <a
+                href="https://github.com/sagitpr"
+                target="_blank"
+                rel="noreferrer"
+                class="social-btn"
+                title="GitHub"
+                aria-label="GitHub Profile"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/sagit-faturrakhman/"
+                target="_blank"
+                rel="noreferrer"
+                class="social-btn"
+                title="LinkedIn"
+                aria-label="LinkedIn Profile"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://www.instagram.com/_stfrmn/?hl=en"
+                target="_blank"
+                rel="noreferrer"
+                class="social-btn"
+                title="Instagram"
+                aria-label="Instagram Profile"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="mailto:sagitistaratas465@gmail.com"
+                class="social-btn"
+                title="Email"
+                aria-label="Send Email"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                  />
+                </svg>
+              </a>
             </div>
-            <div class="meta-item">
-              <span class="meta-label">EDUCATION</span>
-              <strong class="meta-val">Universitas Bakti Tunas Husada (S1 Sistem Informasi)</strong>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">STATUS</span>
-              <strong class="meta-val status-open">Open for internship & collaboration</strong>
+          </div>
+
+          <!-- Flowing Engineering Domains Marquee Ribbon (Clean Wide Experience) -->
+          <div class="hero-domains-ribbon double-bezel">
+            <div class="bezel-inner">
+              <div class="domains-ribbon-head">
+                <span class="ribbon-label"
+                  >ENGINEERING DOMAINS &amp; CAPABILITIES</span
+                >
+              </div>
+              <div class="marquee-wrapper">
+                <div class="marquee-track track-left">
+                  <span class="stream-pill">SOFTWARE ENGINEERING</span>
+                  <span class="stream-pill">AI ENGINEERING</span>
+                  <span class="stream-pill">DATA SYSTEMS</span>
+                  <span class="stream-pill">SYSTEM ARCHITECTURE</span>
+                  <span class="stream-pill">AUTOMATION</span>
+                  <span class="stream-pill">CLOUD INFRASTRUCTURE</span>
+                  <span class="stream-pill alt">RAG PIPELINES</span>
+                  <span class="stream-pill alt">AI AGENTS</span>
+                  <span class="stream-pill alt">RESTFUL APIS</span>
+                  <span class="stream-pill alt">VECTOR DATABASES</span>
+                  <!-- Loop -->
+                  <span class="stream-pill">SOFTWARE ENGINEERING</span>
+                  <span class="stream-pill">AI ENGINEERING</span>
+                  <span class="stream-pill">DATA SYSTEMS</span>
+                  <span class="stream-pill">SYSTEM ARCHITECTURE</span>
+                  <span class="stream-pill">AUTOMATION</span>
+                  <span class="stream-pill">CLOUD INFRASTRUCTURE</span>
+                  <span class="stream-pill alt">RAG PIPELINES</span>
+                  <span class="stream-pill alt">AI AGENTS</span>
+                  <span class="stream-pill alt">RESTFUL APIS</span>
+                  <span class="stream-pill alt">VECTOR DATABASES</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Right: 6 Core Focus Cards -->
-        <div class="about-focus-col">
-          <div class="focus-header">
-            <span>CORE FOCUS</span>
+      <!-- ============================================================
+         CHAPTER 02 — ABOUT THE ENGINEER
+         ============================================================ -->
+      <section class="chapter-section" id="about" data-chapter-index="02">
+        <div class="chapter-rail-badge">
+          <span class="badge-num">02</span>
+          <span class="badge-tag">ABOUT</span>
+        </div>
+
+        <div class="about-grid">
+          <!-- Left: Profile Portrait Card with Double-Bezel & Crisp HUD Reticle -->
+          <div class="about-portrait-card double-bezel">
+            <div class="bezel-inner">
+              <div class="portrait-hud-frame">
+                <img
+                  src="./asset/image/1777520674166.jfif"
+                  alt="Sagit Faturrakhman Portrait"
+                  class="engineer-photo"
+                />
+                <div class="corner-bracket top-left"></div>
+                <div class="corner-bracket top-right"></div>
+                <div class="corner-bracket bottom-left"></div>
+                <div class="corner-bracket bottom-right"></div>
+                <div class="portrait-overlay-hud">
+                  <span>IDENTITY // SAGIT FATURRAKHMAN</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="core-focus-grid">
-            <div class="focus-card double-bezel">
-              <div class="bezel-inner">
-                <div class="focus-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <strong>Software Engineering</strong>
+          <!-- Middle: Bio & Positioning Statement -->
+          <div class="about-bio-col">
+            <div class="lab-eyebrow">
+              <span class="eyebrow-line"></span>
+              <span class="eyebrow-text">ABOUT THE ENGINEER</span>
+            </div>
+            <h2 class="section-heading">
+              Building solutions with code, intelligence, and purpose.
+            </h2>
+            <p class="bio-text">
+              I am an Information Systems student focused on software
+              engineering and artificial intelligence. I enjoy turning complex
+              problems into simple, scalable, and intelligent systems by
+              connecting modern full-stack architectures with deep learning
+              models, data infrastructure, and workflow automation.
+            </p>
+
+            <div class="identity-meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">LOCATION</span>
+                <strong class="meta-val">Tasikmalaya, Indonesia</strong>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">EDUCATION</span>
+                <strong class="meta-val"
+                  >Universitas Bakti Tunas Husada (S1 Sistem Informasi)</strong
+                >
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">STATUS</span>
+                <strong class="meta-val status-open"
+                  >Open for internship & collaboration</strong
+                >
               </div>
             </div>
+          </div>
 
-            <div class="focus-card double-bezel">
-              <div class="bezel-inner">
-                <div class="focus-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                </div>
-                <strong>AI Engineering</strong>
-              </div>
+          <!-- Right: 6 Core Focus Cards -->
+          <div class="about-focus-col">
+            <div class="focus-header">
+              <span>CORE FOCUS</span>
             </div>
 
-            <div class="focus-card double-bezel">
-              <div class="bezel-inner">
-                <div class="focus-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <div class="core-focus-grid">
+              <div class="focus-card double-bezel">
+                <div class="bezel-inner">
+                  <div class="focus-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    >
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+                  <strong>Software Engineering</strong>
                 </div>
-                <strong>Data Systems</strong>
               </div>
-            </div>
 
-            <div class="focus-card double-bezel">
-              <div class="bezel-inner">
-                <div class="focus-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <div class="focus-card double-bezel">
+                <div class="bezel-inner">
+                  <div class="focus-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    >
+                      <path
+                        d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                      />
+                    </svg>
+                  </div>
+                  <strong>AI Engineering</strong>
                 </div>
-                <strong>System Architecture</strong>
               </div>
-            </div>
 
-            <div class="focus-card double-bezel">
-              <div class="bezel-inner">
-                <div class="focus-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <div class="focus-card double-bezel">
+                <div class="bezel-inner">
+                  <div class="focus-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    >
+                      <ellipse cx="12" cy="5" rx="9" ry="3" />
+                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                    </svg>
+                  </div>
+                  <strong>Data Systems</strong>
                 </div>
-                <strong>Automation</strong>
               </div>
-            </div>
 
-            <div class="focus-card double-bezel">
-              <div class="bezel-inner">
-                <div class="focus-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+              <div class="focus-card double-bezel">
+                <div class="bezel-inner">
+                  <div class="focus-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    >
+                      <rect x="3" y="3" width="7" height="7" />
+                      <rect x="14" y="3" width="7" height="7" />
+                      <rect x="14" y="14" width="7" height="7" />
+                      <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                  </div>
+                  <strong>System Architecture</strong>
                 </div>
-                <strong>Cloud Infrastructure</strong>
+              </div>
+
+              <div class="focus-card double-bezel">
+                <div class="bezel-inner">
+                  <div class="focus-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    >
+                      <polyline points="16 18 22 12 16 6" />
+                      <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                  </div>
+                  <strong>Automation</strong>
+                </div>
+              </div>
+
+              <div class="focus-card double-bezel">
+                <div class="bezel-inner">
+                  <div class="focus-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    >
+                      <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+                    </svg>
+                  </div>
+                  <strong>Cloud Infrastructure</strong>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-
-    <!-- ============================================================
+      <!-- ============================================================
          CHAPTER 03 — ENGINEERING JOURNEY
          ============================================================ -->
-    <section class="chapter-section" id="journey" data-chapter-index="03">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">03</span>
-        <span class="badge-tag">JOURNEY</span>
-      </div>
-
-      <div class="chapter-header-box">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">ENGINEERING JOURNEY</span>
+      <section class="chapter-section" id="journey" data-chapter-index="03">
+        <div class="chapter-rail-badge">
+          <span class="badge-num">03</span>
+          <span class="badge-tag">JOURNEY</span>
         </div>
-        <h2 class="section-heading">From design to digital systems.<br>A journey of continuous learning.</h2>
-      </div>
 
-      <div class="journey-layout">
-        <!-- Horizontal Timeline -->
-        <div class="journey-timeline-track">
-          <div class="timeline-step">
-            <div class="step-card double-bezel">
-              <div class="bezel-inner">
-                <time class="step-time">2021 — 2024</time>
-                <h3 class="step-title">SMK Negeri Rajapolah</h3>
-                <span class="step-major">DPIB · Desain Pemodelan dan Informasi Bangunan</span>
-                <p class="step-desc">Built strong foundations in physical drafting, spatial modeling, and structural precision before transitioning into digital architecture.</p>
+        <div class="chapter-header-box">
+          <div class="lab-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">ENGINEERING JOURNEY</span>
+          </div>
+          <h2 class="section-heading">
+            From design to digital systems.<br />A journey of continuous
+            learning.
+          </h2>
+        </div>
+
+        <div class="journey-layout">
+          <!-- Horizontal Timeline -->
+          <div class="journey-timeline-track">
+            <div class="timeline-step">
+              <div class="step-card double-bezel">
+                <div class="bezel-inner">
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      margin-bottom: 8px;
+                    "
+                  >
+                    <time class="step-time">2021 — 2024</time>
+                    <img
+                      src="./asset/image/Logo- smk.jfif"
+                      alt="SMK Negeri Rajapolah"
+                      style="
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 4px;
+                        object-fit: contain;
+                        background: rgba(255, 255, 255, 0.06);
+                        padding: 2px;
+                      "
+                    />
+                  </div>
+                  <h3 class="step-title">SMK Negeri Rajapolah</h3>
+                  <span class="step-major"
+                    >DPIB · Desain Pemodelan dan Informasi Bangunan</span
+                  >
+                  <p class="step-desc">
+                    Built strong foundations in physical drafting, spatial
+                    modeling, and structural precision before transitioning into
+                    digital architecture.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <div class="timeline-step">
+              <div class="step-card double-bezel">
+                <div class="bezel-inner">
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      margin-bottom: 8px;
+                    "
+                  >
+                    <time class="step-time">2024 — PRESENT</time>
+                    <img
+                      src="./asset/image/logo-Univ.jfif"
+                      alt="Universitas Bakti Tunas Husada"
+                      style="
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 4px;
+                        object-fit: contain;
+                        background: rgba(255, 255, 255, 0.06);
+                        padding: 2px;
+                      "
+                    />
+                  </div>
+                  <h3 class="step-title">Universitas Bakti Tunas Husada</h3>
+                  <span class="step-major">S1 Sistem Informasi</span>
+                  <p class="step-desc">
+                    Deepening knowledge in software engineering, intelligent
+                    systems, database design, backend services, and distributed
+                    architectures.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <div class="timeline-step">
+              <div class="step-card double-bezel highlight-card">
+                <div class="bezel-inner">
+                  <time class="step-time">NOW / CURRENT FOCUS</time>
+                  <h3 class="step-title">Building Intelligent Systems</h3>
+                  <span class="step-major"
+                    >Full-Stack · AI Agents · RAG · Automation</span
+                  >
+                  <p class="step-desc">
+                    Engineering real-world applications with modern tech stacks,
+                    AI retrieval pipelines, and production workflows.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="timeline-connector"></div>
-
-          <div class="timeline-step">
-            <div class="step-card double-bezel">
-              <div class="bezel-inner">
-                <time class="step-time">2024 — PRESENT</time>
-                <h3 class="step-title">Universitas Bakti Tunas Husada</h3>
-                <span class="step-major">S1 Sistem Informasi</span>
-                <p class="step-desc">Deepening knowledge in software engineering, intelligent systems, database design, backend services, and distributed architectures.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-connector"></div>
-
-          <div class="timeline-step">
-            <div class="step-card double-bezel highlight-card">
-              <div class="bezel-inner">
-                <time class="step-time">NOW / CURRENT FOCUS</time>
-                <h3 class="step-title">Building Intelligent Systems</h3>
-                <span class="step-major">Full-Stack · AI Agents · RAG · Automation</span>
-                <p class="step-desc">Engineering real-world applications with modern tech stacks, AI retrieval pipelines, and production workflows.</p>
+          <!-- Architectural Overview Card -->
+          <div class="journey-summary-box double-bezel">
+            <div class="bezel-inner">
+              <span class="summary-kicker">PERSPECTIVE</span>
+              <h3>Physical Structure to Digital Architecture</h3>
+              <p>
+                The transition from structural drafting in civil modeling to
+                software engineering taught me to view every application as an
+                interconnected structure.
+              </p>
+              <div class="structure-pills">
+                <span>Modularity</span>
+                <span>Integrity</span>
+                <span>Scalability</span>
+                <span>Automation</span>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Architectural Overview Card -->
-        <div class="journey-summary-box double-bezel">
-          <div class="bezel-inner">
-            <span class="summary-kicker">PERSPECTIVE</span>
-            <h3>Physical Structure to Digital Architecture</h3>
-            <p>
-              The transition from structural drafting in civil modeling to software engineering taught me to view every application as an interconnected structure.
-            </p>
-            <div class="structure-pills">
-              <span>Modularity</span>
-              <span>Integrity</span>
-              <span>Scalability</span>
-              <span>Automation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
+      <!-- ============================================================
          CHAPTER 04 — SYSTEM ARCHITECTURE
          ============================================================ -->
-    <section class="chapter-section" id="engineering" data-chapter-index="04">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">04</span>
-        <span class="badge-tag">SOFTWARE ENG</span>
-      </div>
-
-      <div class="chapter-header-box">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">I BUILD SOFTWARE</span>
-        </div>
-        <h2 class="section-heading">Designing scalable systems<br>from frontend to infrastructure.</h2>
-        <p class="section-subtext">I design and connect application layers from user interfaces and APIs to backend services, databases, AI systems, and deployment infrastructure.</p>
-      </div>
-
-      <div class="arch-container">
-        <!-- Connected System Architecture Flow Diagram -->
-        <div class="arch-diagram-flow">
-          <div class="arch-node double-bezel">
-            <div class="bezel-inner">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
-              <strong class="node-label">CLIENT</strong>
-              <span class="node-sub">Web / Mobile</span>
-            </div>
-          </div>
-
-          <div class="arch-arrow">→</div>
-
-          <div class="arch-node double-bezel">
-            <div class="bezel-inner">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <strong class="node-label">FRONTEND</strong>
-              <span class="node-sub">React / Next.js</span>
-            </div>
-          </div>
-
-          <div class="arch-arrow">→</div>
-
-          <div class="arch-node double-bezel">
-            <div class="bezel-inner">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
-              </div>
-              <strong class="node-label">API LAYER</strong>
-              <span class="node-sub">REST / GraphQL</span>
-            </div>
-          </div>
-
-          <div class="arch-arrow">→</div>
-
-          <div class="arch-node double-bezel">
-            <div class="bezel-inner">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-              </div>
-              <strong class="node-label">BACKEND</strong>
-              <span class="node-sub">Django / Node.js</span>
-            </div>
-          </div>
-
-          <div class="arch-arrow">→</div>
-
-          <div class="arch-node double-bezel">
-            <div class="bezel-inner">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-              </div>
-              <strong class="node-label">DATABASE</strong>
-              <span class="node-sub">PostgreSQL / Redis</span>
-            </div>
-          </div>
+      <section class="chapter-section" id="engineering" data-chapter-index="04">
+        <div class="chapter-rail-badge">
+          <span class="badge-num">04</span>
+          <span class="badge-tag">SOFTWARE ENG</span>
         </div>
 
-        <div class="infra-bar double-bezel">
-          <div class="bezel-inner">
-            <span class="infra-badge">INFRASTRUCTURE</span>
-            <span class="infra-items">Docker · Cloud Run · Nginx · Linux · CI/CD · RESTful Protocols</span>
+        <div class="chapter-header-box">
+          <div class="lab-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">I BUILD SOFTWARE</span>
           </div>
+          <h2 class="section-heading">
+            Designing scalable systems<br />from frontend to infrastructure.
+          </h2>
+          <p class="section-subtext">
+            I design and connect application layers from user interfaces and
+            APIs to backend services, databases, AI systems, and deployment
+            infrastructure.
+          </p>
         </div>
 
-        <!-- Tech Badges Grid -->
-        <div class="what-i-work-with">
-          <span class="sub-label">WHAT I WORK WITH</span>
-          <div class="tech-pill-grid">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">JavaScript</span>
-            <span class="tech-pill">TypeScript</span>
-            <span class="tech-pill">Django</span>
-            <span class="tech-pill">Laravel</span>
-            <span class="tech-pill">React</span>
-            <span class="tech-pill">Next.js</span>
-            <span class="tech-pill">Node.js</span>
-            <span class="tech-pill">PostgreSQL</span>
-            <span class="tech-pill">MySQL</span>
-            <span class="tech-pill">MariaDB</span>
-            <span class="tech-pill">Redis</span>
-            <span class="tech-pill">Docker</span>
-            <span class="tech-pill">Git</span>
-            <span class="tech-pill">REST API</span>
+        <div class="arch-container">
+          <!-- Connected System Architecture Flow Diagram -->
+          <div class="arch-diagram-flow">
+            <div class="arch-node double-bezel">
+              <div class="bezel-inner">
+                <div class="node-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>
+                </div>
+                <strong class="node-label">CLIENT</strong>
+                <span class="node-sub">Web / Mobile</span>
+              </div>
+            </div>
+
+            <div class="arch-arrow">→</div>
+
+            <div class="arch-node double-bezel">
+              <div class="bezel-inner">
+                <div class="node-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <strong class="node-label">FRONTEND</strong>
+                <span class="node-sub">React / Next.js</span>
+              </div>
+            </div>
+
+            <div class="arch-arrow">→</div>
+
+            <div class="arch-node double-bezel">
+              <div class="bezel-inner">
+                <div class="node-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    />
+                    <line x1="12" y1="4" x2="12" y2="20" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                  </svg>
+                </div>
+                <strong class="node-label">API LAYER</strong>
+                <span class="node-sub">REST / GraphQL</span>
+              </div>
+            </div>
+
+            <div class="arch-arrow">→</div>
+
+            <div class="arch-node double-bezel">
+              <div class="bezel-inner">
+                <div class="node-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    <rect x="9" y="9" width="6" height="6" />
+                    <line x1="9" y1="1" x2="9" y2="4" />
+                    <line x1="15" y1="1" x2="15" y2="4" />
+                    <line x1="9" y1="20" x2="9" y2="23" />
+                    <line x1="15" y1="20" x2="15" y2="23" />
+                    <line x1="20" y1="9" x2="23" y2="9" />
+                    <line x1="20" y1="14" x2="23" y2="14" />
+                    <line x1="1" y1="9" x2="4" y2="9" />
+                    <line x1="1" y1="14" x2="4" y2="14" />
+                  </svg>
+                </div>
+                <strong class="node-label">BACKEND</strong>
+                <span class="node-sub">Django / Node.js</span>
+              </div>
+            </div>
+
+            <div class="arch-arrow">→</div>
+
+            <div class="arch-node double-bezel">
+              <div class="bezel-inner">
+                <div class="node-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <ellipse cx="12" cy="5" rx="9" ry="3" />
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                  </svg>
+                </div>
+                <strong class="node-label">DATABASE</strong>
+                <span class="node-sub">PostgreSQL / Redis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="infra-bar double-bezel">
+            <div class="bezel-inner">
+              <span class="infra-badge">INFRASTRUCTURE</span>
+              <span class="infra-items"
+                >Docker · Cloud Run · Nginx · Linux · CI/CD · RESTful
+                Protocols</span
+              >
+            </div>
+          </div>
+
+          <!-- Tech Badges Grid -->
+          <div class="what-i-work-with">
+            <span class="sub-label">WHAT I WORK WITH</span>
+            <div class="tech-pill-grid">
+              <span class="tech-pill">Python</span>
+              <span class="tech-pill">JavaScript</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Django</span>
+              <span class="tech-pill">Laravel</span>
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">Next.js</span>
+              <span class="tech-pill">Node.js</span>
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">MySQL</span>
+              <span class="tech-pill">MariaDB</span>
+              <span class="tech-pill">Redis</span>
+              <span class="tech-pill">Docker</span>
+              <span class="tech-pill">Git</span>
+              <span class="tech-pill">REST API</span>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-
-    <!-- ============================================================
+      <!-- ============================================================
          CHAPTER 05 — AI ENGINEERING
          ============================================================ -->
-    <section class="chapter-section" id="ai" data-chapter-index="05">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">05</span>
-        <span class="badge-tag">AI ENG</span>
-      </div>
-
-      <div class="chapter-header-box">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">I BUILD INTELLIGENCE</span>
+      <section class="chapter-section" id="ai" data-chapter-index="05">
+        <div class="chapter-rail-badge">
+          <span class="badge-num">05</span>
+          <span class="badge-tag">AI ENG</span>
         </div>
-        <h2 class="section-heading">Integrating AI into real applications<br>that solve real problems.</h2>
-        <p class="section-subtext">I build AI-powered features by combining models with structured data, external knowledge, retrieval systems, APIs, and automation workflows.</p>
-      </div>
 
-      <div class="ai-split-grid">
-        <div class="ai-pipeline-col">
-          <!-- AI Pipeline Progression -->
-          <div class="ai-pipeline-flow">
-            <div class="pipeline-card double-bezel">
-              <div class="bezel-inner">
-                <span class="pipe-step">01</span>
-                <strong class="pipe-name">DATA</strong>
-                <span class="pipe-desc">Raw Data & Multi-format Inputs</span>
+        <div class="chapter-header-box">
+          <div class="lab-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">I BUILD INTELLIGENCE</span>
+          </div>
+          <h2 class="section-heading">
+            Integrating AI into real applications<br />that solve real problems.
+          </h2>
+          <p class="section-subtext">
+            I build AI-powered features by combining models with structured
+            data, external knowledge, retrieval systems, APIs, and automation
+            workflows.
+          </p>
+        </div>
+
+        <div class="ai-split-grid">
+          <div class="ai-pipeline-col">
+            <!-- AI Pipeline Progression -->
+            <div class="ai-pipeline-flow">
+              <div class="pipeline-card double-bezel">
+                <div class="bezel-inner">
+                  <span class="pipe-step">01</span>
+                  <strong class="pipe-name">DATA</strong>
+                  <span class="pipe-desc">Raw Data & Multi-format Inputs</span>
+                </div>
+              </div>
+              <div class="pipe-arrow">↓</div>
+
+              <div class="pipeline-card double-bezel">
+                <div class="bezel-inner">
+                  <span class="pipe-step">02</span>
+                  <strong class="pipe-name">EMBEDDING</strong>
+                  <span class="pipe-desc">High-dimensional Vector Mapping</span>
+                </div>
+              </div>
+              <div class="pipe-arrow">↓</div>
+
+              <div class="pipeline-card double-bezel">
+                <div class="bezel-inner">
+                  <span class="pipe-step">03</span>
+                  <strong class="pipe-name">RETRIEVAL</strong>
+                  <span class="pipe-desc"
+                    >Semantic Search & Context Injection</span
+                  >
+                </div>
+              </div>
+              <div class="pipe-arrow">↓</div>
+
+              <div class="pipeline-card double-bezel">
+                <div class="bezel-inner">
+                  <span class="pipe-step">04</span>
+                  <strong class="pipe-name">LLM REASONING</strong>
+                  <span class="pipe-desc">Gemini / OpenAI Model Reasoning</span>
+                </div>
+              </div>
+              <div class="pipe-arrow">↓</div>
+
+              <div class="pipeline-card double-bezel highlight-pipe">
+                <div class="bezel-inner">
+                  <span class="pipe-step">05</span>
+                  <strong class="pipe-name">ACTION & IMPACT</strong>
+                  <span class="pipe-desc">Real-World Automated Response</span>
+                </div>
               </div>
             </div>
-            <div class="pipe-arrow">↓</div>
 
-            <div class="pipeline-card double-bezel">
-              <div class="bezel-inner">
-                <span class="pipe-step">02</span>
-                <strong class="pipe-name">EMBEDDING</strong>
-                <span class="pipe-desc">High-dimensional Vector Mapping</span>
-              </div>
-            </div>
-            <div class="pipe-arrow">↓</div>
-
-            <div class="pipeline-card double-bezel">
-              <div class="bezel-inner">
-                <span class="pipe-step">03</span>
-                <strong class="pipe-name">RETRIEVAL</strong>
-                <span class="pipe-desc">Semantic Search & Context Injection</span>
-              </div>
-            </div>
-            <div class="pipe-arrow">↓</div>
-
-            <div class="pipeline-card double-bezel">
-              <div class="bezel-inner">
-                <span class="pipe-step">04</span>
-                <strong class="pipe-name">LLM REASONING</strong>
-                <span class="pipe-desc">Gemini / OpenAI Model Reasoning</span>
-              </div>
-            </div>
-            <div class="pipe-arrow">↓</div>
-
-            <div class="pipeline-card double-bezel highlight-pipe">
-              <div class="bezel-inner">
-                <span class="pipe-step">05</span>
-                <strong class="pipe-name">ACTION & IMPACT</strong>
-                <span class="pipe-desc">Real-World Automated Response</span>
-              </div>
+            <div class="ai-capabilities-row">
+              <span class="stream-pill">RAG Systems</span>
+              <span class="stream-pill">AI Agents</span>
+              <span class="stream-pill">Computer Vision</span>
+              <span class="stream-pill">Generative AI</span>
+              <span class="stream-pill">AI Automation</span>
+              <span class="stream-pill">OCR Digitization</span>
             </div>
           </div>
 
-          <div class="ai-capabilities-row">
-            <span class="stream-pill">RAG Systems</span>
-            <span class="stream-pill">AI Agents</span>
-            <span class="stream-pill">Computer Vision</span>
-            <span class="stream-pill">Generative AI</span>
-            <span class="stream-pill">AI Automation</span>
-            <span class="stream-pill">OCR Digitization</span>
+          <div class="ai-visual-col">
+            <!-- AI Stack & Philosophy Card -->
+            <div class="ai-brain-card double-bezel">
+              <div class="bezel-inner">
+                <div class="telemetry-header">
+                  <strong>MODELS & ORCHESTRATION</strong>
+                  <span class="hud-badge">PROD STACK</span>
+                </div>
+                <div class="ai-tech-tags">
+                  <span
+                    ><img
+                      src="https://cdn.simpleicons.org/googlegemini"
+                      width="16"
+                      height="16"
+                      alt="Gemini"
+                      class="tool-cdn-icon"
+                    />
+                    Gemini API</span
+                  >
+                  <span
+                    ><img
+                      src="https://cdn.simpleicons.org/openai"
+                      width="16"
+                      height="16"
+                      alt="OpenAI"
+                      class="tool-cdn-icon"
+                    />
+                    OpenAI API</span
+                  >
+                  <span
+                    ><img
+                      src="https://cdn.simpleicons.org/langchain"
+                      width="16"
+                      height="16"
+                      alt="LangChain"
+                      class="tool-cdn-icon"
+                    />
+                    LangChain</span
+                  >
+                  <span
+                    ><img
+                      src="https://cdn.simpleicons.org/langchain"
+                      width="16"
+                      height="16"
+                      alt="Langflow"
+                      class="tool-cdn-icon"
+                    />
+                    Langflow</span
+                  >
+                  <span
+                    ><img
+                      src="https://cdn.simpleicons.org/n8n"
+                      width="16"
+                      height="16"
+                      alt="n8n"
+                      class="tool-cdn-icon"
+                    />
+                    n8n</span
+                  >
+                  <span
+                    ><i class="devicon-pytorch-original colored"></i>
+                    PyTorch</span
+                  >
+                  <span
+                    ><i class="devicon-opencv-plain colored"></i> OpenCV</span
+                  >
+                  <span
+                    ><i class="devicon-tensorflow-original colored"></i>
+                    TensorFlow</span
+                  >
+                </div>
+
+                <div class="ai-philosophy-box">
+                  <h4>Systemic Intelligence</h4>
+                  <p>
+                    Models perform best when paired with deterministic systems:
+                    strict schemas, cached knowledge vectors, verified API
+                    contracts, and robust feedback loops.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="ai-visual-col">
-          <!-- AI Stack & Philosophy Card -->
-          <div class="ai-brain-card double-bezel">
+      <!-- ============================================================
+         CHAPTER 06 — DATA & KNOWLEDGE INFRASTRUCTURE
+         ============================================================ -->
+      <section class="chapter-section" id="data" data-chapter-index="06">
+        <div class="chapter-rail-badge">
+          <span class="badge-num">06</span>
+          <span class="badge-tag">DATA & SYSTEMS</span>
+        </div>
+
+        <div class="chapter-header-box">
+          <div class="lab-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">I BUILD THE FOUNDATION</span>
+          </div>
+          <h2 class="section-heading">
+            Data pipelines and infrastructure<br />powering intelligent systems.
+          </h2>
+          <p class="section-subtext">
+            Reliable intelligence begins with reliable information. I structure
+            and manage data so it becomes verifiable context for AI systems.
+          </p>
+        </div>
+
+        <div class="data-pipeline-grid">
+          <div class="data-step-box double-bezel">
             <div class="bezel-inner">
-              <div class="telemetry-header">
-                <strong>MODELS & ORCHESTRATION</strong>
-                <span class="hud-badge">PROD STACK</span>
+              <span class="d-step-num">01</span>
+              <div class="d-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
               </div>
-              <div class="ai-tech-tags">
-                <span>Gemini API</span>
-                <span>OpenAI API</span>
-                <span>LangChain</span>
-                <span>Langflow</span>
-                <span>n8n</span>
-                <span>PyTorch</span>
-                <span>OpenCV</span>
-                <span>TensorFlow</span>
+              <strong>DATA SOURCES</strong>
+              <p>App, Web, Documents, APIs</p>
+            </div>
+          </div>
+
+          <div class="data-step-box double-bezel">
+            <div class="bezel-inner">
+              <span class="d-step-num">02</span>
+              <div class="d-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
               </div>
-              
-              <div class="ai-philosophy-box">
-                <h4>Systemic Intelligence</h4>
+              <strong>INGESTION</strong>
+              <p>Clean, Normalize & Process</p>
+            </div>
+          </div>
+
+          <div class="data-step-box double-bezel">
+            <div class="bezel-inner">
+              <span class="d-step-num">03</span>
+              <div class="d-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </div>
+              <strong>DATABASE</strong>
+              <p>PostgreSQL, MySQL, MariaDB</p>
+            </div>
+          </div>
+
+          <div class="data-step-box double-bezel">
+            <div class="bezel-inner">
+              <span class="d-step-num">04</span>
+              <div class="d-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polyline points="2 17 12 22 22 17" />
+                  <polyline points="2 12 12 17 22 12" />
+                </svg>
+              </div>
+              <strong>VECTOR STORE</strong>
+              <p>pgvector, FAISS, Embeddings</p>
+            </div>
+          </div>
+
+          <div class="data-step-box double-bezel">
+            <div class="bezel-inner">
+              <span class="d-step-num">05</span>
+              <div class="d-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </div>
+              <strong>CACHE</strong>
+              <p>Redis High-Speed In-Memory</p>
+            </div>
+          </div>
+
+          <div class="data-step-box double-bezel highlight-data">
+            <div class="bezel-inner">
+              <span class="d-step-num">06</span>
+              <div class="d-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                  <path d="M2 12h20" />
+                </svg>
+              </div>
+              <strong>AI CONSUMPTION</strong>
+              <p>Applications, RAG & Agents</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-tech-bar">
+          <span class="bar-title">DATABASE & DATA TECH:</span>
+          <div class="bar-chips">
+            <span
+              ><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span
+            >
+            <span><i class="devicon-mysql-original colored"></i> MySQL</span>
+            <span
+              ><i class="devicon-mariadb-original colored"></i> MariaDB</span
+            >
+            <span><i class="devicon-redis-plain colored"></i> Redis</span>
+            <span
+              ><i class="devicon-postgresql-plain colored"></i> pgvector</span
+            >
+            <span>FAISS</span>
+            <span><i class="devicon-supabase-plain colored"></i> Supabase</span>
+            <span><i class="devicon-prisma-original"></i> Prisma</span>
+            <span>ETL Pipelines</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         CHAPTER 07 — AI ENGINEERING TOOLCHAIN (100% Vector Line Icons)
+         ============================================================ -->
+      <section class="chapter-section" id="toolchain" data-chapter-index="07">
+        <div class="chapter-rail-badge">
+          <span class="badge-num">07</span>
+          <span class="badge-tag">TOOLCHAIN</span>
+        </div>
+
+        <div class="chapter-header-box">
+          <div class="lab-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">MY ENGINEERING TOOLCHAIN</span>
+          </div>
+          <h2 class="section-heading">The tools behind the systems.</h2>
+          <p class="section-subtext">
+            Divided into functional engineering categories for development,
+            intelligence, knowledge retrieval, and cloud infrastructure.
+          </p>
+        </div>
+
+        <div class="toolchain-category-grid">
+          <!-- 01 DEVELOPMENT -->
+          <div class="tool-cat-card double-bezel">
+            <div class="bezel-inner">
+              <div class="cat-header">
+                <div class="cat-icon-wrap">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="cat-num">01</span>
+                  <strong class="cat-title">DEVELOPMENT &amp; LANGUAGES</strong>
+                </div>
+              </div>
+              <div class="cat-items-chips">
+                <span class="skill-item">
+                  <i class="devicon-python-plain colored"></i>
+                  Python
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-javascript-plain colored"></i>
+                  JavaScript
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-java-plain colored"></i>
+                  Java
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-php-plain colored"></i>
+                  PHP
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-azuresqldatabase-plain colored"></i>
+                  SQL
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-github-original"></i>
+                  Git &amp; GitHub
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-react-original colored"></i>
+                  React
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-nextjs-plain"></i>
+                  Next.js
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 AI / ML -->
+          <div class="tool-cat-card double-bezel">
+            <div class="bezel-inner">
+              <div class="cat-header">
+                <div class="cat-icon-wrap">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 3v18" />
+                    <path d="M3 12h18" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="cat-num">02</span>
+                  <strong class="cat-title">AI / MACHINE LEARNING</strong>
+                </div>
+              </div>
+              <div class="cat-items-chips">
+                <span class="skill-item">
+                  <i class="devicon-pytorch-original colored"></i>
+                  PyTorch
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-tensorflow-original colored"></i>
+                  TensorFlow
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-scikitlearn-plain colored"></i>
+                  Scikit-learn
+                </span>
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/huggingface"
+                    width="18"
+                    height="18"
+                    alt="Hugging Face"
+                    class="tool-cdn-icon"
+                  />
+                  Hugging Face
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-numpy-plain colored"></i>
+                  <i class="devicon-pandas-plain colored"></i>
+                  NumPy &amp; Pandas
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 GENERATIVE AI -->
+          <div class="tool-cat-card double-bezel">
+            <div class="bezel-inner">
+              <div class="cat-header">
+                <div class="cat-icon-wrap">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <span class="cat-num">03</span>
+                  <strong class="cat-title">GENERATIVE AI &amp; LLMS</strong>
+                </div>
+              </div>
+              <div class="cat-items-chips">
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/googlegemini"
+                    width="18"
+                    height="18"
+                    alt="Gemini API"
+                    class="tool-cdn-icon"
+                  />
+                  Gemini API
+                </span>
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/googlecloud"
+                    width="18"
+                    height="18"
+                    alt="Vertex AI / GCP"
+                    class="tool-cdn-icon"
+                  />
+                  Vertex AI
+                </span>
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/openai"
+                    width="18"
+                    height="18"
+                    alt="OpenAI"
+                    class="tool-cdn-icon"
+                  />
+                  OpenAI API
+                </span>
+                <span class="skill-item">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="tool-cdn-icon"
+                  >
+                    <polygon
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                    />
+                  </svg>
+                  Prompt Engineering
+                </span>
+                <span class="skill-item">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="tool-cdn-icon"
+                  >
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                  Function Calling
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 04 RAG / KNOWLEDGE -->
+          <div class="tool-cat-card double-bezel">
+            <div class="bezel-inner">
+              <div class="cat-header">
+                <div class="cat-icon-wrap">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="cat-num">04</span>
+                  <strong class="cat-title">RAG &amp; VECTOR SEARCH</strong>
+                </div>
+              </div>
+              <div class="cat-items-chips">
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/langchain"
+                    width="18"
+                    height="18"
+                    alt="Langflow"
+                    class="tool-cdn-icon"
+                  />
+                  Langflow
+                </span>
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/langchain"
+                    width="18"
+                    height="18"
+                    alt="LangChain"
+                    class="tool-cdn-icon"
+                  />
+                  LangChain
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-postgresql-plain colored"></i>
+                  pgvector
+                </span>
+                <span class="skill-item">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="tool-cdn-icon"
+                  >
+                    <ellipse cx="12" cy="5" rx="9" ry="3" />
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                  </svg>
+                  Vector Databases
+                </span>
+                <span class="skill-item">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="tool-cdn-icon"
+                  >
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                  </svg>
+                  Embeddings &amp; FAISS
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 05 AUTOMATION -->
+          <div class="tool-cat-card double-bezel">
+            <div class="bezel-inner">
+              <div class="cat-header">
+                <div class="cat-icon-wrap">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="18" cy="18" r="3" />
+                    <circle cx="6" cy="6" r="3" />
+                    <path d="M13 6h3a2 2 0 0 1 2 2v7" />
+                    <line x1="6" y1="9" x2="6" y2="21" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="cat-num">05</span>
+                  <strong class="cat-title">AUTOMATION &amp; AGENTS</strong>
+                </div>
+              </div>
+              <div class="cat-items-chips">
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/n8n"
+                    width="18"
+                    height="18"
+                    alt="n8n"
+                    class="tool-cdn-icon"
+                  />
+                  n8n Automation
+                </span>
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/langchain"
+                    width="18"
+                    height="18"
+                    alt="LangGraph"
+                    class="tool-cdn-icon"
+                  />
+                  LangGraph
+                </span>
+                <span class="skill-item">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    class="tool-cdn-icon"
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 3v18" />
+                    <path d="M3 12h18" />
+                  </svg>
+                  AI Agents
+                </span>
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/webhook"
+                    width="18"
+                    height="18"
+                    alt="Webhooks"
+                    class="tool-cdn-icon"
+                  />
+                  Webhooks &amp; Tool Calling
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 06 INFRASTRUCTURE -->
+          <div class="tool-cat-card double-bezel">
+            <div class="bezel-inner">
+              <div class="cat-header">
+                <div class="cat-icon-wrap">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="cat-num">06</span>
+                  <strong class="cat-title"
+                    >BACKEND &amp; CLOUD INFRASTRUCTURE</strong
+                  >
+                </div>
+              </div>
+              <div class="cat-items-chips">
+                <span class="skill-item">
+                  <i class="devicon-nodejs-plain colored"></i>
+                  Node.js
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-laravel-original colored"></i>
+                  Laravel
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-django-plain colored"></i>
+                  Django
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-postgresql-plain colored"></i>
+                  PostgreSQL
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-mysql-original colored"></i>
+                  MySQL
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-mariadb-original colored"></i>
+                  MariaDB
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-redis-plain colored"></i>
+                  Redis
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-mongodb-plain colored"></i>
+                  MongoDB
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-docker-plain colored"></i>
+                  Docker
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-kubernetes-plain colored"></i>
+                  Kubernetes
+                </span>
+                <span class="skill-item">
+                  <i class="devicon-googlecloud-plain colored"></i>
+                  Google Cloud
+                </span>
+                <span class="skill-item">
+                  <img
+                    src="https://cdn.simpleicons.org/googlecloud"
+                    width="18"
+                    height="18"
+                    alt="Cloud Run"
+                    class="tool-cdn-icon"
+                  />
+                  Cloud Run
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         CHAPTER 08 — PROJECT ARCHIVE (CASE STUDIES)
+         ============================================================ -->
+      <section class="chapter-section" id="projects" data-chapter-index="08">
+        <div class="chapter-rail-badge">
+          <span class="badge-num">08</span>
+          <span class="badge-tag">PROJECTS</span>
+        </div>
+
+        <div class="chapter-header-box">
+          <div class="lab-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">SELECTED PROJECTS</span>
+          </div>
+          <h2 class="section-heading">Real projects. Real impact.</h2>
+          <p class="section-subtext">
+            Case studies of full-stack engineering, intelligent systems, and
+            scalable product architecture.
+          </p>
+        </div>
+
+        <div class="projects-master-grid" id="project-list">
+          <!-- Dynamic Custom Projects from Private Vault will render here -->
+          <div class="empty-vault-state double-bezel" id="project-empty-state">
+            <div class="bezel-inner">
+              <div class="empty-state-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+                  />
+                </svg>
+              </div>
+              <h3>NO PROJECTS PUBLISHED YET</h3>
+              <p>
+                Your project showcase is currently empty. Use the hidden Content
+                Vault interface to add your live applications, AI systems, and
+                case studies.
+              </p>
+              <button
+                type="button"
+                class="btn-clean primary open-vault-trigger"
+                data-vault-target="project"
+              >
+                <span>+ OPEN VAULT TO ADD PROJECT</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+           GITHUB CONTRIBUTIONS & ACTIVITY HEATMAP
+           ============================================================ -->
+        <div class="github-activity-panel double-bezel">
+          <div class="bezel-inner">
+            <div class="gh-header">
+              <div class="gh-title-group">
+                <div class="gh-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <strong class="gh-main-heading"
+                    >GITHUB ACTIVITY &amp; CONTRIBUTIONS</strong
+                  >
+                  <span class="gh-sub"
+                    >@sagitfaturrakhman · Continuous Building &amp; Code
+                    Frequency</span
+                  >
+                </div>
+              </div>
+              <a
+                class="btn-clean secondary"
+                href="https://github.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>VISIT PROFILE</span>
+                <svg
+                  class="btn-arrow"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            </div>
+
+            <!-- Heatmap Matrix Grid -->
+            <div class="gh-heatmap-wrap">
+              <div class="gh-heatmap-legend-months">
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span
+                ><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span
+                ><span>Sep</span><span>Oct</span><span>Nov</span
+                ><span>Dec</span>
+              </div>
+              <div class="gh-heatmap-grid" id="github-heatmap-grid">
+                <!-- Dynamically populated by JS -->
+              </div>
+              <div class="gh-heatmap-footer">
+                <span class="gh-stat-note"
+                  ><strong>480+</strong> Contributions in 2025–2026</span
+                >
+                <div class="gh-legend-levels">
+                  <span>Less</span>
+                  <span class="lvl lvl-0"></span>
+                  <span class="lvl lvl-1"></span>
+                  <span class="lvl lvl-2"></span>
+                  <span class="lvl lvl-3"></span>
+                  <span class="lvl lvl-4"></span>
+                  <span>More</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Metrics Bar -->
+            <div class="gh-stats-row">
+              <div class="gh-stat-box">
+                <span class="gh-stat-label">PUBLIC REPOSITORIES</span>
+                <strong class="gh-stat-val">14+</strong>
+              </div>
+              <div class="gh-stat-box">
+                <span class="gh-stat-label">PRIMARY LANGUAGE</span>
+                <strong class="gh-stat-val">Python / TypeScript</strong>
+              </div>
+              <div class="gh-stat-box">
+                <span class="gh-stat-label">COMMITS THIS YEAR</span>
+                <strong class="gh-stat-val">320+</strong>
+              </div>
+              <div class="gh-stat-box">
+                <span class="gh-stat-label">DEPLOYED STACKS</span>
+                <strong class="gh-stat-val">Full-Stack &amp; AI</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         CHAPTER 09 — DOCUMENTATION, CERTIFICATES & VISUAL GALLERY
+         ============================================================ -->
+      <section
+        class="chapter-section"
+        id="documentation"
+        data-chapter-index="09"
+      >
+        <div class="chapter-rail-badge">
+          <span class="badge-num">09</span>
+          <span class="badge-tag">DOCUMENTATION</span>
+        </div>
+
+        <div class="chapter-header-box">
+          <div class="lab-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text"
+              >ENGINEERING &amp; DOCUMENTATION ARCHIVE</span
+            >
+          </div>
+          <h2 class="section-heading">
+            Experience, activities,<br />and learning journey.
+          </h2>
+          <p class="section-subtext">
+            Comprehensive archive of engineering experiences, developer
+            workshops, hackathon participation, academic milestones, and
+            certifications.
+          </p>
+        </div>
+
+        <!-- SECTION A: VERIFIED CERTIFICATES & CREDENTIALS (DEDICATED CONTAINER) -->
+        <div class="cert-section-block" style="margin-bottom: 48px">
+          <div class="chapter-header-box" style="margin-bottom: 20px">
+            <h3
+              style="
+                font-size: 1.3rem;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              "
+            >
+              <span></span> VERIFIED CERTIFICATES &amp; CREDENTIALS
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted)">
+              Strictly dedicated to technical certifications and accredited
+              qualifications with 100% full aspect-ratio preservation (never
+              cropped).
+            </p>
+          </div>
+
+          <!-- Category Filter Tabs for Certificates -->
+          <div class="doc-filter-tabs">
+            <button class="doc-tab active" data-filter="all">
+              ALL CREDENTIALS
+            </button>
+            <button class="doc-tab" data-filter="certificates">
+              CERTIFICATES
+            </button>
+            <button class="doc-tab" data-filter="training">
+              TRAINING &amp; WORKSHOPS
+            </button>
+            <button class="doc-tab" data-filter="academic">ACADEMIC</button>
+          </div>
+
+          <div class="docs-master-grid" id="cert-list">
+            <!-- Dynamic Certificates from Supabase / Seed fallback will render here -->
+            <div class="empty-vault-state double-bezel" id="doc-empty-state">
+              <div class="bezel-inner">
+                <div class="empty-state-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                  </svg>
+                </div>
+                <h3>NO ARCHIVE ENTRIES YET</h3>
                 <p>
-                  Models perform best when paired with deterministic systems: strict schemas, cached knowledge vectors, verified API contracts, and robust feedback loops.
+                  Your documentation archive is currently loading from Supabase
+                  Cloud.
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-
-    <!-- ============================================================
-         CHAPTER 06 — DATA & KNOWLEDGE INFRASTRUCTURE
-         ============================================================ -->
-    <section class="chapter-section" id="data" data-chapter-index="06">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">06</span>
-        <span class="badge-tag">DATA & SYSTEMS</span>
-      </div>
-
-      <div class="chapter-header-box">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">I BUILD THE FOUNDATION</span>
-        </div>
-        <h2 class="section-heading">Data pipelines and infrastructure<br>powering intelligent systems.</h2>
-        <p class="section-subtext">Reliable intelligence begins with reliable information. I structure and manage data so it becomes verifiable context for AI systems.</p>
-      </div>
-
-      <div class="data-pipeline-grid">
-        <div class="data-step-box double-bezel">
-          <div class="bezel-inner">
-            <span class="d-step-num">01</span>
-            <div class="d-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            <strong>DATA SOURCES</strong>
-            <p>App, Web, Documents, APIs</p>
-          </div>
-        </div>
-
-        <div class="data-step-box double-bezel">
-          <div class="bezel-inner">
-            <span class="d-step-num">02</span>
-            <div class="d-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <strong>INGESTION</strong>
-            <p>Clean, Normalize & Process</p>
-          </div>
-        </div>
-
-        <div class="data-step-box double-bezel">
-          <div class="bezel-inner">
-            <span class="d-step-num">03</span>
-            <div class="d-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-            </div>
-            <strong>DATABASE</strong>
-            <p>PostgreSQL, MySQL, MariaDB</p>
-          </div>
-        </div>
-
-        <div class="data-step-box double-bezel">
-          <div class="bezel-inner">
-            <span class="d-step-num">04</span>
-            <div class="d-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-            </div>
-            <strong>VECTOR STORE</strong>
-            <p>pgvector, FAISS, Embeddings</p>
-          </div>
-        </div>
-
-        <div class="data-step-box double-bezel">
-          <div class="bezel-inner">
-            <span class="d-step-num">05</span>
-            <div class="d-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-            <strong>CACHE</strong>
-            <p>Redis High-Speed In-Memory</p>
-          </div>
-        </div>
-
-        <div class="data-step-box double-bezel highlight-data">
-          <div class="bezel-inner">
-            <span class="d-step-num">06</span>
-            <div class="d-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            </div>
-            <strong>AI CONSUMPTION</strong>
-            <p>Applications, RAG & Agents</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="data-tech-bar">
-        <span class="bar-title">DATABASE & DATA TECH:</span>
-        <div class="bar-chips">
-          <span>PostgreSQL</span>
-          <span>MySQL</span>
-          <span>MariaDB</span>
-          <span>Redis</span>
-          <span>pgvector</span>
-          <span>FAISS</span>
-          <span>Supabase</span>
-          <span>Prisma</span>
-          <span>ETL Pipelines</span>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         CHAPTER 07 — AI ENGINEERING TOOLCHAIN (100% Vector Line Icons)
-         ============================================================ -->
-    <section class="chapter-section" id="toolchain" data-chapter-index="07">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">07</span>
-        <span class="badge-tag">TOOLCHAIN</span>
-      </div>
-
-      <div class="chapter-header-box">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">MY ENGINEERING TOOLCHAIN</span>
-        </div>
-        <h2 class="section-heading">The tools behind the systems.</h2>
-        <p class="section-subtext">Divided into functional engineering categories for development, intelligence, knowledge retrieval, and cloud infrastructure.</p>
-      </div>
-
-      <div class="toolchain-category-grid">
-        <!-- 01 DEVELOPMENT -->
-        <div class="tool-cat-card double-bezel">
-          <div class="bezel-inner">
-            <div class="cat-header">
-              <div class="cat-icon-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <div>
-                <span class="cat-num">01</span>
-                <strong class="cat-title">DEVELOPMENT</strong>
-              </div>
-            </div>
-            <p class="cat-items">Python, JavaScript, PHP, Git, GitHub, Docker, VS Code</p>
-          </div>
-        </div>
-
-        <!-- 02 AI / ML -->
-        <div class="tool-cat-card double-bezel">
-          <div class="bezel-inner">
-            <div class="cat-header">
-              <div class="cat-icon-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M3 12h18"/></svg>
-              </div>
-              <div>
-                <span class="cat-num">02</span>
-                <strong class="cat-title">AI / ML</strong>
-              </div>
-            </div>
-            <p class="cat-items">PyTorch, TensorFlow, Scikit-learn, Hugging Face, NumPy, Pandas</p>
-          </div>
-        </div>
-
-        <!-- 03 GENERATIVE AI -->
-        <div class="tool-cat-card double-bezel">
-          <div class="bezel-inner">
-            <div class="cat-header">
-              <div class="cat-icon-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-              </div>
-              <div>
-                <span class="cat-num">03</span>
-                <strong class="cat-title">GENERATIVE AI</strong>
-              </div>
-            </div>
-            <p class="cat-items">Gemini API, OpenAI API, LLMs, Prompt Engineering, Function Calling</p>
-          </div>
-        </div>
-
-        <!-- 04 RAG / KNOWLEDGE (Clean Vector Icon) -->
-        <div class="tool-cat-card double-bezel">
-          <div class="bezel-inner">
-            <div class="cat-header">
-              <div class="cat-icon-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-              </div>
-              <div>
-                <span class="cat-num">04</span>
-                <strong class="cat-title">RAG / KNOWLEDGE</strong>
-              </div>
-            </div>
-            <p class="cat-items">LangChain, Langflow, Vector Database, Embeddings, FAISS, pgvector</p>
-          </div>
-        </div>
-
-        <!-- 05 AUTOMATION (Clean Vector Icon) -->
-        <div class="tool-cat-card double-bezel">
-          <div class="bezel-inner">
-            <div class="cat-header">
-              <div class="cat-icon-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
-              </div>
-              <div>
-                <span class="cat-num">05</span>
-                <strong class="cat-title">AUTOMATION</strong>
-              </div>
-            </div>
-            <p class="cat-items">n8n, LangGraph, AI Agents, Webhooks, Tool Calling, Workflow Automation</p>
-          </div>
-        </div>
-
-        <!-- 06 INFRASTRUCTURE -->
-        <div class="tool-cat-card double-bezel">
-          <div class="bezel-inner">
-            <div class="cat-header">
-              <div class="cat-icon-wrap">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-              </div>
-              <div>
-                <span class="cat-num">06</span>
-                <strong class="cat-title">INFRASTRUCTURE</strong>
-              </div>
-            </div>
-            <p class="cat-items">PostgreSQL, MySQL, MariaDB, Redis, Django, Laravel, Node.js, Google Cloud, Cloud Run</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         CHAPTER 08 — PROJECT ARCHIVE (CASE STUDIES)
-         ============================================================ -->
-    <section class="chapter-section" id="projects" data-chapter-index="08">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">08</span>
-        <span class="badge-tag">PROJECTS</span>
-      </div>
-
-      <div class="chapter-header-box">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">SELECTED PROJECTS</span>
-        </div>
-        <h2 class="section-heading">Real projects. Real impact.</h2>
-        <p class="section-subtext">Case studies of full-stack engineering, intelligent systems, and scalable product architecture.</p>
-      </div>
-
-      <div class="projects-master-grid" id="project-list">
-        <!-- Dynamic Custom Projects from Private Vault will render here -->
-        <div class="empty-vault-state double-bezel" id="project-empty-state">
-          <div class="bezel-inner">
-            <div class="empty-state-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h3>NO PROJECTS PUBLISHED YET</h3>
-            <p>Your project showcase is currently empty. Use the hidden Content Vault interface to add your live applications, AI systems, and case studies.</p>
-            <button type="button" class="btn-clean primary open-vault-trigger" data-vault-target="project">
-              <span>+ OPEN VAULT TO ADD PROJECT</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           GITHUB CONTRIBUTIONS & ACTIVITY HEATMAP
-           ============================================================ -->
-      <div class="github-activity-panel double-bezel">
-        <div class="bezel-inner">
-          <div class="gh-header">
-            <div class="gh-title-group">
-              <div class="gh-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              </div>
-              <div>
-                <strong class="gh-main-heading">GITHUB ACTIVITY &amp; CONTRIBUTIONS</strong>
-                <span class="gh-sub">@sagitfaturrakhman · Continuous Building &amp; Code Frequency</span>
-              </div>
-            </div>
-            <a class="btn-clean secondary" href="https://github.com" target="_blank" rel="noreferrer">
-              <span>VISIT PROFILE</span>
-              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-          </div>
-
-          <!-- Heatmap Matrix Grid -->
-          <div class="gh-heatmap-wrap">
-            <div class="gh-heatmap-legend-months">
-              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
-            </div>
-            <div class="gh-heatmap-grid" id="github-heatmap-grid">
-              <!-- Dynamically populated by JS -->
-            </div>
-            <div class="gh-heatmap-footer">
-              <span class="gh-stat-note"><strong>480+</strong> Contributions in 2025–2026</span>
-              <div class="gh-legend-levels">
-                <span>Less</span>
-                <span class="lvl lvl-0"></span>
-                <span class="lvl lvl-1"></span>
-                <span class="lvl lvl-2"></span>
-                <span class="lvl lvl-3"></span>
-                <span class="lvl lvl-4"></span>
-                <span>More</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Metrics Bar -->
-          <div class="gh-stats-row">
-            <div class="gh-stat-box">
-              <span class="gh-stat-label">PUBLIC REPOSITORIES</span>
-              <strong class="gh-stat-val">14+</strong>
-            </div>
-            <div class="gh-stat-box">
-              <span class="gh-stat-label">PRIMARY LANGUAGE</span>
-              <strong class="gh-stat-val">Python / TypeScript</strong>
-            </div>
-            <div class="gh-stat-box">
-              <span class="gh-stat-label">COMMITS THIS YEAR</span>
-              <strong class="gh-stat-val">320+</strong>
-            </div>
-            <div class="gh-stat-box">
-              <span class="gh-stat-label">DEPLOYED STACKS</span>
-              <strong class="gh-stat-val">Full-Stack &amp; AI</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         CHAPTER 09 — DOCUMENTATION, ACTIVITIES & EXPERIENCE ARCHIVE
-         ============================================================ -->
-    <section class="chapter-section" id="documentation" data-chapter-index="09">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">09</span>
-        <span class="badge-tag">DOCUMENTATION</span>
-      </div>
-
-      <div class="chapter-header-box">
-        <div class="lab-eyebrow">
-          <span class="eyebrow-line"></span>
-          <span class="eyebrow-text">ENGINEERING &amp; DOCUMENTATION ARCHIVE</span>
-        </div>
-        <h2 class="section-heading">Experience, activities,<br>and learning journey.</h2>
-        <p class="section-subtext">Comprehensive archive of engineering experiences, developer workshops, hackathon participation, academic milestones, and certifications.</p>
-      </div>
-
-      <!-- Category Filter Tabs -->
-      <div class="doc-filter-tabs">
-        <button class="doc-tab active" data-filter="all">ALL</button>
-        <button class="doc-tab" data-filter="experience">EXPERIENCE</button>
-        <button class="doc-tab" data-filter="gallery">ACTIVITIES &amp; GALLERY</button>
-        <button class="doc-tab" data-filter="certificates">CERTIFICATES</button>
-        <button class="doc-tab" data-filter="academic">ACADEMIC</button>
-      </div>
-
-      <div class="docs-master-grid" id="doc-list">
-        <!-- Dynamic Custom Documentation & Gallery from Private Vault will render here -->
-        <div class="empty-vault-state double-bezel" id="doc-empty-state">
-          <div class="bezel-inner">
-            <div class="empty-state-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            <h3>NO ARCHIVE ENTRIES YET</h3>
-            <p>Your documentation and gallery archive is currently empty. Open the Content Vault to upload your certificates, gallery photos, and engineering milestones.</p>
-            <button type="button" class="btn-clean primary open-vault-trigger" data-vault-target="doc">
-              <span>+ OPEN VAULT TO ADD ENTRY</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Credly & Public Credentials Banner -->
-      <div class="credly-banner double-bezel">
-        <div class="bezel-inner">
-          <div class="credly-info">
-            <strong>VERIFIED PUBLIC CREDENTIALS</strong>
-            <p>Explore verified digital badges and certifications on official credential platforms.</p>
-          </div>
-          <a class="btn-clean primary" href="https://www.credly.com" target="_blank" rel="noreferrer">
-            <span>VIEW ON CREDLY</span>
-            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         CHAPTER 10 — CONTACT / FINAL CHAMBER
-         ============================================================ -->
-    <section class="chapter-section chapter-contact" id="contact" data-chapter-index="10">
-      <div class="chapter-rail-badge">
-        <span class="badge-num">10</span>
-        <span class="badge-tag">CONTACT</span>
-      </div>
-
-      <div class="contact-master-panel double-bezel">
-        <div class="bezel-inner">
-          <div class="contact-header">
-            <div class="lab-eyebrow">
-              <span class="eyebrow-line"></span>
-              <span class="eyebrow-text">LET'S CONNECT</span>
-            </div>
-            <h2 class="contact-main-heading">
-              Let's build something<br>meaningful together.
-            </h2>
-            <p class="contact-intro">
-              Open to software engineering and AI engineering opportunities, internships, research collaborations, and ambitious digital products.
+        <!-- SECTION B: VISUAL GALLERY & SYSTEM TELEMETRY (DEDICATED CONTAINER) -->
+        <div class="gallery-section-block" style="margin-top: 48px">
+          <div class="chapter-header-box" style="margin-bottom: 20px">
+            <h3
+              style="
+                font-size: 1.3rem;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              "
+            >
+              <span></span> VISUAL GALLERY &amp; SYSTEM TELEMETRY
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted)">
+              Dedicated exclusively to project screenshots, lab snapshots, and
+              system interface captures. Kept entirely separate from
+              certificates.
             </p>
           </div>
 
-          <div class="contact-methods-grid">
-            <a href="mailto:sagitfaturrakhman@gmail.com" class="contact-card double-bezel">
-              <div class="bezel-inner">
-                <div class="contact-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                </div>
-                <div class="contact-text">
-                  <span class="c-label">EMAIL DIRECT</span>
-                  <strong class="c-val">sagitfaturrakhman@gmail.com</strong>
-                </div>
-              </div>
-            </a>
-
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="contact-card double-bezel">
-              <div class="bezel-inner">
-                <div class="contact-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                </div>
-                <div class="contact-text">
-                  <span class="c-label">LINKEDIN PROFILE</span>
-                  <strong class="c-val">linkedin.com/in/sagitfaturrakhman</strong>
-                </div>
-              </div>
-            </a>
-
-            <a href="https://github.com" target="_blank" rel="noreferrer" class="contact-card double-bezel">
-              <div class="bezel-inner">
-                <div class="contact-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                </div>
-                <div class="contact-text">
-                  <span class="c-label">GITHUB REPOSITORIES</span>
-                  <strong class="c-val">github.com/sagitfaturrakhman</strong>
-                </div>
-              </div>
-            </a>
-
-            <div class="contact-card double-bezel location-card">
-              <div class="bezel-inner">
-                <div class="contact-card-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <div class="contact-text">
-                  <span class="c-label">LOCATION</span>
-                  <strong class="c-val">Tasikmalaya, Indonesia</strong>
-                </div>
-              </div>
-            </div>
+          <div class="gallery-master-grid" id="gallery-list">
+            <!-- Dedicated Visual Gallery items will render here -->
           </div>
+        </div>
 
-          <div class="contact-action-footer">
-            <a class="btn-clean primary" href="mailto:sagitfaturrakhman@gmail.com">
-              <span>GET IN TOUCH</span>
-              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a class="btn-clean secondary" href="https://github.com" target="_blank" rel="noreferrer">
-              <span>VIEW GITHUB</span>
+        <!-- Credly & Public Credentials Banner -->
+        <div class="credly-banner double-bezel" style="margin-top: 48px">
+          <div class="bezel-inner">
+            <div class="credly-info">
+              <strong>VERIFIED PUBLIC CREDENTIALS</strong>
+              <p>
+                Explore verified digital badges and certifications on official
+                credential platforms.
+              </p>
+            </div>
+            <a
+              class="btn-clean primary"
+              href="https://www.credly.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>VIEW ON CREDLY</span>
+              <svg
+                class="btn-arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
             </a>
           </div>
         </div>
+      </section>
+
+      <!-- ============================================================
+         CHAPTER 10 — CONTACT / FINAL CHAMBER
+         ============================================================ -->
+      <section
+        class="chapter-section chapter-contact"
+        id="contact"
+        data-chapter-index="10"
+      >
+        <div class="chapter-rail-badge">
+          <span class="badge-num">10</span>
+          <span class="badge-tag">CONTACT</span>
+        </div>
+
+        <div class="contact-master-panel double-bezel">
+          <div class="bezel-inner">
+            <div class="contact-header">
+              <div class="lab-eyebrow">
+                <span class="eyebrow-line"></span>
+                <span class="eyebrow-text">LET'S CONNECT</span>
+              </div>
+              <h2 class="contact-main-heading">
+                Let's build something<br />meaningful together.
+              </h2>
+              <p class="contact-intro">
+                Open to software engineering and AI engineering opportunities,
+                internships, research collaborations, and ambitious digital
+                products.
+              </p>
+            </div>
+
+            <div class="contact-methods-grid">
+              <a
+                href="mailto:sagitistaratas465@gmail.com"
+                class="contact-card double-bezel"
+              >
+                <div class="bezel-inner">
+                  <div class="contact-card-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                      />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </div>
+                  <div class="contact-text">
+                    <span class="c-label">EMAIL DIRECT</span>
+                    <strong class="c-val">sagitfaturrakhman@gmail.com</strong>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/sagit-faturrakhman/"
+                target="_blank"
+                rel="noreferrer"
+                class="contact-card double-bezel"
+              >
+                <div class="bezel-inner">
+                  <div class="contact-card-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                      />
+                      <rect x="2" y="9" width="4" height="12" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                  </div>
+                  <div class="contact-text">
+                    <span class="c-label">LINKEDIN PROFILE</span>
+                    <strong class="c-val"
+                      >linkedin.com/in/sagitfaturrakhman</strong
+                    >
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="https://github.com/sagitpr"
+                target="_blank"
+                rel="noreferrer"
+                class="contact-card double-bezel"
+              >
+                <div class="bezel-inner">
+                  <div class="contact-card-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                      />
+                    </svg>
+                  </div>
+                  <div class="contact-text">
+                    <span class="c-label">GITHUB REPOSITORIES</span>
+                    <strong class="c-val">github.com/sagitfaturrakhman</strong>
+                  </div>
+                </div>
+              </a>
+
+              <div class="contact-card double-bezel location-card">
+                <div class="bezel-inner">
+                  <div class="contact-card-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                      />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </div>
+                  <div class="contact-text">
+                    <span class="c-label">LOCATION</span>
+                    <strong class="c-val">Tasikmalaya, Indonesia</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-action-footer">
+              <a
+                class="btn-clean primary"
+                href="mailto:sagitistaratas465@gmail.com"
+              >
+                <span>GET IN TOUCH</span>
+                <svg
+                  class="btn-arrow"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+              <a
+                class="btn-clean secondary"
+                href="https://github.com/sagitpr"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>VIEW GITHUB</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Global Footer with Hidden Vault Access -->
+    <footer class="global-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <strong>SAGIT FATURRAKHMAN</strong>
+          <small>Software Engineer · AI Engineer</small>
+        </div>
+
+        <div class="footer-quote">
+          "I don't just build interfaces. I build systems that make ideas work."
+        </div>
+
+        <div class="footer-copy">
+          <span>© 2026 Sagit Faturrakhman. All rights reserved.</span>
+          <button
+            type="button"
+            class="footer-vault-btn open-vault-trigger"
+            title="Open Content Vault"
+            aria-label="Open Content Vault"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <span>Vault</span>
+          </button>
+        </div>
       </div>
-    </section>
+    </footer>
 
-  </main>
+    <!-- Scroll to Top Button -->
+    <button
+      class="back-top-btn"
+      id="back-top"
+      type="button"
+      aria-label="Scroll to top"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <polyline points="18 15 12 9 6 15" />
+      </svg>
+    </button>
 
-  <!-- Global Footer with Hidden Vault Access -->
-  <footer class="global-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <strong>SAGIT FATURRAKHMAN</strong>
-        <small>Software Engineer · AI Engineer</small>
-      </div>
-
-      <div class="footer-quote">
-        "I don't just build interfaces. I build systems that make ideas work."
-      </div>
-
-      <div class="footer-copy">
-        <span>© 2026 Sagit Faturrakhman. All rights reserved.</span>
-        <button type="button" class="footer-vault-btn open-vault-trigger" title="Open Content Vault" aria-label="Open Content Vault">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>Vault</span>
-        </button>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scroll to Top Button -->
-  <button class="back-top-btn" id="back-top" type="button" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
-
-  <!-- ============================================================
+    <!-- ============================================================
        PRIVATE ADMIN CONTENT VAULT MODAL (CONTROL INTERFACE)
        ============================================================ -->
-  <div class="secret-admin" id="secret-admin" aria-hidden="true">
-    <div class="secret-admin-backdrop" data-secret-close></div>
-    <section class="secret-admin-panel double-bezel" aria-label="Private Content Vault">
-      <div class="bezel-inner">
-        <div class="secret-admin-head">
-          <div>
-            <span class="secret-kicker">ADMIN CONTROL INTERFACE</span>
-            <h2>Portfolio Content Vault</h2>
+    <div class="secret-admin" id="secret-admin" aria-hidden="true">
+      <div class="secret-admin-backdrop" data-secret-close></div>
+      <section
+        class="secret-admin-panel double-bezel"
+        aria-label="Private Content Vault"
+      >
+        <div class="bezel-inner">
+          <div class="secret-admin-head">
+            <div>
+              <span class="secret-kicker">ADMIN CONTROL INTERFACE</span>
+              <h2>Portfolio Content Vault</h2>
+            </div>
+            <button
+              class="secret-close"
+              type="button"
+              data-secret-close
+              aria-label="Close Admin Modal"
+            >
+              ✕
+            </button>
           </div>
-          <button class="secret-close" type="button" data-secret-close aria-label="Close Admin Modal">✕</button>
+
+          <div class="secret-tabs">
+            <button
+              type="button"
+              class="secret-tab active"
+              data-secret-tab="project"
+            >
+              📁 Manage Projects
+            </button>
+            <button type="button" class="secret-tab" data-secret-tab="doc">
+              📜 Manage Docs &amp; Gallery
+            </button>
+            <button type="button" class="secret-tab" data-secret-tab="backup">
+              💾 Backup &amp; Restore
+            </button>
+          </div>
+
+          <!-- FORM 1: PROJECTS -->
+          <form class="secret-form active" id="secret-project-form">
+            <label
+              >Project Name *
+              <input name="title" required placeholder="e.g. WARUNGIO"
+            /></label>
+            <label
+              >Subtitle
+              <input
+                name="subtitle"
+                placeholder="e.g. AI-Powered Hyperlocal Marketplace"
+            /></label>
+            <label
+              >Category / Badges
+              <input
+                name="category"
+                placeholder="e.g. FULL-STACK · AI · COMMERCE"
+            /></label>
+            <label
+              >Tech Stack
+              <input
+                name="stack"
+                placeholder="e.g. Django, Python, PostgreSQL, Redis, Docker"
+            /></label>
+            <label
+              >AI Pipeline / Features
+              <input
+                name="ai"
+                placeholder="e.g. Vision AI, OCR product scan, Smart recommendations"
+            /></label>
+            <label
+              >My Role
+              <input
+                name="role"
+                placeholder="e.g. Full-stack development, database architecture"
+            /></label>
+            <label class="full-width"
+              >Full Description *
+              <textarea
+                name="description"
+                required
+                placeholder="Detailed problem, solution, and engineering highlights..."
+              ></textarea>
+            </label>
+            <label
+              >Live URL
+              <input
+                name="url"
+                type="url"
+                placeholder="https://yourproject.com"
+            /></label>
+            <label
+              >Project Thumbnail / Screenshot
+              <input name="image" type="file" accept="image/*"
+            /></label>
+            <button type="submit" class="btn-clean primary">
+              <span>+ SAVE PROJECT ENTRY</span>
+            </button>
+          </form>
+
+          <!-- FORM 2: DOCUMENTATION, GALLERY, EXPERIENCE, ACADEMIC -->
+          <form class="secret-form" id="secret-doc-form">
+            <label
+              >Title *
+              <input
+                name="title"
+                required
+                placeholder="e.g. Google Cloud Foundations / AI Hackathon 2026"
+            /></label>
+            <label
+              >Category *
+              <select name="category" required>
+                <option value="certificates">Certificates</option>
+                <option value="gallery">Activities &amp; Gallery</option>
+                <option value="experience">Experience</option>
+                <option value="academic">Academic Milestone</option>
+              </select>
+            </label>
+            <label
+              >Issuer / Organization / Company
+              <input
+                name="issuer"
+                placeholder="e.g. Google Cloud / Bakti Tunas Husada / Tech Event"
+            /></label>
+            <label
+              >Date / Period
+              <input
+                name="date"
+                placeholder="e.g. 2025 · Verified or 2024 — PRESENT"
+            /></label>
+            <label class="full-width"
+              >Summary &amp; Description *
+              <textarea
+                name="description"
+                required
+                placeholder="Describe what was learned, built, or achieved..."
+              ></textarea>
+            </label>
+            <label
+              >Document / Credential Link
+              <input name="url" type="url" placeholder="https://credential.url"
+            /></label>
+            <label
+              >Certificate / Photo Image
+              <input name="image" type="file" accept="image/*"
+            /></label>
+            <button type="submit" class="btn-clean primary">
+              <span>+ SAVE ARCHIVE ENTRY</span>
+            </button>
+          </form>
+
+          <!-- TAB 3: BACKUP & EXPORT/IMPORT JSON -->
+          <div class="secret-form" id="secret-backup-form">
+            <div class="backup-box full-width">
+              <h4>Data Persistence &amp; Backup</h4>
+              <p>
+                Your content is saved directly to your browser's persistent
+                storage. You can also export everything as a JSON file to
+                transfer between devices or restore later.
+              </p>
+              <div class="backup-actions">
+                <button
+                  type="button"
+                  class="btn-clean primary"
+                  id="btn-export-vault"
+                >
+                  <span>EXPORT BACKUP JSON</span>
+                </button>
+                <label class="btn-clean secondary file-import-label">
+                  <span>IMPORT BACKUP JSON</span>
+                  <input
+                    type="file"
+                    id="input-import-vault"
+                    accept=".json"
+                    style="display: none"
+                  />
+                </label>
+                <button
+                  type="button"
+                  class="btn-clean"
+                  id="btn-clear-vault"
+                  style="
+                    background: rgba(239, 68, 68, 0.15);
+                    border: 1px solid #ef4444;
+                    color: #ef4444;
+                  "
+                >
+                  <span>CLEAR ALL DATA</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- LIST OF CURRENT ENTRIES IN VAULT -->
+          <div class="secret-list-section">
+            <h4>Published Entries in Vault</h4>
+            <div class="secret-list" id="secret-list"></div>
+          </div>
+
+          <p class="secret-note">
+            Tip: You can open this vault anytime by clicking the
+            <strong>Vault</strong> button in the footer or typing
+            <code>SAGITADMIN</code> on your keyboard.
+          </p>
         </div>
+      </section>
+    </div>
 
-        <div class="secret-tabs">
-          <button type="button" class="secret-tab active" data-secret-tab="project">📁 Manage Projects</button>
-          <button type="button" class="secret-tab" data-secret-tab="doc">📜 Manage Docs &amp; Gallery</button>
-          <button type="button" class="secret-tab" data-secret-tab="backup">💾 Backup &amp; Restore</button>
-        </div>
-
-        <!-- FORM 1: PROJECTS -->
-        <form class="secret-form active" id="secret-project-form">
-          <label>Project Name * <input name="title" required placeholder="e.g. WARUNGIO"></label>
-          <label>Subtitle <input name="subtitle" placeholder="e.g. AI-Powered Hyperlocal Marketplace"></label>
-          <label>Category / Badges <input name="category" placeholder="e.g. FULL-STACK · AI · COMMERCE"></label>
-          <label>Tech Stack <input name="stack" placeholder="e.g. Django, Python, PostgreSQL, Redis, Docker"></label>
-          <label>AI Pipeline / Features <input name="ai" placeholder="e.g. Vision AI, OCR product scan, Smart recommendations"></label>
-          <label>My Role <input name="role" placeholder="e.g. Full-stack development, database architecture"></label>
-          <label class="full-width">Full Description * <textarea name="description" required placeholder="Detailed problem, solution, and engineering highlights..."></textarea></label>
-          <label>Live URL <input name="url" type="url" placeholder="https://yourproject.com"></label>
-          <label>Project Thumbnail / Screenshot <input name="image" type="file" accept="image/*"></label>
-          <button type="submit" class="btn-clean primary"><span>+ SAVE PROJECT ENTRY</span></button>
-        </form>
-
-        <!-- FORM 2: DOCUMENTATION, GALLERY, EXPERIENCE, ACADEMIC -->
-        <form class="secret-form" id="secret-doc-form">
-          <label>Title * <input name="title" required placeholder="e.g. Google Cloud Foundations / AI Hackathon 2026"></label>
-          <label>Category *
-            <select name="category" required>
-              <option value="certificates">Certificates</option>
-              <option value="gallery">Activities &amp; Gallery</option>
-              <option value="experience">Experience</option>
-              <option value="academic">Academic Milestone</option>
-            </select>
-          </label>
-          <label>Issuer / Organization / Company <input name="issuer" placeholder="e.g. Google Cloud / Bakti Tunas Husada / Tech Event"></label>
-          <label>Date / Period <input name="date" placeholder="e.g. 2025 · Verified or 2024 — PRESENT"></label>
-          <label class="full-width">Summary &amp; Description * <textarea name="description" required placeholder="Describe what was learned, built, or achieved..."></textarea></label>
-          <label>Document / Credential Link <input name="url" type="url" placeholder="https://credential.url"></label>
-          <label>Certificate / Photo Image <input name="image" type="file" accept="image/*"></label>
-          <button type="submit" class="btn-clean primary"><span>+ SAVE ARCHIVE ENTRY</span></button>
-        </form>
-
-        <!-- TAB 3: BACKUP & EXPORT/IMPORT JSON -->
-        <div class="secret-form" id="secret-backup-form">
-          <div class="backup-box full-width">
-            <h4>Data Persistence &amp; Backup</h4>
-            <p>Your content is saved directly to your browser's persistent storage. You can also export everything as a JSON file to transfer between devices or restore later.</p>
-            <div class="backup-actions">
-              <button type="button" class="btn-clean primary" id="btn-export-vault"><span>EXPORT BACKUP JSON</span></button>
-              <label class="btn-clean secondary file-import-label">
-                <span>IMPORT BACKUP JSON</span>
-                <input type="file" id="input-import-vault" accept=".json" style="display:none;">
-              </label>
-              <button type="button" class="btn-clean" id="btn-clear-vault" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;"><span>CLEAR ALL DATA</span></button>
+    <!-- Certificate & Image Full-Aspect Lightbox Modal -->
+    <div
+      id="cert-lightbox-modal"
+      class="cert-lightbox-modal"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <div class="lightbox-backdrop" id="cert-lightbox-close-backdrop"></div>
+      <div class="lightbox-dialog double-bezel">
+        <div class="bezel-inner">
+          <button
+            type="button"
+            class="lightbox-close-btn"
+            id="btn-close-lightbox"
+            aria-label="Close modal"
+          >
+            ✕
+          </button>
+          <div class="lightbox-content">
+            <div class="lightbox-img-wrap">
+              <img
+                id="lb-img"
+                src=""
+                alt="Certificate"
+                style="
+                  max-height: 65vh;
+                  max-width: 100%;
+                  object-fit: contain;
+                  border-radius: 6px;
+                  display: block;
+                  margin: 0 auto;
+                "
+              />
+            </div>
+            <div class="lightbox-meta">
+              <span class="lb-category" id="lb-cat">CREDENTIAL</span>
+              <h3 class="lb-title" id="lb-title">Title</h3>
+              <span class="lb-issuer" id="lb-issuer">Issuer</span>
+              <p class="lb-desc" id="lb-desc"></p>
+              <a
+                id="lb-verify-link"
+                href="#"
+                target="_blank"
+                rel="noreferrer"
+                class="btn-clean primary"
+                style="display: inline-flex; margin-top: 12px"
+              >
+                <span>VERIFY EXTERNAL CREDENTIAL →</span>
+              </a>
             </div>
           </div>
         </div>
-
-        <!-- LIST OF CURRENT ENTRIES IN VAULT -->
-        <div class="secret-list-section">
-          <h4>Published Entries in Vault</h4>
-          <div class="secret-list" id="secret-list"></div>
-        </div>
-
-        <p class="secret-note">Tip: You can open this vault anytime by clicking the <strong>Vault</strong> button in the footer or typing <code>SAGITADMIN</code> on your keyboard.</p>
       </div>
-    </section>
-  </div>
+    </div>
 
-  <script src="./js/main.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/supabase-client.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
 </html>
