@@ -63,7 +63,7 @@
     const innerCore = new THREE.Mesh(innerGeo, innerMat);
     labGroup.add(innerCore);
 
-    // 3. Holographic Orbiting Telemetry Rings
+    // 3. Holographic Orbiting Telemetry Rings (Layered Speeds)
     const ring1Geo = new THREE.RingGeometry(11, 11.08, 64);
     const ringMat = new THREE.MeshBasicMaterial({
       color: 0x38bdf8,
@@ -74,6 +74,19 @@
     const ring1 = new THREE.Mesh(ring1Geo, ringMat);
     ring1.rotation.x = Math.PI / 3;
     labGroup.add(ring1);
+
+    // Complementary Second Telemetry Ring for Spatial Depth
+    const ring2Geo = new THREE.RingGeometry(13.2, 13.28, 64);
+    const ring2Mat = new THREE.MeshBasicMaterial({
+      color: 0x7dd3fc,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.12,
+    });
+    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+    ring2.rotation.x = -Math.PI / 4;
+    ring2.rotation.y = Math.PI / 6;
+    labGroup.add(ring2);
 
     // 4. Undulating Transparent 3D Wave Grid (Animasi Ombak Transparan)
     const waveGeo = new THREE.PlaneGeometry(80, 80, 26, 26);
@@ -117,22 +130,29 @@
     const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
-    // Mouse Parallax
+    // Mouse Parallax (Damped)
     let mouseX = 0;
     let mouseY = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+
     window.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     }, { passive: true });
 
     function onResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
+      const pixelRatioLimit = window.innerWidth < 768 ? 1.5 : 2;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, pixelRatioLimit));
       renderer.setSize(window.innerWidth, window.innerHeight);
     }
     window.addEventListener('resize', onResize);
 
     let clock = 0;
+    let lastScrollY = window.scrollY || window.pageYOffset;
+    let scrollVelocity = 0;
 
     function animate() {
       requestAnimationFrame(animate);
@@ -141,14 +161,28 @@
       const totalHeight = document.body.scrollHeight - window.innerHeight;
       const progress = totalHeight > 0 ? scrollY / totalHeight : 0;
 
+      // Track scroll velocity for realistic momentum
+      const deltaY = scrollY - lastScrollY;
+      lastScrollY = scrollY;
+      scrollVelocity += (deltaY - scrollVelocity) * 0.18;
+
       if (!prefersReducedMotion) {
         clock += 0.015;
 
-        sphere.rotation.x += 0.0008;
-        sphere.rotation.y += 0.0012;
-        innerCore.rotation.x -= 0.0012;
-        innerCore.rotation.y -= 0.0015;
-        ring1.rotation.z += 0.001;
+        // Level 1: Global Motion (Continuous multi-speed rotation)
+        sphere.rotation.x += 0.0006;
+        sphere.rotation.y += 0.001;
+        innerCore.rotation.x -= 0.0009;
+        innerCore.rotation.y -= 0.0012;
+
+        // AI Core Breathing Scale Pulse
+        const coreScale = 1.0 + Math.sin(clock * 1.5) * 0.03;
+        innerCore.scale.set(coreScale, coreScale, coreScale);
+
+        // Orbiting rings with differential speeds
+        ring1.rotation.z += 0.0012;
+        ring2.rotation.z -= 0.0009;
+        ring2.rotation.x = -Math.PI / 4 + Math.sin(clock * 0.4) * 0.06;
 
         // Gentle undulating wave animation on the grid
         const posAttr = waveGeo.attributes.position;
@@ -175,13 +209,26 @@
         particleGeo.attributes.position.needsUpdate = true;
       }
 
-      const targetZ = 32 - progress * 8;
-      const targetRotationY = progress * Math.PI + mouseX * 0.12;
-      const targetRotationX = mouseY * 0.08;
+      // Smooth mouse damping
+      mouseX += (targetMouseX - mouseX) * 0.06;
+      mouseY += (targetMouseY - mouseY) * 0.06;
+
+      // Level 2: Velocity-aware depth momentum & subtle camera breathing
+      const velocityMomentum = Math.max(-2.2, Math.min(2.2, scrollVelocity * 0.016));
+      const breathX = !prefersReducedMotion ? Math.sin(clock * 0.35) * 0.25 : 0;
+      const breathY = !prefersReducedMotion ? Math.cos(clock * 0.28) * 0.18 : 0;
+
+      const targetZ = 32 - progress * 9.5 - velocityMomentum;
+      const targetY = (progress * -3.5) + breathY;
+      const targetX = breathX;
+      const targetRotationY = progress * Math.PI * 1.15 + mouseX * 0.12;
+      const targetRotationX = mouseY * 0.07;
 
       labGroup.rotation.y += (targetRotationY - labGroup.rotation.y) * 0.05;
       labGroup.rotation.x += (targetRotationX - labGroup.rotation.x) * 0.05;
-      camera.position.z += (targetZ - camera.position.z) * 0.05;
+      camera.position.z += (targetZ - camera.position.z) * 0.055;
+      camera.position.y += (targetY - camera.position.y) * 0.055;
+      camera.position.x += (targetX - camera.position.x) * 0.055;
 
       renderer.render(scene, camera);
     }
@@ -755,6 +802,216 @@
   }
 
   /* ============================================================
+     MICRO-INTERACTIONS & MOTION REFINEMENTS
+     ============================================================ */
+
+  /**
+   * Subtle 3D Card Tilt + Radial Specular Glow on desktop only (max ±2.2 deg)
+   * Uses event delegation to seamlessly support dynamic Supabase cards.
+   */
+  function initCardTiltInteractions() {
+    const isTouchOrSmall = () =>
+      window.matchMedia('(hover: none)').matches || window.innerWidth <= 768;
+
+    let activeCard = null;
+
+    const resetTilt = (card) => {
+      if (!card) return;
+      card.style.transform = '';
+      card.style.removeProperty('--glow-x');
+      card.style.removeProperty('--glow-y');
+    };
+
+    document.addEventListener('pointermove', (e) => {
+      if (isTouchOrSmall()) {
+        if (activeCard) {
+          resetTilt(activeCard);
+          activeCard = null;
+        }
+        return;
+      }
+
+      const card = e.target.closest('.double-bezel');
+      if (!card) {
+        if (activeCard) {
+          resetTilt(activeCard);
+          activeCard = null;
+        }
+        return;
+      }
+
+      if (activeCard && activeCard !== card) {
+        resetTilt(activeCard);
+      }
+      activeCard = card;
+
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const px = ((x / rect.width) * 100).toFixed(1);
+      const py = ((y / rect.height) * 100).toFixed(1);
+
+      // Subtle, refined tilt: max ±2.2 degrees
+      const rotX = (((y / rect.height) - 0.5) * -4.4).toFixed(2);
+      const rotY = (((x / rect.width) - 0.5) * 4.4).toFixed(2);
+
+      card.style.setProperty('--glow-x', `${px}%`);
+      card.style.setProperty('--glow-y', `${py}%`);
+      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-2px)`;
+    }, { passive: true });
+
+    document.addEventListener('pointerleave', () => {
+      if (activeCard) {
+        resetTilt(activeCard);
+        activeCard = null;
+      }
+    });
+  }
+
+  /**
+   * Chapter 04 — Architecture Flow Sequential Pulse
+   */
+  function initSequentialArchitecture() {
+    const section = document.getElementById('engineering');
+    if (!section) return;
+
+    const nodes = section.querySelectorAll('.arch-node');
+    const arrows = section.querySelectorAll('.arch-arrow');
+    if (!nodes.length) return;
+
+    let activeIndex = -1;
+    let timer = null;
+
+    const cycle = () => {
+      nodes.forEach((n) => n.classList.remove('node-active'));
+      arrows.forEach((a) => a.classList.remove('arrow-pulse'));
+
+      activeIndex = (activeIndex + 1) % (nodes.length + 1);
+
+      if (activeIndex < nodes.length) {
+        nodes[activeIndex]?.classList.add('node-active');
+        if (activeIndex > 0 && arrows[activeIndex - 1]) {
+          arrows[activeIndex - 1].classList.add('arrow-pulse');
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!timer) {
+            cycle();
+            timer = setInterval(cycle, 1800);
+          }
+        } else {
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+          nodes.forEach((n) => n.classList.remove('node-active'));
+          arrows.forEach((a) => a.classList.remove('arrow-pulse'));
+          activeIndex = -1;
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+  }
+
+  /**
+   * Chapter 05 — AI Pipeline Traveling Pulse
+   */
+  function initAIPipelinePulse() {
+    const section = document.getElementById('ai');
+    if (!section) return;
+
+    const cards = section.querySelectorAll('.pipeline-card');
+    const arrows = section.querySelectorAll('.pipe-arrow');
+    if (!cards.length) return;
+
+    let activeIndex = -1;
+    let timer = null;
+
+    const cycle = () => {
+      cards.forEach((c) => c.classList.remove('pipe-active'));
+      arrows.forEach((a) => a.classList.remove('arrow-pulse'));
+
+      activeIndex = (activeIndex + 1) % (cards.length + 1);
+
+      if (activeIndex < cards.length) {
+        cards[activeIndex]?.classList.add('pipe-active');
+        if (activeIndex > 0 && arrows[activeIndex - 1]) {
+          arrows[activeIndex - 1].classList.add('arrow-pulse');
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!timer) {
+            cycle();
+            timer = setInterval(cycle, 2000);
+          }
+        } else {
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+          cards.forEach((c) => c.classList.remove('pipe-active'));
+          arrows.forEach((a) => a.classList.remove('arrow-pulse'));
+          activeIndex = -1;
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+  }
+
+  /**
+   * Chapter 06 — Data Pipeline Packet Step Pulse
+   */
+  function initDataPipelinePulse() {
+    const section = document.getElementById('data');
+    if (!section) return;
+
+    const steps = section.querySelectorAll('.data-step-box');
+    if (!steps.length) return;
+
+    let activeIndex = -1;
+    let timer = null;
+
+    const cycle = () => {
+      steps.forEach((s) => s.classList.remove('data-active'));
+      activeIndex = (activeIndex + 1) % (steps.length + 1);
+
+      if (activeIndex < steps.length) {
+        steps[activeIndex]?.classList.add('data-active');
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!timer) {
+            cycle();
+            timer = setInterval(cycle, 1800);
+          }
+        } else {
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+          steps.forEach((s) => s.classList.remove('data-active'));
+          activeIndex = -1;
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+  }
+
+  /* ============================================================
      INITIALIZATION
      ============================================================ */
   document.addEventListener('DOMContentLoaded', async () => {
@@ -765,6 +1022,10 @@
     initDocTabs();
     initBackToTop();
     initVaultModal();
+    initCardTiltInteractions();
+    initSequentialArchitecture();
+    initAIPipelinePulse();
+    initDataPipelinePulse();
 
     // 1. Initial portfolio data render
     await renderPortfolioData();
