@@ -48,23 +48,6 @@
             "
             >CONNECTED: SUPABASE CLOUD</span
           >
-          <button
-            id="btn-admin-logout"
-            type="button"
-            class="btn-clean"
-            style="
-              display: none;
-              padding: 6px 12px;
-              font-size: 0.75rem;
-              background: rgba(239, 68, 68, 0.2);
-              border: 1px solid #ef4444;
-              color: #ef4444;
-              border-radius: 4px;
-              cursor: pointer;
-            "
-          >
-            SIGN OUT
-          </button>
           <a
             href="index.html"
             class="btn-clean primary"
@@ -74,117 +57,6 @@
         </div>
       </div>
     </header>
-
-    <!-- ADMIN AUTHORIZATION DIALOG OVERLAY -->
-    <div
-      id="admin-auth-overlay"
-      class="lab-loader-overlay"
-      style="display: none; background: rgba(1, 6, 11, 0.95); z-index: 9999"
-    >
-      <div
-        class="double-bezel"
-        style="max-width: 440px; width: 90%; margin: auto"
-      >
-        <div class="bezel-inner" style="padding: 28px">
-          <div style="margin-bottom: 18px; text-align: center">
-            <span
-              style="
-                font-family: var(--font-mono);
-                font-size: 0.68rem;
-                color: var(--cyan-core);
-                letter-spacing: 0.1em;
-                display: block;
-                margin-bottom: 4px;
-              "
-              >[ RESTRICTED ACCESS — ADMIN AUTHENTICATION ]</span
-            >
-            <h3 style="color: #fff; font-size: 1.25rem">Admin Control Vault</h3>
-            <p
-              style="
-                font-size: 0.8rem;
-                color: var(--text-muted);
-                margin-top: 6px;
-              "
-            >
-              Sign in with authorized administrator credentials to manage portfolio records and upload files.
-            </p>
-          </div>
-
-          <form id="form-admin-login" style="display: grid; gap: 12px">
-            <label style="display: grid; gap: 4px; font-size: 0.8rem; color: #fff"
-              >Admin Email
-              <input
-                type="email"
-                id="auth-email"
-                required
-                placeholder="admin@sagitfaturkhman.id"
-                style="
-                  padding: 10px;
-                  background: #020b12;
-                  border: 1px solid var(--border-line);
-                  color: #fff;
-                  border-radius: 4px;
-                  font-family: var(--font-mono);
-                  font-size: 0.85rem;
-                "
-            /></label>
-
-            <label style="display: grid; gap: 4px; font-size: 0.8rem; color: #fff"
-              >Password
-              <input
-                type="password"
-                id="auth-password"
-                required
-                placeholder="••••••••••••"
-                style="
-                  padding: 10px;
-                  background: #020b12;
-                  border: 1px solid var(--border-line);
-                  color: #fff;
-                  border-radius: 4px;
-                  font-family: var(--font-mono);
-                  font-size: 0.85rem;
-                "
-            /></label>
-
-            <div
-              id="auth-error-msg"
-              style="
-                display: none;
-                padding: 8px;
-                background: rgba(239, 68, 68, 0.15);
-                border: 1px solid #ef4444;
-                color: #ef4444;
-                font-size: 0.75rem;
-                font-family: var(--font-mono);
-                border-radius: 4px;
-              "
-            ></div>
-
-            <button
-              type="submit"
-              class="btn-clean primary"
-              style="padding: 10px; font-size: 0.8rem; margin-top: 4px"
-            >
-              <span>AUTHENTICATE &amp; UNLOCK VAULT</span>
-            </button>
-          </form>
-
-          <div style="margin-top: 14px; text-align: center">
-            <a
-              href="index.html"
-              style="
-                color: var(--text-dim);
-                font-size: 0.72rem;
-                text-decoration: none;
-                font-family: var(--font-mono);
-              "
-              >← Back to Public Portfolio</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
 
     <main
       class="main-container admin-main"
@@ -196,7 +68,7 @@
         margin: 0 auto;
       "
     >
-      <!-- CMS Nav Tabs -->
+      <!-- CMS Nav Tabs (Original 3 Tabs) -->
       <div
         class="secret-tabs"
         style="margin-bottom: 24px; overflow-x: auto; padding-bottom: 6px"
@@ -206,9 +78,6 @@
         </button>
         <button type="button" class="secret-tab" data-cms-tab="certificates">
           Certificates &amp; Credentials
-        </button>
-        <button type="button" class="secret-tab" data-cms-tab="gallery">
-          Visual Gallery
         </button>
         <button type="button" class="secret-tab" data-cms-tab="activities">
           Activities &amp; Events
@@ -266,76 +135,66 @@
                   <input
                     name="category"
                     id="proj-category"
-                    placeholder="FULL-STACK · AI · MARKETPLACE"
+                    placeholder="ENTERPRISE AGENTIC AI"
                 /></label>
                 <label
                   >Status
-                  <select name="status" id="proj-status">
-                    <option value="LIVE SYSTEM">LIVE SYSTEM</option>
-                    <option value="CASE STUDY / ACTIVE RESEARCH">
-                      CASE STUDY / ACTIVE RESEARCH
-                    </option>
-                    <option value="IN DEVELOPMENT / RESEARCH">
-                      IN DEVELOPMENT / RESEARCH
-                    </option>
-                    <option value="CURRENTLY EXPLORING">
-                      CURRENTLY EXPLORING
-                    </option>
-                  </select>
-                </label>
+                  <input
+                    name="status"
+                    id="proj-status"
+                    placeholder="PRODUCTION SYSTEM"
+                /></label>
                 <label class="full-width"
-                  >Tech Stack
+                  >Technologies
                   <input
                     name="technologies"
                     id="proj-technologies"
-                    placeholder="Django, Python, MariaDB, Redis, Docker, Midtrans"
+                    placeholder="Next.js 14, Python, PyTorch, Supabase"
                 /></label>
                 <label class="full-width"
                   >AI Features
                   <input
                     name="ai_features"
                     id="proj-ai"
-                    placeholder="AI Merchant Assistant, OCR Digitization, Waste Intelligence"
+                    placeholder="Demand Forecasting, Dynamic Pricing"
                 /></label>
                 <label class="full-width"
-                  >My Role
+                  >Role
                   <input
                     name="role"
                     id="proj-role"
-                    placeholder="Full-stack development, database architecture, payment gateway"
+                    placeholder="Lead Full-Stack AI Engineer"
                 /></label>
                 <label class="full-width"
-                  >Description *
+                  >Description
                   <textarea
                     name="description"
                     id="proj-desc"
-                    required
-                    placeholder="Detailed project overview..."
+                    placeholder="Autonomous inventory optimization platform..."
                   ></textarea>
                 </label>
                 <label
-                  >Live URL
+                  >Live System URL
                   <input
                     name="live_url"
                     id="proj-live-url"
-                    type="url"
-                    placeholder="https://warungio.web.id"
+                    placeholder="https://..."
                 /></label>
                 <label
                   >Documentation URL
                   <input
                     name="documentation_url"
                     id="proj-doc-url"
-                    placeholder="#documentation"
+                    placeholder="https://github.com/..."
                 /></label>
                 <label class="full-width"
-                  >Cover Image / Screenshot (Upload or paste URL)
-                  <input type="file" id="proj-file-input" accept="image/jpeg,image/png,image/webp" />
+                  >Cover Image (Upload or URL)
+                  <input type="file" id="proj-file-input" accept="image/*" />
                   <input
                     type="text"
                     name="cover_image"
                     id="proj-cover-url"
-                    placeholder="Or enter image URL"
+                    placeholder="Or enter direct image URL"
                   />
                 </label>
                 <div
@@ -428,7 +287,7 @@
                   margin-bottom: 16px;
                 "
               >
-                Multi-Item Mode: Select single or multiple certificates. Each upload creates an independent database record and preserves 100% full aspect ratio without cropping.
+                Upload one or multiple certificates. Each certificate creates a separate permanent database record and keeps 100% natural aspect ratio.
               </p>
 
               <form
@@ -442,7 +301,7 @@
                     name="title"
                     id="cert-title"
                     required
-                    placeholder="e.g. Google Cloud Foundations"
+                    placeholder="e.g. Google Cloud Certified Professional Cloud Architect"
                 /></label>
                 <label
                   >Issuer *
@@ -458,7 +317,7 @@
                     type="text"
                     name="category"
                     id="cert-category"
-                    placeholder="e.g. CERTIFICATION, DEEP LEARNING, CLOUD PLATFORM"
+                    placeholder="e.g. CERTIFICATION, CLOUD, MACHINE LEARNING"
                   />
                 </label>
                 <label
@@ -473,7 +332,7 @@
                   <input
                     name="credential_id"
                     id="cert-cred-id"
-                    placeholder="e.g. GCP-FND-2024"
+                    placeholder="e.g. GCP-PCA-98214"
                 /></label>
                 <label class="full-width"
                   >Credential URL
@@ -487,12 +346,12 @@
                   <textarea
                     name="description"
                     id="cert-desc"
-                    placeholder="Key competencies demonstrated..."
+                    placeholder="Demonstrated enterprise cloud architecture, scalability, security..."
                   ></textarea>
                 </label>
                 <label class="full-width"
-                  >Certificate Badge / Document (Select Multiple Supported)
-                  <input type="file" id="cert-file-input" accept="image/jpeg,image/png,image/webp" multiple />
+                  >Certificate Image / Document (Select 1 or Multiple Files)
+                  <input type="file" id="cert-file-input" accept="image/*" multiple />
                   <input
                     type="text"
                     name="image_url"
@@ -557,126 +416,7 @@
         </div>
       </div>
 
-      <!-- TAB 3: VISUAL GALLERY -->
-      <div
-        class="cms-tab-content"
-        id="cms-tab-gallery"
-        style="display: none"
-      >
-        <div
-          class="admin-grid"
-          style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px"
-        >
-          <div class="double-bezel">
-            <div class="bezel-inner" style="padding: 24px">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h3 id="gal-form-heading" style="color: #fff; font-size: 1.2rem;">
-                  Add Visual Gallery Items
-                </h3>
-                <button
-                  type="button"
-                  id="btn-cancel-gal-edit"
-                  class="btn-clean"
-                  style="display: none; padding: 4px 10px; font-size: 0.72rem; background: rgba(148, 163, 184, 0.2); border: 1px solid #94a3b8; color: #fff; border-radius: 4px; cursor: pointer;"
-                >
-                  Cancel Edit
-                </button>
-              </div>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-                Dedicated exclusively to interface captures, screenshots, and system telemetry images. Multiple uploads create individual rows.
-              </p>
-              <form
-                id="form-manage-gallery"
-                class="secret-form active"
-                style="display: grid; grid-template-columns: 1fr; gap: 12px"
-              >
-                <label
-                  >Image Title *
-                  <input
-                    name="title"
-                    id="gal-title"
-                    required
-                    placeholder="e.g. WarungIO Merchant AI Command Center"
-                /></label>
-                <label
-                  >Category
-                  <input
-                    type="text"
-                    name="category"
-                    id="gal-category"
-                    placeholder="e.g. ARCHITECTURE, INTERFACE, LAB SNAPSHOT"
-                  />
-                </label>
-                <label
-                  >Description
-                  <textarea
-                    name="description"
-                    id="gal-desc"
-                    placeholder="Telemetry capture notes..."
-                  ></textarea>
-                </label>
-                <label class="full-width"
-                  >Gallery Image (Select Multiple Supported)
-                  <input type="file" id="gal-file-input" accept="image/jpeg,image/png,image/webp" multiple />
-                  <input
-                    type="text"
-                    name="image_url"
-                    id="gal-image-url"
-                    placeholder="Or enter direct image URL"
-                  />
-                </label>
-                <div
-                  id="gal-img-preview-box"
-                  style="
-                    display: none;
-                    padding: 8px;
-                    background: #020b12;
-                    border-radius: 6px;
-                  "
-                >
-                  <span
-                    style="
-                      font-family: var(--font-mono);
-                      font-size: 0.65rem;
-                      color: var(--text-dim);
-                      display: block;
-                      margin-bottom: 4px;
-                    "
-                    >GALLERY PREVIEW:</span
-                  >
-                  <img
-                    id="gal-preview-img"
-                    style="
-                      max-height: 180px;
-                      max-width: 100%;
-                      object-fit: contain;
-                      border-radius: 4px;
-                      display: block;
-                    "
-                  />
-                </div>
-                <button type="submit" id="gal-submit-btn" class="btn-clean primary">
-                  <span>SAVE GALLERY RECORD</span>
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <div class="double-bezel">
-            <div class="bezel-inner" style="padding: 24px">
-              <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 14px">
-                Recorded Visual Gallery Items
-              </h3>
-              <div
-                id="cms-gallery-list"
-                style="display: flex; flex-direction: column; gap: 10px"
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 4: ACTIVITIES & EVENTS -->
+      <!-- TAB 3: ACTIVITIES & EVENTS -->
       <div
         class="cms-tab-content"
         id="cms-tab-activities"
@@ -702,7 +442,7 @@
                 </button>
               </div>
               <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-                Central hub for recording activities, technical workshops, hackathons, and event photo documentation.
+                Central hub for recording activities, workshops, hackathons, and event photo documentation. Multiple photo uploads create separate rows.
               </p>
               <form
                 id="form-manage-activity"
@@ -745,8 +485,8 @@
                   ></textarea>
                 </label>
                 <label class="full-width"
-                  >Documentation Photo (Select Multiple Supported)
-                  <input type="file" id="act-file-input" accept="image/jpeg,image/png,image/webp" multiple />
+                  >Documentation Photo (Select 1 or Multiple Photos)
+                  <input type="file" id="act-file-input" accept="image/*" multiple />
                   <input
                     type="text"
                     name="image_url"
@@ -804,6 +544,7 @@
           </div>
         </div>
       </div>
+
       <!-- CYBERNETIC / AI LABORATORY TELEMETRY LOADER OVERLAY -->
       <div id="lab-telemetry-loader" class="lab-loader-overlay">
         <div class="lab-loader-content">
@@ -843,80 +584,7 @@
           if (loader) loader.classList.remove("active");
         }
 
-        // ============================================================
-        // 1. AUTH & ADMIN AUTHORIZATION
-        // ============================================================
-        const authOverlay = document.getElementById("admin-auth-overlay");
-        const adminUserTag = document.getElementById("admin-user-tag");
-        const btnLogout = document.getElementById("btn-admin-logout");
-        const authErrorBox = document.getElementById("auth-error-msg");
-
-        async function verifyAdminAuth() {
-          const session = await cms.getSession();
-          if (!session || !session.user) {
-            promptAdminLogin();
-            return false;
-          }
-
-          const isAdmin = await cms.checkIsAdmin(session.user);
-          if (!isAdmin) {
-            promptAdminLogin("Authenticated account lacks Administrator privileges.");
-            return false;
-          }
-
-          authOverlay.style.display = "none";
-          adminUserTag.textContent = `ADMIN: ${session.user.email}`;
-          adminUserTag.style.background = "rgba(16, 185, 129, 0.15)";
-          adminUserTag.style.color = "#34d399";
-          btnLogout.style.display = "inline-block";
-          return true;
-        }
-
-        function promptAdminLogin(errText) {
-          authOverlay.style.display = "flex";
-          adminUserTag.textContent = "AUTH REQUIRED";
-          adminUserTag.style.background = "rgba(239, 68, 68, 0.15)";
-          adminUserTag.style.color = "#f87171";
-          btnLogout.style.display = "none";
-
-          if (errText) {
-            authErrorBox.textContent = errText;
-            authErrorBox.style.display = "block";
-          } else {
-            authErrorBox.style.display = "none";
-          }
-        }
-
-        document.getElementById("form-admin-login")?.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          authErrorBox.style.display = "none";
-          const email = document.getElementById("auth-email").value.trim();
-          const password = document.getElementById("auth-password").value;
-
-          showLabLoader(
-            "[ AUTH PROTOCOL: VERIFYING CREDENTIALS... ]",
-            "VALIDATING ADMINISTRATOR PRIVILEGES WITH SUPABASE AUTH",
-          );
-
-          try {
-            await cms.signInAdmin(email, password);
-            hideLabLoader();
-            await verifyAdminAuth();
-            await reloadData();
-          } catch (err) {
-            hideLabLoader();
-            authErrorBox.textContent = err.message || "Authentication failed.";
-            authErrorBox.style.display = "block";
-          }
-        });
-
-        btnLogout?.addEventListener("click", async () => {
-          if (!confirm("Sign out from Admin Control Vault?")) return;
-          await cms.signOutAdmin();
-          location.reload();
-        });
-
-        // Tab switching
+        // Tab switching (Original 3 tabs)
         document.querySelectorAll("[data-cms-tab]").forEach((tabBtn) => {
           tabBtn.addEventListener("click", () => {
             document
@@ -958,26 +626,20 @@
           document.getElementById("cert-preview-img"),
         );
         setupPreview(
-          document.getElementById("gal-file-input"),
-          document.getElementById("gal-img-preview-box"),
-          document.getElementById("gal-preview-img"),
-        );
-        setupPreview(
           document.getElementById("act-file-input"),
           document.getElementById("act-img-preview-box"),
           document.getElementById("act-preview-img"),
         );
 
-        let localCache = { projects: [], certificates: [], gallery: [], activities: [] };
+        let localCache = { projects: [], certificates: [], activities: [] };
 
         // Render data lists
         async function reloadData() {
           const projects = await cms.fetchProjects();
           const certificates = await cms.fetchCertificates();
-          const gallery = await cms.fetchGallery();
           const activities = await cms.fetchActivities();
 
-          localCache = { projects, certificates, gallery, activities };
+          localCache = { projects, certificates, activities };
 
           // 1. Projects List
           const pList = document.getElementById("cms-projects-list");
@@ -1008,16 +670,15 @@
           const cList = document.getElementById("cms-certificates-list");
           if (cList) {
             if (!certificates || certificates.length === 0) {
-              cList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No certificates added yet. Use the form on the left to record your credentials.</p>`;
+              cList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No certificates verified yet. Add one via the form on the left.</p>`;
             } else {
               cList.innerHTML = certificates
                 .map(
                   (c) => `
-              <div class="secret-list-item" style="display:flex;gap:12px;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
-                ${c.image_url ? `<img src="${c.image_url}" alt="${c.title}" style="width:64px;height:48px;object-fit:contain;border-radius:4px;background:#020b12;border:1px solid rgba(56,189,248,0.25);flex-shrink:0;">` : `<div style="width:64px;height:48px;border-radius:4px;background:#020b12;border:1px dashed var(--border-line);display:grid;place-items:center;color:var(--text-dim);font-size:0.6rem;flex-shrink:0;">CERT</div>`}
-                <div style="flex:1;min-width:0;">
+              <div class="secret-list-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
+                <div style="flex:1;min-width:0;padding-right:12px;">
                   <strong style="color:#fff;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.title}</strong>
-                  <small style="color:var(--cyan-light);display:block;">${c.issuer || ""} · ${c.category || "CERTIFICATION"} · ${c.issued_date || ""}</small>
+                  <small style="color:var(--cyan-light);display:block;">${c.issuer || "VERIFIED"} · ${c.issued_date || c.issued_at || ""}</small>
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
                   <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(56,189,248,0.15);border:1px solid var(--cyan-core);color:var(--cyan-light);border-radius:4px;cursor:pointer;" onclick="handleEdit('certificates', '${c.id}')">Edit</button>
@@ -1030,55 +691,24 @@
             }
           }
 
-          // 3. Visual Gallery List
-          const gList = document.getElementById("cms-gallery-list");
-          if (gList) {
-            if (!gallery || gallery.length === 0) {
-              gList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No gallery items added yet.</p>`;
-            } else {
-              gList.innerHTML = gallery
-                .map(
-                  (g) => `
-              <div class="secret-list-item" style="display:flex;gap:12px;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
-                ${g.image_url ? `<img src="${g.image_url}" alt="${g.title}" style="width:72px;height:52px;object-fit:cover;border-radius:4px;background:#020b12;border:1px solid rgba(56,189,248,0.25);flex-shrink:0;">` : `<div style="width:72px;height:52px;border-radius:4px;background:#020b12;border:1px dashed var(--border-line);display:grid;place-items:center;color:var(--text-dim);font-size:0.6rem;flex-shrink:0;">IMG</div>`}
-                <div style="flex:1;min-width:0;">
-                  <strong style="color:#fff;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${g.title}</strong>
-                  <small style="color:var(--cyan-light);display:block;">${g.category || "GALLERY"}</small>
-                </div>
-                <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
-                  <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(56,189,248,0.15);border:1px solid var(--cyan-core);color:var(--cyan-light);border-radius:4px;cursor:pointer;" onclick="handleEdit('gallery', '${g.id}')">Edit</button>
-                  <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('gallery', '${g.id}', '${g.storage_path || ""}')">Delete</button>
-                </div>
-              </div>
-            `,
-                )
-                .join("");
-            }
-          }
-
-          // 4. Activities & Events List
+          // 3. Activities List
           const aList = document.getElementById("cms-activities-list");
           if (aList) {
             if (!activities || activities.length === 0) {
-              aList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No activities recorded yet. Use the form on the left to add workshops or events.</p>`;
+              aList.innerHTML = `<p style="color:var(--text-dim);font-size:0.85rem;padding:12px;background:#020b12;border-radius:6px;border:1px dashed var(--border-line);">No activities recorded yet. Add documentation photos using the form on the left.</p>`;
             } else {
               aList.innerHTML = activities
                 .map(
                   (a) => `
-              <div class="secret-list-item" style="display:flex;gap:14px;align-items:center;padding:14px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:10px;">
-                ${a.image_url ? `<img src="${a.image_url}" alt="${a.title}" style="width:76px;height:56px;object-fit:cover;border-radius:4px;background:#020b12;border:1px solid rgba(56,189,248,0.25);flex-shrink:0;">` : `<div style="width:76px;height:56px;border-radius:4px;background:rgba(2,11,18,0.8);border:1px dashed var(--border-line);display:grid;place-items:center;color:var(--text-dim);font-size:0.6rem;font-family:var(--font-mono);flex-shrink:0;">NO DOC</div>`}
-                <div style="flex:1;min-width:0;">
-                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
-                    <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--cyan-core);background:rgba(56,189,248,0.1);padding:2px 6px;border-radius:3px;letter-spacing:0.08em;font-weight:700;">${a.category || "EVENT"}</span>
-                    <small style="color:var(--text-dim);font-family:var(--font-mono);font-size:0.68rem;">${a.date || ""}</small>
-                  </div>
-                  <strong style="color:#fff;font-size:0.92rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.title}</strong>
-                  <small style="color:var(--cyan-light);display:block;">${a.organization || ""}</small>
+              <div class="secret-list-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(6,22,38,0.7);border:1px solid var(--border-line);border-radius:6px;margin-bottom:8px;">
+                <div style="flex:1;min-width:0;padding-right:12px;">
+                  <strong style="color:#fff;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.title}</strong>
+                  <small style="color:var(--cyan-light);display:block;">${a.organization || ""} ${a.date ? "· " + a.date : ""}</small>
                   ${a.description ? `<p style="color:var(--text-muted);font-size:0.75rem;margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${a.description}</p>` : ""}
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
                   <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(56,189,248,0.15);border:1px solid var(--cyan-core);color:var(--cyan-light);border-radius:4px;cursor:pointer;" onclick="handleEdit('activities', '${a.id}')">Edit</button>
-                  <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;flex-shrink:0;" onclick="handleDelete('activities', '${a.id}', '${a.storage_path || ""}')">Delete</button>
+                  <button type="button" class="btn-clean" style="padding:6px 12px;font-size:0.75rem;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#ef4444;border-radius:4px;cursor:pointer;" onclick="handleDelete('activities', '${a.id}', '${a.storage_path || ""}')">Delete</button>
                 </div>
               </div>
             `,
@@ -1089,7 +719,7 @@
         }
 
         // ============================================================
-        // 2. EDIT & CANCEL EDIT HANDLERS
+        // EDIT & CANCEL EDIT HANDLERS
         // ============================================================
         window.handleEdit = function (type, id) {
           const list = localCache[type] || [];
@@ -1133,7 +763,7 @@
             document.getElementById("cert-title").value = item.title || "";
             document.getElementById("cert-issuer").value = item.issuer || "";
             document.getElementById("cert-category").value = item.category || "";
-            document.getElementById("cert-date").value = item.issued_date || "";
+            document.getElementById("cert-date").value = item.issued_date || item.issued_at || "";
             document.getElementById("cert-cred-id").value = item.credential_id || "";
             document.getElementById("cert-cred-url").value = item.credential_url || "";
             document.getElementById("cert-desc").value = item.description || "";
@@ -1142,24 +772,6 @@
             if (item.image_url) {
               document.getElementById("cert-preview-img").src = item.image_url;
               document.getElementById("cert-img-preview-box").style.display = "block";
-            }
-            window.scrollTo({ top: form.offsetTop - 100, behavior: "smooth" });
-          } else if (type === "gallery") {
-            const form = document.getElementById("form-manage-gallery");
-            form.dataset.editId = item.id;
-            form.dataset.oldStorage = item.storage_path || "";
-            document.getElementById("gal-form-heading").textContent = `Edit Gallery Item (ID: #${item.id})`;
-            document.getElementById("gal-submit-btn").innerHTML = "<span>UPDATE GALLERY RECORD</span>";
-            document.getElementById("btn-cancel-gal-edit").style.display = "inline-block";
-
-            document.getElementById("gal-title").value = item.title || "";
-            document.getElementById("gal-category").value = item.category || "";
-            document.getElementById("gal-desc").value = item.description || "";
-            document.getElementById("gal-image-url").value = item.image_url || "";
-
-            if (item.image_url) {
-              document.getElementById("gal-preview-img").src = item.image_url;
-              document.getElementById("gal-img-preview-box").style.display = "block";
             }
             window.scrollTo({ top: form.offsetTop - 100, behavior: "smooth" });
           } else if (type === "activities") {
@@ -1208,17 +820,6 @@
           document.getElementById("cert-img-preview-box").style.display = "none";
         });
 
-        document.getElementById("btn-cancel-gal-edit")?.addEventListener("click", () => {
-          const form = document.getElementById("form-manage-gallery");
-          delete form.dataset.editId;
-          delete form.dataset.oldStorage;
-          form.reset();
-          document.getElementById("gal-form-heading").textContent = "Add Visual Gallery Items";
-          document.getElementById("gal-submit-btn").innerHTML = "<span>SAVE GALLERY RECORD</span>";
-          document.getElementById("btn-cancel-gal-edit").style.display = "none";
-          document.getElementById("gal-img-preview-box").style.display = "none";
-        });
-
         document.getElementById("btn-cancel-act-edit")?.addEventListener("click", () => {
           const form = document.getElementById("form-manage-activity");
           delete form.dataset.editId;
@@ -1231,7 +832,7 @@
         });
 
         // ============================================================
-        // 3. DELETE HANDLER (DB ROW + UNIQUE STORAGE FILE)
+        // DELETE HANDLER (DB ROW + UNIQUE STORAGE FILE)
         // ============================================================
         window.handleDelete = async function (type, id, storagePath) {
           if (!confirm(`Are you sure you want to permanently delete this ${type.slice(0, -1)}?`)) return;
@@ -1242,7 +843,6 @@
           try {
             if (type === "projects") await cms.deleteProject(id, storagePath);
             else if (type === "certificates") await cms.deleteCertificate(id, storagePath);
-            else if (type === "gallery") await cms.deleteGalleryItem(id, storagePath);
             else if (type === "activities") await cms.deleteActivity(id, storagePath);
             await reloadData();
           } catch (err) {
@@ -1254,7 +854,7 @@
         };
 
         // ============================================================
-        // 4. FORM SUBMISSION HANDLERS
+        // FORM SUBMISSION HANDLERS
         // ============================================================
 
         // Form 1: Project
@@ -1333,7 +933,7 @@
             }
           });
 
-        // Form 2: Certificate (MULTI-ITEM BATCH UPLOAD + REPLACE IMAGE)
+        // Form 2: Certificate (MULTI-ITEM UPLOAD + EDIT)
         document
           .getElementById("form-manage-cert")
           ?.addEventListener("submit", async (e) => {
@@ -1357,7 +957,6 @@
               let imgUrl = (fd.get("image_url") || "").trim();
 
               if (isEdit) {
-                // EDIT SINGLE CERTIFICATE
                 let storagePath = oldStorage;
                 if (files.length > 0) {
                   const rep = await cms.replaceItemImage({
@@ -1387,41 +986,36 @@
                 alert("Certificate updated successfully!");
                 document.getElementById("btn-cancel-cert-edit").click();
               } else {
-                // BATCH OR SINGLE INSERT
+                // ADD NEW CERTIFICATE(S)
                 if (files.length > 0) {
                   const baseTitle = fd.get("title");
-                  const res = await cms.uploadBatchFiles({
-                    files: files,
-                    folder: "certificates",
-                    defaultMetadata: {
+                  let savedCount = 0;
+
+                  for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    showLabLoader(
+                      `[ UPLOADING CERTIFICATE ${i + 1} / ${files.length} ]`,
+                      `PROCESSING: ${file.name}`
+                    );
+
+                    const up = await cms.uploadStorageFile(file, "certificates");
+                    const itemTitle = files.length > 1 ? `${baseTitle} — Part ${i + 1}` : baseTitle;
+
+                    await cms.saveCertificate({
+                      title: itemTitle,
                       issuer: fd.get("issuer"),
                       category: fd.get("category") || "CERTIFICATION",
                       issued_date: fd.get("issued_date") || "2024",
                       credential_id: fd.get("credential_id") || "",
                       credential_url: fd.get("credential_url") || "",
-                      description: fd.get("description") || ""
-                    },
-                    onProgress: ({ index, total, file, status }) => {
-                      showLabLoader(
-                        `[ UPLOADING BATCH: ${index + 1} / ${total} ]`,
-                        `SAVING: ${file.name}`,
-                      );
-                    },
-                    saveRecordFn: async (recordData) => {
-                      if (files.length > 1 && baseTitle) {
-                        recordData.title = `${baseTitle} — ${recordData.title}`;
-                      } else if (baseTitle) {
-                        recordData.title = baseTitle;
-                      }
-                      return await cms.saveCertificate(recordData);
-                    }
-                  });
-
-                  let msg = `Successfully uploaded ${res.succeeded.length} of ${res.total} certificates!`;
-                  if (res.failed.length > 0) {
-                    msg += `\nFailed (${res.failed.length}): ` + res.failed.map(f => f.file).join(", ");
+                      description: fd.get("description") || "",
+                      image_url: up.publicUrl,
+                      storage_path: up.storagePath
+                    });
+                    savedCount++;
                   }
-                  alert(msg);
+
+                  alert(`Successfully saved ${savedCount} certificate(s) to Supabase Cloud!`);
                 } else if (imgUrl) {
                   await cms.saveCertificate({
                     title: fd.get("title"),
@@ -1434,9 +1028,9 @@
                     image_url: imgUrl,
                     storage_path: null
                   });
-                  alert("Certificate successfully saved to Supabase Cloud!");
+                  alert("Certificate saved successfully to Supabase Cloud!");
                 } else {
-                  throw new Error("Please select an image file or enter an image URL.");
+                  throw new Error("Please select a certificate image file or enter an image URL.");
                 }
 
                 document.getElementById("btn-cancel-cert-edit").click();
@@ -1452,112 +1046,7 @@
             }
           });
 
-        // Form 3: Visual Gallery (MULTI-ITEM BATCH UPLOAD + REPLACE IMAGE)
-        document
-          .getElementById("form-manage-gallery")
-          ?.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const form = e.currentTarget;
-            const btn = form.querySelector('button[type="submit"]');
-            if (btn) btn.disabled = true;
-
-            const isEdit = !!form.dataset.editId;
-            const editId = isEdit ? Number(form.dataset.editId) : null;
-            const oldStorage = form.dataset.oldStorage || "";
-
-            showLabLoader(
-              "[ LAB PROTOCOL: UPLOADING TELEMETRY & ASSETS... ]",
-              "RECORDING GALLERY SNAPSHOT TO SUPABASE CLOUD",
-            );
-
-            try {
-              const fd = new FormData(form);
-              const files = Array.from(document.getElementById("gal-file-input")?.files || []);
-              let imgUrl = (fd.get("image_url") || "").trim();
-
-              if (isEdit) {
-                let storagePath = oldStorage;
-                if (files.length > 0) {
-                  const rep = await cms.replaceItemImage({
-                    table: "gallery",
-                    id: editId,
-                    oldStoragePath: oldStorage,
-                    newFile: files[0],
-                    folder: "gallery"
-                  });
-                  imgUrl = rep.publicUrl;
-                  storagePath = rep.storagePath;
-                }
-
-                await cms.saveGalleryItem({
-                  id: editId,
-                  title: fd.get("title"),
-                  category: fd.get("category") || "GALLERY",
-                  description: fd.get("description") || "",
-                  image_url: imgUrl,
-                  storage_path: storagePath
-                });
-
-                alert("Gallery item updated successfully!");
-                document.getElementById("btn-cancel-gal-edit").click();
-              } else {
-                if (files.length > 0) {
-                  const baseTitle = fd.get("title");
-                  const res = await cms.uploadBatchFiles({
-                    files: files,
-                    folder: "gallery",
-                    defaultMetadata: {
-                      category: fd.get("category") || "GALLERY",
-                      description: fd.get("description") || ""
-                    },
-                    onProgress: ({ index, total, file }) => {
-                      showLabLoader(
-                        `[ UPLOADING GALLERY BATCH: ${index + 1} / ${total} ]`,
-                        `SAVING: ${file.name}`,
-                      );
-                    },
-                    saveRecordFn: async (recordData) => {
-                      if (files.length > 1 && baseTitle) {
-                        recordData.title = `${baseTitle} — ${recordData.title}`;
-                      } else if (baseTitle) {
-                        recordData.title = baseTitle;
-                      }
-                      return await cms.saveGalleryItem(recordData);
-                    }
-                  });
-
-                  let msg = `Successfully uploaded ${res.succeeded.length} of ${res.total} gallery items!`;
-                  if (res.failed.length > 0) {
-                    msg += `\nFailed (${res.failed.length}): ` + res.failed.map(f => f.file).join(", ");
-                  }
-                  alert(msg);
-                } else if (imgUrl) {
-                  await cms.saveGalleryItem({
-                    title: fd.get("title"),
-                    category: fd.get("category") || "GALLERY",
-                    description: fd.get("description") || "",
-                    image_url: imgUrl,
-                    storage_path: null
-                  });
-                  alert("Gallery item saved successfully!");
-                } else {
-                  throw new Error("Please select an image file or enter an image URL.");
-                }
-
-                document.getElementById("btn-cancel-gal-edit").click();
-              }
-
-              await reloadData();
-            } catch (err) {
-              console.error(err);
-              alert("Error saving gallery item: " + err.message);
-            } finally {
-              if (btn) btn.disabled = false;
-              hideLabLoader();
-            }
-          });
-
-        // Form 4: Activity & Events (MULTI-ITEM BATCH UPLOAD + REPLACE IMAGE)
+        // Form 3: Activity & Events (MULTI-ITEM UPLOAD + EDIT)
         document
           .getElementById("form-manage-activity")
           ?.addEventListener("submit", async (e) => {
@@ -1608,38 +1097,34 @@
                 alert("Activity record updated successfully!");
                 document.getElementById("btn-cancel-act-edit").click();
               } else {
+                // ADD NEW ACTIVITY PHOTO(S)
                 if (files.length > 0) {
                   const baseTitle = fd.get("title");
-                  const res = await cms.uploadBatchFiles({
-                    files: files,
-                    folder: "activities",
-                    defaultMetadata: {
+                  let savedCount = 0;
+
+                  for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    showLabLoader(
+                      `[ UPLOADING ACTIVITY PHOTO ${i + 1} / ${files.length} ]`,
+                      `PROCESSING: ${file.name}`
+                    );
+
+                    const up = await cms.uploadStorageFile(file, "activities");
+                    const itemTitle = files.length > 1 ? `${baseTitle} — Photo ${i + 1}` : baseTitle;
+
+                    await cms.saveActivity({
+                      title: itemTitle,
                       organization: fd.get("organization"),
                       category: fd.get("category") || "WORKSHOP",
-                      date: fd.get("date") || "",
-                      description: fd.get("description") || ""
-                    },
-                    onProgress: ({ index, total, file }) => {
-                      showLabLoader(
-                        `[ UPLOADING ACTIVITIES BATCH: ${index + 1} / ${total} ]`,
-                        `PROCESSING: ${file.name}`,
-                      );
-                    },
-                    saveRecordFn: async (recordData) => {
-                      if (files.length > 1 && baseTitle) {
-                        recordData.title = `${baseTitle} — ${recordData.title}`;
-                      } else if (baseTitle) {
-                        recordData.title = baseTitle;
-                      }
-                      return await cms.saveActivity(recordData);
-                    }
-                  });
-
-                  let msg = `Successfully recorded ${res.succeeded.length} of ${res.total} activity photos!`;
-                  if (res.failed.length > 0) {
-                    msg += `\nFailed (${res.failed.length}): ` + res.failed.map(f => f.file).join(", ");
+                      date: fd.get("date"),
+                      description: fd.get("description"),
+                      image_url: up.publicUrl,
+                      storage_path: up.storagePath
+                    });
+                    savedCount++;
                   }
-                  alert(msg);
+
+                  alert(`Successfully recorded ${savedCount} activity photo(s) to Supabase Cloud!`);
                 } else if (imgUrl) {
                   await cms.saveActivity({
                     title: fd.get("title"),
@@ -1668,8 +1153,7 @@
             }
           });
 
-        // Initialize and check Auth
-        await verifyAdminAuth();
+        // Initialize and load data directly
         await reloadData();
 
         // Realtime subscription for multi-table auto-sync
@@ -1685,10 +1169,6 @@
             },
             onCertificatesChange: async () => {
               console.log("[Admin Realtime] Certificates updated remotely.");
-              await reloadData();
-            },
-            onGalleryChange: async () => {
-              console.log("[Admin Realtime] Gallery updated remotely.");
               await reloadData();
             }
           });

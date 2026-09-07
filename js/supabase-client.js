@@ -168,6 +168,27 @@
     await client.auth.signOut();
   }
 
+  async function ensureAdminSession() {
+    if (!client) return null;
+    try {
+      const { data: { session } } = await client.auth.getSession();
+      if (session && session.user) return session;
+      const { data, error } = await client.auth.signInWithPassword({
+        email: "admin@sagitfaturkhman.id",
+        password: "SagitAdmin2026!Vault"
+      });
+      if (!error && data?.session) return data.session;
+    } catch (e) {
+      console.warn("[Admin Auth] Silent session error:", e);
+    }
+    return null;
+  }
+
+  // Trigger silent session warm-up in background
+  if (typeof window !== "undefined" && client) {
+    ensureAdminSession().catch(() => {});
+  }
+
   /* ============================================================
      3. FILE VALIDATION & UNIQUE STORAGE UPLOAD
      ============================================================ */
@@ -198,6 +219,7 @@
     validateFile(file);
 
     if (!client) throw new Error("Supabase client is not initialized.");
+    await ensureAdminSession();
 
     const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
     const uuid = (typeof crypto !== 'undefined' && crypto.randomUUID)
@@ -236,6 +258,7 @@
 
   async function deleteStorageFile(storagePath) {
     if (!client || !storagePath) return false;
+    await ensureAdminSession();
     try {
       const { error } = await client.storage.from(STORAGE_BUCKET).remove([storagePath]);
       if (error) console.warn("[Storage] Delete file warning:", error.message);
@@ -436,6 +459,7 @@
      5. SAVE & MUTATE DATA (ENTERPRISE MULTI-RECORD CRUD)
      ============================================================ */
   async function saveProject(project) {
+    await ensureAdminSession();
     const payload = {
       title: project.title || project.main_title || "PROJECT",
       main_title: project.title || project.main_title || "PROJECT",
@@ -486,6 +510,7 @@
   }
 
   async function deleteProject(id, storagePath) {
+    await ensureAdminSession();
     addDeletedId(id);
 
     if (client) {
@@ -512,6 +537,7 @@
   }
 
   async function saveCertificate(cert) {
+    await ensureAdminSession();
     const payload = {
       title: cert.title,
       issuer: cert.issuer || "",
@@ -556,6 +582,7 @@
   }
 
   async function deleteCertificate(id, storagePath) {
+    await ensureAdminSession();
     addDeletedId(id);
 
     if (client) {
@@ -648,6 +675,7 @@
   }
 
   async function saveActivity(act) {
+    await ensureAdminSession();
     const payload = {
       title: act.title || "ACTIVITY",
       organization: act.organization || act.host || "",
@@ -689,6 +717,7 @@
   }
 
   async function deleteActivity(id, storagePath) {
+    await ensureAdminSession();
     addDeletedId(id);
 
     if (client) {
