@@ -490,7 +490,7 @@
 
     // 3. Render Activities & Documentation Hub (#gallery-list)
     const galleryList = $('#gallery-list');
-    const activitiesItems = (activities && activities.length > 0) ? activities : (gallery || []);
+    const activitiesItems = [...(gallery || []), ...(activities || [])];
     if (galleryList) {
       if (activitiesItems.length === 0) {
         galleryList.innerHTML = `
@@ -1043,6 +1043,10 @@
         },
         onCertificatesChange: async (payload) => {
           console.log('[Portfolio Realtime] Certificates changed remotely:', payload);
+          await renderPortfolioData();
+        },
+        onGalleryChange: async (payload) => {
+          console.log('[Portfolio Realtime] Gallery changed remotely:', payload);
           await renderPortfolioData();
         }
       });
